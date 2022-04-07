@@ -44,7 +44,6 @@ public class ParentProductMapper {
                                               .description(pvSaveRequest.getDescription())
                                               .productType(pvSaveRequest.getProductType())
                                               .price(pvSaveRequest.getPrice())
-                                              .quantityAvailable(pvSaveRequest.getQuantityAvailable())
                                               .isAvailable(pvSaveRequest.isAvailable())
                                               .createdAt(LocalDateTime.now())
                                               .optionCategories( getOptionCategories(pvSaveRequest.getOptionCategoriesIds()) )

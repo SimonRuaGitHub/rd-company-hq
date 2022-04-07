@@ -15,7 +15,6 @@ public class ProductVersionSaveRequest {
     private String description;
     private ProductType productType;
     private Double price;
-    private Integer quantityAvailable;
     @Getter(AccessLevel.NONE)
     private boolean isAvailable;
     private List<String> optionCategoriesIds;

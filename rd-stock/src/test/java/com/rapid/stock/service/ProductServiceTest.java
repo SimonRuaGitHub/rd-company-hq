@@ -56,7 +56,6 @@ public class ProductServiceTest {
             productVersion.setProductType(ProductType.MENU_RESTAURANT);
             productVersion.setCreatedAt(LocalDateTime.now());
             productVersion.setPrice(Double.valueOf(0));
-            productVersion.setQuantityAvailable(Integer.valueOf(90));
 
             ParentProduct expectedParentProduct = new ParentProduct();
             expectedParentProduct.setProductId("23523352");
@@ -163,7 +162,6 @@ public class ProductServiceTest {
         productVersionA.setProductType(null);
         productVersionA.setCreatedAt(null);
         productVersionA.setPrice(Double.valueOf(-1));
-        productVersionA.setQuantityAvailable(Integer.valueOf(-1));
 
         ProductVersion productVersionB = new ProductVersion();
         productVersionB.setVersionId("");
@@ -173,7 +171,6 @@ public class ProductServiceTest {
         productVersionB.setProductType(null);
         productVersionB.setCreatedAt(null);
         productVersionB.setPrice(Double.valueOf(-1));
-        productVersionB.setQuantityAvailable(Integer.valueOf(-1));
 
         ParentProduct expectedParentProduct = new ParentProduct();
         expectedParentProduct.setProductId(null);
@@ -205,7 +202,6 @@ public class ProductServiceTest {
         productVersion.setProductType(null);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
-        productVersion.setQuantityAvailable(Integer.valueOf(90));
 
         ParentProduct expectedParentProduct = new ParentProduct();
         expectedParentProduct.setProductId("23523352");
@@ -237,7 +233,6 @@ public class ProductServiceTest {
         productVersion.setProductType(ProductType.MENU_RESTAURANT);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
-        productVersion.setQuantityAvailable(Integer.valueOf(90));
         productVersion.setOptionCategories( Arrays.asList(Mockito.mock(OptionCategory.class), Mockito.mock(OptionCategory.class)) );
 
         ParentProduct expectedParentProduct = new ParentProduct();
