@@ -1,11 +1,9 @@
 package com.rapid.stock.mapper;
 
 import com.rapid.stock.dto.ParentProductSaveRequest;
+import com.rapid.stock.dto.ProductAvailabilityDTO;
 import com.rapid.stock.dto.ProductVersionSaveRequest;
-import com.rapid.stock.model.OptionCategory;
-import com.rapid.stock.model.ParentProduct;
-import com.rapid.stock.model.ProductType;
-import com.rapid.stock.model.ProductVersion;
+import com.rapid.stock.model.*;
 import com.rapid.stock.repository.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -47,9 +45,22 @@ public class ParentProductMapper {
                                               .isAvailable(pvSaveRequest.isAvailable())
                                               .createdAt(LocalDateTime.now())
                                               .optionCategories( getOptionCategories(pvSaveRequest.getOptionCategoriesIds()) )
+                                              .productAvailabilities( mapToProductAvailabilityList(pvSaveRequest.getProductAvailabilitiesDto()) )
                                               .build();})
                                       .collect(Collectors.toList());
        }
+
+       public List<ProductAvailability> mapToProductAvailabilityList(List<ProductAvailabilityDTO> productAvailabilityDTOList){
+              return productAvailabilityDTOList.stream()
+                                               .map(prodAvailDto ->
+                                                        ProductAvailability.builder()
+                                                        .companySiteID(prodAvailDto.getCompanySiteID())
+                                                        .quantityAvailable(prodAvailDto.getQuantityAvailable())
+                                                        .createdAt(LocalDateTime.now())
+                                                        .build())
+                                               .collect(Collectors.toList());
+       }
+
 
        public List<OptionCategory> getOptionCategories(List<String> optionCategoryIds){
               return optionCategoryIds.stream()

@@ -18,7 +18,7 @@ public class ProductVersionSaveRequest {
     @Getter(AccessLevel.NONE)
     private boolean isAvailable;
     private List<String> optionCategoriesIds;
-    private List<ProductAvailabilityDTO> productAvailabilities;
+    private List<ProductAvailabilityDTO> productAvailabilitiesDto;
 
     @JsonProperty("isAvailable")
     public boolean isAvailable(){
