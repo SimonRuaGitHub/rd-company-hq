@@ -20,7 +20,7 @@ public class ProductAvailability {
        @NotBlank(message = "companySiteID can't be empty or null")
        private String companySiteID;
 
-       @Min(value=0, message = "price can't be less than 0")
+       @Min(value=0, message = "quantityAvailable can't be less than 0")
        @NotNull(message = "quantityAvailable can't be null")
        private Integer quantityAvailable;
 

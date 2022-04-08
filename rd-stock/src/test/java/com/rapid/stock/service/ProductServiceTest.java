@@ -3,10 +3,7 @@ package com.rapid.stock.service;
 import com.rapid.stock.dto.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.ParentProductMapper;
-import com.rapid.stock.model.OptionCategory;
-import com.rapid.stock.model.ParentProduct;
-import com.rapid.stock.model.ProductType;
-import com.rapid.stock.model.ProductVersion;
+import com.rapid.stock.model.*;
 import com.rapid.stock.repository.ParentProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +41,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void can_create_a_main_product_with_product_version(){
+    public void can_create_a_main_product_with_product_version_without_product_options(){
             //Given
             ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
 
@@ -56,6 +53,10 @@ public class ProductServiceTest {
             productVersion.setProductType(ProductType.MENU_RESTAURANT);
             productVersion.setCreatedAt(LocalDateTime.now());
             productVersion.setPrice(Double.valueOf(0));
+            productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+                                                                    .createdAt(LocalDateTime.now())
+                                                                    .quantityAvailable(Integer.valueOf(0))
+                                                                    .companySiteID("anyID").build() ) );
 
             ParentProduct expectedParentProduct = new ParentProduct();
             expectedParentProduct.setProductId("23523352");
@@ -76,6 +77,42 @@ public class ProductServiceTest {
             ParentProduct capturedParentProduct = parProdArgumentCaptor.getValue();
 
             assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
+    }
+
+    @Test
+    public void can_create_a_main_product_with_product_version_without_product_availability(){
+        //Given
+        ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
+
+        ProductVersion productVersion = new ProductVersion();
+        productVersion.setVersionId("anyselftgeneratedstringUUID");
+        productVersion.setName("prod_version_name");
+        productVersion.setDescription("prod_version_description");
+        productVersion.setAvailable(true);
+        productVersion.setProductType(ProductType.MENU_RESTAURANT);
+        productVersion.setCreatedAt(LocalDateTime.now());
+        productVersion.setPrice(Double.valueOf(0));
+        productVersion.setProductAvailabilities( null );
+
+        ParentProduct expectedParentProduct = new ParentProduct();
+        expectedParentProduct.setProductId("23523352");
+        expectedParentProduct.setProductName("product_name");
+        expectedParentProduct.setProductDescription("prod_description");
+        expectedParentProduct.setCreatedAt(LocalDateTime.now());
+        expectedParentProduct.setProductVersions(Arrays.asList(productVersion));
+
+        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+
+        //When
+        productService.save(ppSaveRequest);
+
+        //Then
+        ArgumentCaptor<ParentProduct> parProdArgumentCaptor = ArgumentCaptor.forClass(ParentProduct.class);
+        verify(parentProductRepository).insert(parProdArgumentCaptor.capture());
+
+        ParentProduct capturedParentProduct = parProdArgumentCaptor.getValue();
+
+        assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
     }
 
     @Test
@@ -152,7 +189,7 @@ public class ProductServiceTest {
     public void cannot_create_main_product_with_product_versions_with_invalid_data_in_all_fields(){
         //Given
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
-        int expectedFields = 18;
+        int expectedFields = 22;
 
         ProductVersion productVersionA = new ProductVersion();
         productVersionA.setVersionId("");
@@ -162,6 +199,10 @@ public class ProductServiceTest {
         productVersionA.setProductType(null);
         productVersionA.setCreatedAt(null);
         productVersionA.setPrice(Double.valueOf(-1));
+        productVersionA.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+                                                                        .createdAt(null)
+                                                                        .quantityAvailable(-1)
+                                                                        .companySiteID(null).build() ) );
 
         ProductVersion productVersionB = new ProductVersion();
         productVersionB.setVersionId("");
@@ -171,6 +212,10 @@ public class ProductServiceTest {
         productVersionB.setProductType(null);
         productVersionB.setCreatedAt(null);
         productVersionB.setPrice(Double.valueOf(-1));
+        productVersionB.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+                                                                        .createdAt(null)
+                                                                        .quantityAvailable(-1)
+                                                                        .companySiteID(null).build() ) );
 
         ParentProduct expectedParentProduct = new ParentProduct();
         expectedParentProduct.setProductId(null);
@@ -202,6 +247,10 @@ public class ProductServiceTest {
         productVersion.setProductType(null);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
+        productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+                                                                    .createdAt(LocalDateTime.now())
+                                                                    .quantityAvailable(Integer.valueOf(0))
+                                                                    .companySiteID("anyID").build() ) );
 
         ParentProduct expectedParentProduct = new ParentProduct();
         expectedParentProduct.setProductId("23523352");
@@ -233,6 +282,11 @@ public class ProductServiceTest {
         productVersion.setProductType(ProductType.MENU_RESTAURANT);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
+        productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+                                                                    .createdAt(LocalDateTime.now())
+                                                                    .quantityAvailable(Integer.valueOf(0))
+                                                                    .companySiteID("anyID").build() ) );
+
         productVersion.setOptionCategories( Arrays.asList(Mockito.mock(OptionCategory.class), Mockito.mock(OptionCategory.class)) );
 
         ParentProduct expectedParentProduct = new ParentProduct();
