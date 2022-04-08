@@ -119,4 +119,33 @@ public class OptionServiceTest {
         assertThat(exception.getMessage()).contains("Some of the fields have invalid have invalid data or no data at all");
         assertEquals(exception.getViolations().size(), qtyFieldsWithErrors,"Actual fields with error quantity is not same as expected one");
     }
+
+    @Test
+    public void cannot_create_option_category_with_errors_in_all_fields(){
+        //Given
+        OptionCategory optionCategory = OptionCategory.builder().name("")
+                .descrip("")
+                .label("")
+                .options( Arrays.asList(Option.builder()
+                                        .id(-1)
+                                        .name(null)
+                                        .price(Double.valueOf(-1)).build(),
+                                Option.builder()
+                                        .id(0)
+                                        .name("")
+                                        .price(Double.valueOf(-1)).build()
+                        )
+                ).build();
+
+        int qtyFieldsWithErrors = 9;
+
+        when(optionMapper.mapCategorySaveRequest(any(OptionCategorySaveRequest.class))).thenReturn(optionCategory);
+
+        //When
+        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionServiceImp.save(Mockito.mock(OptionCategorySaveRequest.class)));
+
+        //Thens
+        assertThat(exception.getMessage()).contains("Some of the fields have invalid have invalid data or no data at all");
+        assertEquals(exception.getViolations().size(), qtyFieldsWithErrors,"Actual fields with error quantity is not same as expected one");
+    }
 }
