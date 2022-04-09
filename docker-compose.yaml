@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  rapid-stock-db:
+    image: mongo
+    container_name: rapid-stock-db
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/data-rapid-stock:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+  rapid-company-db:
+    image: mongo
+    container_name: rapid-company-db
+    ports:
+      - 27018:27018
+    volumes:
+      - ./data/data-rapid-comany:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+  rapid-companyuser-db:
+    image: mongo
+    container_name: rapid-companyuser-db
+    ports:
+      - 27019:27019
+    volumes:
+      - ./data/data-rapid-companyuser:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+volumes:
+  data: {}
+
+networks:
+  default:
+      name: mongodb_network_rd
