@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class RapidCompanyApplication
@@ -22,7 +23,7 @@ public class RapidCompanyApplication
     public CommandLineRunner runner(CategoryRepository categoryRepository, MongoTemplate mongoTemplate){
            return args -> {
                mongoTemplate.getCollectionNames().stream().forEach(collection -> mongoTemplate.dropCollection(collection));
-               List<Category> categories = Arrays.asList(new Category("RESTAURANT"), new Category("STORE"));
+               List<Category> categories = Arrays.asList(new Category("6254f54aba7bc1474cb83c36","RESTAURANT"), new Category("6254f54aba7bc1474cb83c37","STORE"));
                categoryRepository.saveAll(categories);
            };
     }

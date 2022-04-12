@@ -21,4 +21,9 @@ public class Category {
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public Category(String id, String categoryName) {
+        this.id = id;
+        this.categoryName = categoryName;
+    }
 }
