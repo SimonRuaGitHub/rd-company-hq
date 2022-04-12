@@ -22,7 +22,7 @@ public class Company {
        private String id;
 
        @NotBlank(message = "nit can't be blank")
-       private String nit;
+       private String commercialId;
 
        @NotBlank(message = "address can't be blank")
        private String address;
@@ -40,9 +40,9 @@ public class Company {
        private Category category;
 
        @Builder
-    public Company(String name, String nit, String address, List<Contact> contacts, Category category, List<CompanySite> companySites) {
+    public Company(String name, String commercialId, String address, List<Contact> contacts, Category category, List<CompanySite> companySites) {
         this.name = name;
-        this.nit = nit;
+        this.commercialId = commercialId;
         this.address = address;
         this.contacts = contacts;
         this.category = category;
