@@ -17,4 +17,8 @@ public class Category {
 
     @NotBlank(message = "category name can't be empty")
     private String categoryName;
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }
