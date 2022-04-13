@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -49,7 +48,6 @@ public class CompanyMapper {
                                                                                       .phone(companySiteDto.getPhone())
                                                                                       .siteOwnerName(companySiteDto.getSiteOwnerName()).build())
                                                     .collect(Collectors.toList());
-
     }
 
     public Category getCategory(String categoryId){
