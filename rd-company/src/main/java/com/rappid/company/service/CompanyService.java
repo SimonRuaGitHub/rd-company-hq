@@ -33,7 +33,8 @@ public class CompanyService {
           try{
               companyRepository.insert(company);
           }catch (Exception ex){
-              throw new SaveException("Failed to save following company with commercial ID: "+company.getCommercialId());
+              ex.printStackTrace();
+              throw new SaveException("Failed to save following company object: "+company.toString());
           }
     }
 }

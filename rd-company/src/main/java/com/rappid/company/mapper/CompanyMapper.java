@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,7 +27,7 @@ public class CompanyMapper {
                          .commercialId(companySaveRequest.getCommercialId())
                          .address(companySaveRequest.getAddress())
                          .contacts( mapToContactsList( companySaveRequest.getContactsCreateRequest() ) )
-                         .category( getCategory(companySaveRequest.getCategoryId()) )
+                          .category( getCategory( companySaveRequest.getCategoryId() ) )
                          .companySites( mapToSitesList( companySaveRequest.getSitesCreateRequest() ) )
                          .build();
     }
@@ -51,6 +50,7 @@ public class CompanyMapper {
     }
 
     public Category getCategory(String categoryId){
-           return mongoTemplate.findById(categoryId, Category.class);
+           Category category = mongoTemplate.findById(categoryId, Category.class);
+           return category;
     }
 }

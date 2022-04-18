@@ -1,4 +1,4 @@
-package com.rappid.company.web.filter;
+package com.rappid.company.web.controller.filter;
 
 import com.rappid.company.dto.RestExceptionResult;
 import com.rappid.company.dto.RestFieldErrors;
@@ -19,7 +19,7 @@ public class ControllerExceptionMapping {
     @ExceptionHandler(SaveException.class)
     public ResponseEntity<RestExceptionResult> handleUnableToSaveEntity(SaveException ex){
            ex.printStackTrace();
-           return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+           return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new RestExceptionResult(ex.getMessage()));
     }
 
     @ExceptionHandler(NotFoundException.class)
