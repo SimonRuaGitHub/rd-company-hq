@@ -9,12 +9,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Builder
 public class CompanySite {
-    @NotBlank(message = "uuid can't be empty")
+    @NotBlank(message = "site uuid can't be empty")
     private String uuid;
-    @NotBlank(message = "address can't be empty")
+    @NotBlank(message = "site address can't be empty")
     @Indexed(unique = true)
     private String address;
-    @NotBlank(message = "phone can't be empty")
+    @NotBlank(message = "site phone can't be empty")
     private String phone;
     @NotBlank(message = "site owner name can't be empty")
     private String siteOwnerName;

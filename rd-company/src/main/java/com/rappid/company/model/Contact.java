@@ -11,7 +11,7 @@ public class Contact {
 
     @NotBlank(message = "contact phone can't be blank")
     private String phone;
-    @NotBlank(message = "email can't be blank")
+    @NotBlank(message = "contact email can't be blank")
     private String email;
     @NotBlank(message = "contact name can't be blank")
     private String name;

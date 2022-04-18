@@ -33,23 +33,35 @@ public class CompanyMapper {
     }
 
     public List<Contact> mapToContactsList(List<ContactCreateRequest> contactsCreateRequest){
-           return contactsCreateRequest.stream().map(contactDto -> Contact.builder().name(contactDto.getName())
+
+           if(contactsCreateRequest == null || contactsCreateRequest.isEmpty())
+                return null;
+           else
+                return contactsCreateRequest.stream().map(contactDto -> Contact.builder().name(contactDto.getName())
                                                                                     .email(contactDto.getEmail())
                                                                                     .phone(contactDto.getPhone())
                                                                                     .isMainContact(contactDto.isMainContact()).build())
-                                                .collect(Collectors.toList());
+                                                    .collect(Collectors.toList());
     }
 
     public List<CompanySite> mapToSitesList(List<CompanySiteCreateRequest> companySiteCreateRequests){
-           return companySiteCreateRequests.stream().map(companySiteDto -> CompanySite.builder()
+
+           if(companySiteCreateRequests == null || companySiteCreateRequests.isEmpty())
+                return null;
+           else
+                return companySiteCreateRequests.stream().map(companySiteDto -> CompanySite.builder()
                                                                                       .uuid(UUID.randomUUID().toString())
                                                                                       .address(companySiteDto.getAddress())
                                                                                       .phone(companySiteDto.getPhone())
                                                                                       .siteOwnerName(companySiteDto.getSiteOwnerName()).build())
-                                                    .collect(Collectors.toList());
+                                                          .collect(Collectors.toList());
     }
 
     public Category getCategory(String categoryId){
+
+           if(categoryId == null)
+              categoryId = "";
+
            Category category = mongoTemplate.findById(categoryId, Category.class);
            return category;
     }

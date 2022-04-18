@@ -17,31 +17,31 @@ import java.util.List;
 @Data
 public class Company {
 
-       @NotBlank(message = "name can't be blank")
+       @NotBlank(message = "company name can't be blank")
        @Indexed(unique = true)
        private String name;
 
        @Id
        private String id;
 
-       @NotBlank(message = "nit can't be blank")
+       @NotBlank(message = "company commercial id can't be blank")
        @Indexed(unique = true)
        private String commercialId;
 
-       @NotBlank(message = "address can't be blank")
+       @NotBlank(message = "company address can't be blank")
        private String address;
 
        @Valid
-       @NotNull(message = "contacts list can't be empty")
+       @NotNull(message = "company contacts list can't be empty")
        private List<Contact> contacts;
 
        @Valid
-       @NotNull(message = "sites list can't be empty")
+       @NotNull(message = "company sites list can't be empty")
        private List<CompanySite> companySites;
 
        @DocumentReference
        @Valid
-       @NotNull(message = "category can't be empty")
+       @NotNull(message = "company category can't be empty")
        private Category category;
 
        @Builder
