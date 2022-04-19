@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.security.access.method.P;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -35,12 +34,12 @@ public class ProductVersion{
     @NotNull
     private LocalDateTime createdAt;
     @Valid
-    private List<ProductAvailability> productAvailabilities;
+    private List<Availability> productAvailabilities;
     @DocumentReference
     private List<OptionCategory> optionCategories;
 
     @Builder
-    public ProductVersion(String versionId, String name, String description, ProductType productType, Double price, boolean isAvailable, LocalDateTime createdAt, List<ProductAvailability> productAvailabilities, List<OptionCategory> optionCategories) {
+    public ProductVersion(String versionId, String name, String description, ProductType productType, Double price, boolean isAvailable, LocalDateTime createdAt, List<Availability> productAvailabilities, List<OptionCategory> optionCategories) {
         this.versionId = versionId;
         this.name = name;
         this.description = description;

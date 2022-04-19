@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,4 +24,7 @@ public class Option {
     @Min(value = 0, message = "Option price can't be less than 0")
     @NotNull
     private Double price;
+
+    @Valid
+    private List<Availability> optionAvalabilities;
 }

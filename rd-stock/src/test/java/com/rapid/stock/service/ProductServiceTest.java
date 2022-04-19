@@ -53,7 +53,7 @@ public class ProductServiceTest {
             productVersion.setProductType(ProductType.MENU_RESTAURANT);
             productVersion.setCreatedAt(LocalDateTime.now());
             productVersion.setPrice(Double.valueOf(0));
-            productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+            productVersion.setProductAvailabilities( Arrays.asList( Availability.builder()
                                                                     .createdAt(LocalDateTime.now())
                                                                     .quantityAvailable(Integer.valueOf(0))
                                                                     .companySiteID("anyID").build() ) );
@@ -199,7 +199,7 @@ public class ProductServiceTest {
         productVersionA.setProductType(null);
         productVersionA.setCreatedAt(null);
         productVersionA.setPrice(Double.valueOf(-1));
-        productVersionA.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+        productVersionA.setProductAvailabilities( Arrays.asList( Availability.builder()
                                                                         .createdAt(null)
                                                                         .quantityAvailable(-1)
                                                                         .companySiteID(null).build() ) );
@@ -212,7 +212,7 @@ public class ProductServiceTest {
         productVersionB.setProductType(null);
         productVersionB.setCreatedAt(null);
         productVersionB.setPrice(Double.valueOf(-1));
-        productVersionB.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+        productVersionB.setProductAvailabilities( Arrays.asList( Availability.builder()
                                                                         .createdAt(null)
                                                                         .quantityAvailable(-1)
                                                                         .companySiteID(null).build() ) );
@@ -247,7 +247,7 @@ public class ProductServiceTest {
         productVersion.setProductType(null);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
-        productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+        productVersion.setProductAvailabilities( Arrays.asList( Availability.builder()
                                                                     .createdAt(LocalDateTime.now())
                                                                     .quantityAvailable(Integer.valueOf(0))
                                                                     .companySiteID("anyID").build() ) );
@@ -282,7 +282,7 @@ public class ProductServiceTest {
         productVersion.setProductType(ProductType.MENU_RESTAURANT);
         productVersion.setCreatedAt(LocalDateTime.now());
         productVersion.setPrice(Double.valueOf(0));
-        productVersion.setProductAvailabilities( Arrays.asList( ProductAvailability.builder()
+        productVersion.setProductAvailabilities( Arrays.asList( Availability.builder()
                                                                     .createdAt(LocalDateTime.now())
                                                                     .quantityAvailable(Integer.valueOf(0))
                                                                     .companySiteID("anyID").build() ) );

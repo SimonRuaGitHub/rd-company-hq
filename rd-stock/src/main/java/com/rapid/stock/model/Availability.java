@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-public class ProductAvailability {
+public class Availability {
 
        @Id
        private String id;
@@ -28,7 +28,7 @@ public class ProductAvailability {
        private LocalDateTime createdAt;
 
        @Builder
-       public ProductAvailability(String companySiteID, Integer quantityAvailable, LocalDateTime createdAt) {
+       public Availability(String companySiteID, Integer quantityAvailable, LocalDateTime createdAt) {
          this.companySiteID = companySiteID;
          this.quantityAvailable = quantityAvailable;
          this.createdAt = createdAt;

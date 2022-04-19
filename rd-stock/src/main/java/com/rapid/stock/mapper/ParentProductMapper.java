@@ -1,7 +1,7 @@
 package com.rapid.stock.mapper;
 
 import com.rapid.stock.dto.ParentProductSaveRequest;
-import com.rapid.stock.dto.ProductAvailabilityDTO;
+import com.rapid.stock.dto.AvailabilityDTO;
 import com.rapid.stock.dto.ProductVersionSaveRequest;
 import com.rapid.stock.model.*;
 import lombok.AllArgsConstructor;
@@ -46,11 +46,11 @@ public class ParentProductMapper {
                                       .collect(Collectors.toList());
        }
 
-       public List<ProductAvailability> mapToProductAvailabilityList(List<ProductAvailabilityDTO> productAvailabilityDTOList){
+       public List<Availability> mapToProductAvailabilityList(List<AvailabilityDTO> productAvailabilityDTOList){
               if(productAvailabilityDTOList != null && !productAvailabilityDTOList.isEmpty())
                      return productAvailabilityDTOList.stream()
                                                       .map(prodAvailDto ->
-                                                               ProductAvailability.builder()
+                                                               Availability.builder()
                                                                .companySiteID(prodAvailDto.getCompanySiteID())
                                                                .quantityAvailable(prodAvailDto.getQuantityAvailable())
                                                                .createdAt(LocalDateTime.now())
