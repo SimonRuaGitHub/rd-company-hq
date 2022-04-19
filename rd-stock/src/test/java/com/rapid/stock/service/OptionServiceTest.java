@@ -3,6 +3,7 @@ package com.rapid.stock.service;
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.OptionMapper;
+import com.rapid.stock.model.Availability;
 import com.rapid.stock.model.Option;
 import com.rapid.stock.model.OptionCategory;
 import com.rapid.stock.repository.OptionCategoryRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,13 +50,18 @@ public class OptionServiceTest {
     public void can_create_options_category_with_options(){
 
             //Given
+           Availability optionAvailabilityA = Availability.builder().quantityAvailable(0).createdAt(LocalDateTime.now()).companySiteID("2462355").build();
+           Availability optionAvailabilityB = Availability.builder().quantityAvailable(15).createdAt(LocalDateTime.now()).companySiteID("2462355").build();
+
            OptionCategory expectedOptionCategory = OptionCategory.builder().name("drinks")
                                                                     .descrip("Selection of drinks")
                                                                     .label("Elige tu bebida")
                                                                     .options( Arrays.asList(Option.builder()
                                                                                                    .id(1)
                                                                                                    .name("Coca cola")
-                                                                                                   .price(Double.valueOf(0)).build(),
+                                                                                                   .price(Double.valueOf(0))
+                                                                                                   .optionAvalabilities( Arrays.asList(optionAvailabilityA, optionAvailabilityB) )
+                                                                                                   .build(),
                                                                                               Option.builder()
                                                                                                         .id(2)
                                                                                                         .name("Mr tea")
@@ -123,21 +130,25 @@ public class OptionServiceTest {
     @Test
     public void cannot_create_option_category_with_errors_in_all_fields(){
         //Given
+        Availability optionAvailabilityA = Availability.builder().quantityAvailable(-1).createdAt(null).companySiteID("").build();
+
         OptionCategory optionCategory = OptionCategory.builder().name("")
                 .descrip("")
                 .label("")
                 .options( Arrays.asList(Option.builder()
                                         .id(-1)
                                         .name(null)
-                                        .price(Double.valueOf(-1)).build(),
+                                        .price(Double.valueOf(-1))
+                                        .optionAvalabilities( Arrays.asList(optionAvailabilityA) ).build(),
                                 Option.builder()
                                         .id(0)
                                         .name("")
-                                        .price(Double.valueOf(-1)).build()
+                                        .price(Double.valueOf(-1))
+                                        .optionAvalabilities( Arrays.asList(optionAvailabilityA) ).build()
                         )
                 ).build();
 
-        int qtyFieldsWithErrors = 9;
+        int qtyFieldsWithErrors = 15;
 
         when(optionMapper.mapCategorySaveRequest(any(OptionCategorySaveRequest.class))).thenReturn(optionCategory);
 
