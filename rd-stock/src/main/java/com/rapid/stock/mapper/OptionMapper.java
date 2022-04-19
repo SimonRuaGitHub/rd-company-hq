@@ -35,12 +35,16 @@ public class OptionMapper {
     }
 
     private List<Availability> mapToOptionAvailibilityList(List<AvailabilityDTO> optionsAvailabilityListDto){
-            return optionsAvailabilityListDto.stream()
-                                             .map(optionAvailabilityDto -> Availability.builder()
-                                                                                       .companySiteID(optionAvailabilityDto.getCompanySiteID())
-                                                                                       .quantityAvailable(optionAvailabilityDto.getQuantityAvailable())
-                                                                                       .createdAt(LocalDateTime.now())
-                                                                                       .build())
-                                             .collect(Collectors.toList());
+
+            if(optionsAvailabilityListDto == null || optionsAvailabilityListDto.isEmpty())
+                return null;
+           else
+                return optionsAvailabilityListDto.stream()
+                                                 .map(optionAvailabilityDto -> Availability.builder()
+                                                                                .companySiteID(optionAvailabilityDto.getCompanySiteID())
+                                                                                .quantityAvailable(optionAvailabilityDto.getQuantityAvailable())
+                                                                                .createdAt(LocalDateTime.now())
+                                                                                .build())
+                                                 .collect(Collectors.toList());
     }
 }
