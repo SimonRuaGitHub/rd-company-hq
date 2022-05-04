@@ -11,28 +11,19 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-public class RackMapper {
+public class RackMapperSaveRequest {
 
-    private final MongoTemplate mongoTemplate;
     private final ParentProductMapper parentProductMapper;
+    private final RackMapperList rackMapperList;
 
     public Rack mapRackSaveRequest(RackDto rackDto){
            return Rack.builderWithSubRacks()
                       .name(rackDto.getName())
                       .description(rackDto.getDescription())
                       .products(parentProductMapper.mapToParentProductEntities(rackDto.getProductIds()))
-                      .rackList(mapToRackEntities(rackDto.getRacksIds()))
+                      .rackList(rackMapperList.mapToRackEntities(rackDto.getRacksIds()))
                       .build();
     }
 
-    public List<Rack> mapToRackEntities(List<String> rackIds) {
 
-        if (rackIds != null || rackIds.isEmpty()){
-            return rackIds.stream()
-                           .map(id -> mongoTemplate.findById(id, Rack.class))
-                           .collect(Collectors.toList());
-        } else {
-            return null;
-        }
-    }
 }

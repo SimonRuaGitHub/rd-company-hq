@@ -3,7 +3,7 @@ package com.rapid.stock.service;
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.SaveException;
-import com.rapid.stock.mapper.RackMapper;
+import com.rapid.stock.mapper.RackMapperSaveRequest;
 import com.rapid.stock.model.Rack;
 import com.rapid.stock.repository.RackRepository;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Set;
 public class RackServiceImp implements RackService{
 
     private final RackRepository rackRepository;
-    private final RackMapper rackMapper;
+    private final RackMapperSaveRequest rackMapper;
     private final Validator validator;
 
     @Override

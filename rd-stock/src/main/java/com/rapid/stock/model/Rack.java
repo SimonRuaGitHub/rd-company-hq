@@ -23,19 +23,22 @@ public class Rack {
     private List<ParentProduct> products;
     @DocumentReference
     private List<Rack> racks;
+    private String companyId;
 
     @Builder
-    public Rack(String name, String description, List<ParentProduct> products) {
+    public Rack(String name, String description, List<ParentProduct> products, String companyId) {
             this.name = name;
             this.description = description;
             this.products = products;
+            this.companyId = companyId;
     }
 
     @Builder(builderMethodName = "builderWithSubRacks")
-    public Rack(String name, String description, List<ParentProduct> products, List<Rack> rackList) {
+    public Rack(String name, String description, List<ParentProduct> products, List<Rack> rackList, String companyId) {
         this.name = name;
         this.description = description;
         this.products = products;
         this.racks = rackList;
+        this.companyId = companyId;
     }
 }

@@ -9,4 +9,5 @@ public class RackDto {
     private String description;
     private List<String> productIds;
     private List<String> racksIds;
+    private String companyId;
 }
