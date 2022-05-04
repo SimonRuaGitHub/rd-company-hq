@@ -22,6 +22,7 @@ public class RackMapperSaveRequest {
                       .description(rackDto.getDescription())
                       .products(parentProductMapper.mapToParentProductEntities(rackDto.getProductIds()))
                       .rackList(rackMapperList.mapToRackEntities(rackDto.getRacksIds()))
+                      .companyId(rackDto.getCompanyId())
                       .build();
     }
 
