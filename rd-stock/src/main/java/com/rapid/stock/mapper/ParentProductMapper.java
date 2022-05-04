@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
 public class ParentProductMapper {
 
        private final MongoTemplate mongoTemplate;
+       private final RackMapper rackMapper;
 
        public ParentProduct mapSaveRequest(ParentProductSaveRequest ppSaveRequest){
-              return ParentProduct.builder()
+              return ParentProduct.builderWithRacks()
                           .productId(ppSaveRequest.getProductId())
                           .productName(ppSaveRequest.getProductName())
                           .productDescription(ppSaveRequest.getProductDescription())
                           .productVersions(mapToProductVersion(ppSaveRequest.getProductVersions()))
+                          .associatedRacks(rackMapper.mapToRackEntities(ppSaveRequest.getRackIds()))
                           .createdAt(LocalDateTime.now())
                           .build();
        }
@@ -68,5 +70,12 @@ public class ParentProductMapper {
                                       .collect(Collectors.toList());
               else
                    return null;
+       }
+
+       public List<ParentProduct> mapToParentProductEntities(List<String> productIds) {
+
+              return productIds.stream()
+                      .map(id -> mongoTemplate.findById(id, ParentProduct.class))
+                      .collect(Collectors.toList());
        }
 }
