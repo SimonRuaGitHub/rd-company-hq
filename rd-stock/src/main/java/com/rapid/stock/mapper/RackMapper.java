@@ -17,10 +17,11 @@ public class RackMapper {
     private final ParentProductMapper parentProductMapper;
 
     public Rack mapRackSaveRequest(RackDto rackDto){
-           return Rack.builder()
+           return Rack.builderWithSubRacks()
                       .name(rackDto.getName())
                       .description(rackDto.getDescription())
                       .products(parentProductMapper.mapToParentProductEntities(rackDto.getProductIds()))
+                      .rackList(mapToRackEntities(rackDto.getRacksIds()))
                       .build();
     }
 
@@ -28,8 +29,8 @@ public class RackMapper {
 
         if (rackIds != null || rackIds.isEmpty()){
             return rackIds.stream()
-                    .map(id -> mongoTemplate.findById(id, Rack.class))
-                    .collect(Collectors.toList());
+                           .map(id -> mongoTemplate.findById(id, Rack.class))
+                           .collect(Collectors.toList());
         } else {
             return null;
         }
