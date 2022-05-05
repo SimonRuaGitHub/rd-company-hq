@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -30,6 +31,9 @@ public class ProductServiceTest {
 
     @Mock
     private ParentProductRepository parentProductRepository;
+
+    @Mock
+    private MongoTemplate mongoTemplate;
 
     private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 

@@ -23,6 +23,7 @@ public class Rack {
     private List<ParentProduct> products;
     @DocumentReference
     private List<Rack> racks;
+    @NotBlank(message = "companyId can't be empty")
     private String companyId;
 
     @Builder

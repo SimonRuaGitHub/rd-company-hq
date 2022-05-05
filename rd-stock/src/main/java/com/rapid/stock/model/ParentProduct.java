@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,7 @@ public class ParentProduct{
     private LocalDateTime createdAt;
     @Valid
     private List<ProductVersion> productVersions;
+    @DocumentReference
     private List<Rack> associatedRacks;
 
     @Builder

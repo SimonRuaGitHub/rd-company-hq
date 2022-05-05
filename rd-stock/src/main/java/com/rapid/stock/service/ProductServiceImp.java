@@ -1,12 +1,17 @@
 package com.rapid.stock.service;
 
+import com.mongodb.client.model.UpdateOptions;
 import com.rapid.stock.dto.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.SaveException;
 import com.rapid.stock.mapper.ParentProductMapper;
 import com.rapid.stock.model.ParentProduct;
+import com.rapid.stock.model.Rack;
 import com.rapid.stock.repository.ParentProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -39,7 +44,7 @@ public class ProductServiceImp implements ProductService {
                return productRepository.insert(parentProduct);
          }catch(Exception ex){
                ex.printStackTrace();
-               throw new SaveException("Failed to save following product with id: "+parentProduct.getProductId());
+               throw new SaveException("Failed to create following product with id: "+parentProduct.getProductId());
          }
     }
 }

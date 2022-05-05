@@ -2,6 +2,7 @@ package com.rapid.stock.web.filter;
 
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
+import com.rapid.stock.exception.ExistingProductException;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.exception.SaveException;
@@ -35,5 +36,12 @@ public class ControllerExceptionMapping {
         List<String> errorsMsgsField = ex.getViolations().stream().map(v -> v.getMessage()).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RestFieldErrors.builder().errorMessages(errorsMsgsField).build());
+    }
+
+    @ExceptionHandler(ExistingProductException.class)
+    public ResponseEntity<RestExceptionResult> handleExistingProduct(ExistingProductException ex){
+
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 }

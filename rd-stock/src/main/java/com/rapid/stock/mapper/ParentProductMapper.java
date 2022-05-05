@@ -72,10 +72,10 @@ public class ParentProductMapper {
                    return null;
        }
 
-       public List<ParentProduct> mapToParentProductEntities(List<String> productIds) {
+       public List<ParentProduct> mapToParentProductForRacks(List<String> productIds) {
 
-              return productIds.stream()
-                      .map(id -> mongoTemplate.findById(id, ParentProduct.class))
-                      .collect(Collectors.toList());
+              return  productIds.stream()
+                                 .map(id -> mongoTemplate.findById(id, ParentProduct.class))
+                                 .collect(Collectors.toList());
        }
 }
