@@ -19,7 +19,6 @@ public class Rack {
     private String name;
     private String description;
     @DocumentReference
-    @NotNull(message = "rack should contain some product(s)")
     private List<ParentProduct> products;
     @DocumentReference
     private List<Rack> racks;
