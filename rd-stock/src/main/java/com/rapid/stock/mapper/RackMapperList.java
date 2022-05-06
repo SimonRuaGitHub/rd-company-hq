@@ -15,11 +15,11 @@ public class RackMapperList {
     private final MongoTemplate mongoTemplate;
 
     public List<Rack> mapToRackEntities(List<String> rackIds) {
-
         if (rackIds != null && !rackIds.isEmpty()){
             return rackIds.stream()
-                    .map(id -> mongoTemplate.findById(id, Rack.class))
-                    .collect(Collectors.toList());
+                           .map(id -> mongoTemplate.findById(id, Rack.class))
+                           .collect(Collectors.toList());
+
         } else {
             return null;
         }

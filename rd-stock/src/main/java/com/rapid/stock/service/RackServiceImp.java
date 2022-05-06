@@ -54,13 +54,14 @@ public class RackServiceImp implements RackService{
 
     private void updatingProductsRack(Rack rack){
 
-        rack.getProducts().stream().forEach(product -> {
-            mongoTemplate.update(ParentProduct.class)
-                         .matching(Criteria.where("id").is(product.getId()))
-                         .apply(new Update().push("associatedRacks").value(rack))
-                         .first();
-        });
-
+        if(rack.getProducts() != null) {
+            rack.getProducts().stream().forEach(product -> {
+                mongoTemplate.update(ParentProduct.class)
+                        .matching(Criteria.where("id").is(product.getId()))
+                        .apply(new Update().push("associatedRacks").value(rack))
+                        .first();
+            });
+        }
     }
 
 }

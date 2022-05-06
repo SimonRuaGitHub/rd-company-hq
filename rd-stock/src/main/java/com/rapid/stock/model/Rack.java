@@ -2,12 +2,13 @@ package com.rapid.stock.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Document
@@ -26,19 +27,15 @@ public class Rack {
     private String companyId;
 
     @Builder
-    public Rack(String name, String description, List<ParentProduct> products, String companyId) {
-            this.name = name;
-            this.description = description;
-            this.products = products;
-            this.companyId = companyId;
-    }
-
-    @Builder(builderMethodName = "builderWithSubRacks")
-    public Rack(String name, String description, List<ParentProduct> products, List<Rack> rackList, String companyId) {
+    public Rack(String name, String description, List<ParentProduct> products, List<Rack> racks, String companyId) {
         this.name = name;
         this.description = description;
         this.products = products;
-        this.racks = rackList;
+        this.racks = racks;
         this.companyId = companyId;
+    }
+
+
+    public Rack() {
     }
 }

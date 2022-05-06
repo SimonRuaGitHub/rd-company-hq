@@ -2,10 +2,7 @@ package com.rapid.stock.web.filter;
 
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
-import com.rapid.stock.exception.ExistingProductException;
-import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.exception.NotFoundException;
-import com.rapid.stock.exception.SaveException;
+import com.rapid.stock.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,5 +40,11 @@ public class ControllerExceptionMapping {
 
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(NotValidParentRack.class)
+    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidParentRack ex){
+            ex.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 }
