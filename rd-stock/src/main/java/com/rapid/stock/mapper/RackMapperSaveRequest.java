@@ -4,10 +4,10 @@ import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.ExistingProductException;
 import com.rapid.stock.exception.NotValidParentRack;
 import com.rapid.stock.model.Rack;
+import com.rapid.stock.model.rules.GeneralSchemaRules;
+import com.rapid.stock.model.rules.RacksSchemaRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -15,17 +15,15 @@ public class RackMapperSaveRequest {
 
     private final ParentProductMapper parentProductMapper;
     private final RackMapperList rackMapperList;
+    private final RacksSchemaRules rackSchemaRules;
+    private final GeneralSchemaRules generalSchemaRules;
 
     public Rack mapRackSaveRequest(RackDto rackDto){
 
-        if (rackDto.getProductIds() != null && rackDto.getProductIds()
-                                                      .stream()
-                                                      .distinct()
-                                                      .anyMatch(idToFind -> rackDto.getProductIds().stream().filter(id -> idToFind.equals(id)).count() > 1))
+        if (rackDto.getProductIds() != null && generalSchemaRules.repeatedIDsInsideCollection(rackDto.getProductIds()))
             throw new ExistingProductException("Product ids can't be repeated");
 
-        if ( !(rackDto.getRacksIds() == null || rackDto.getRacksIds().isEmpty()) &&
-             !(rackDto.getProductIds() == null || rackDto.getProductIds().isEmpty()) )
+        if ( rackSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
              throw new NotValidParentRack("Parent rack can't contain products and racks at the same time");
 
            Rack rack = Rack.builder()
