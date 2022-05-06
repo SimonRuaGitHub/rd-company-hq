@@ -35,15 +35,15 @@ public class ControllerExceptionMapping {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RestFieldErrors.builder().errorMessages(errorsMsgsField).build());
     }
 
-    @ExceptionHandler(ExistingProductException.class)
-    public ResponseEntity<RestExceptionResult> handleExistingProduct(ExistingProductException ex){
+    @ExceptionHandler(DuplicatedReferenceException.class)
+    public ResponseEntity<RestExceptionResult> handleExistingProduct(DuplicatedReferenceException ex){
 
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
-    @ExceptionHandler(NotValidParentRack.class)
-    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidParentRack ex){
+    @ExceptionHandler(NotValidParentRackException.class)
+    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidParentRackException ex){
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }

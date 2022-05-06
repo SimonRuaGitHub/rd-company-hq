@@ -3,7 +3,9 @@ package com.rapid.stock.mapper;
 import com.rapid.stock.dto.ParentProductSaveRequest;
 import com.rapid.stock.dto.AvailabilityDTO;
 import com.rapid.stock.dto.ProductVersionSaveRequest;
+import com.rapid.stock.exception.DuplicatedReferenceException;
 import com.rapid.stock.model.*;
+import com.rapid.stock.model.rules.GeneralSchemaRules;
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -19,8 +21,13 @@ public class ParentProductMapper {
 
        private final MongoTemplate mongoTemplate;
        private final RackMapperList rackMapperList;
+       private final GeneralSchemaRules generalSchemaRules;
 
        public ParentProduct mapSaveRequest(ParentProductSaveRequest ppSaveRequest){
+
+              if(ppSaveRequest.getRackIds() != null && generalSchemaRules.repeatedIDsInsideCollection(ppSaveRequest.getRackIds()))
+                 throw new DuplicatedReferenceException("Racks ids can't be repeated");
+
               return ParentProduct.builderWithRacks()
                           .productId(ppSaveRequest.getProductId())
                           .productName(ppSaveRequest.getProductName())
