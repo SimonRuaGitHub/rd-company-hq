@@ -28,6 +28,7 @@ public class ProductServiceImp implements ProductService {
     private final ParentProductRepository productRepository;
     private final ParentProductMapper parentProductMapper;
     private final Validator validator;
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public ParentProduct save(ParentProductSaveRequest parentProductDto) {
@@ -40,11 +41,28 @@ public class ProductServiceImp implements ProductService {
             throw new InvalidDataFieldException("Some of the fields have invalid have invalid data or no data at all", violations);
         }
 
+        ParentProduct product = null;
+
          try{
-               return productRepository.insert(parentProduct);
+               product = productRepository.insert(parentProduct);
+               updateRackProducts(parentProduct);
          }catch(Exception ex){
                ex.printStackTrace();
                throw new SaveException("Failed to create following product with id: "+parentProduct.getProductId());
          }
+
+         return product;
+    }
+
+    private void updateRackProducts(ParentProduct parentProduct){
+
+        if(parentProduct.getAssociatedRacks() != null) {
+            parentProduct.getAssociatedRacks().stream().forEach(rack -> {
+                mongoTemplate.update(Rack.class)
+                        .matching(Criteria.where("id").is(rack.getId()))
+                        .apply(new Update().push("products").value(parentProduct))
+                        .first();
+            });
+        }
     }
 }

@@ -33,15 +33,6 @@ public class ParentProduct{
     private List<Rack> associatedRacks;
 
     @Builder
-    public ParentProduct(String productId, String productName, String productDescription, LocalDateTime createdAt, List<ProductVersion> productVersions) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.createdAt = createdAt;
-        this.productVersions = productVersions;
-    }
-
-    @Builder(builderMethodName = "builderWithRacks")
     public ParentProduct(String productId, String productName, String productDescription, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks) {
         this.productId = productId;
         this.productName = productName;

@@ -28,7 +28,7 @@ public class ParentProductMapper {
               if(ppSaveRequest.getRackIds() != null && generalSchemaRules.repeatedIDsInsideCollection(ppSaveRequest.getRackIds()))
                  throw new DuplicatedReferenceException("Racks ids can't be repeated");
 
-              return ParentProduct.builderWithRacks()
+              return ParentProduct.builder()
                           .productId(ppSaveRequest.getProductId())
                           .productName(ppSaveRequest.getProductName())
                           .productDescription(ppSaveRequest.getProductDescription())

@@ -41,7 +41,7 @@ public class ProductServiceTest {
 
     @BeforeEach
     public void setUpService(){
-        productService = new ProductServiceImp(parentProductRepository, parentProductMapper, validator);
+        productService = new ProductServiceImp(parentProductRepository, parentProductMapper, validator, mongoTemplate);
     }
 
     @Test
