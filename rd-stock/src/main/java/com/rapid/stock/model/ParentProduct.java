@@ -1,5 +1,6 @@
 package com.rapid.stock.model;
 
+import com.rapid.stock.model.annotations.CascadeSaveCollection;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,7 +13,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Document
 public class ParentProduct{
 
@@ -30,6 +32,7 @@ public class ParentProduct{
     @Valid
     private List<ProductVersion> productVersions;
     @DocumentReference
+    @CascadeSaveCollection
     private List<Rack> associatedRacks;
 
     @Builder

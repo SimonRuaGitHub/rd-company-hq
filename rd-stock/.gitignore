@@ -1,2 +1,3 @@
 #ignore compilation folder
 /target
+.idea
