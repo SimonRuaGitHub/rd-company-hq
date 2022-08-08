@@ -1,0 +1,27 @@
+spring:
+  config:
+    activate:
+      on-profile: decrapted
+  autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+  data:
+    mongodb:
+       authentication-database: admin
+       username: rootuser
+       password: rootpass
+       database: rapid-stock
+       port: 27017
+       host: localhost
+       auto-index-creation: true
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: new
+jpa.hibernate.ddl-auto: update
+datasource:
+  url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_example
+  username: rootuser
+  password: rootpass
+  driver-class-name: com.mysql.cj.jdbc.Driver
