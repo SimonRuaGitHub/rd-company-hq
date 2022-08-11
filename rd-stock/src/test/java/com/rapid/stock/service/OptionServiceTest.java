@@ -2,12 +2,12 @@ package com.rapid.stock.service;
 
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.mongo.OptionMapper;
-import com.rapid.stock.model.mongo.Availability;
-import com.rapid.stock.model.mongo.Option;
-import com.rapid.stock.model.mongo.OptionCategory;
-import com.rapid.stock.repository.mongo.OptionCategoryRepository;
-import com.rapid.stock.service.mongo.OptionServiceImp;
+import com.rapid.stock.mapper.v1.OptionMapper;
+import com.rapid.stock.model.v1.Availability;
+import com.rapid.stock.model.v1.Option;
+import com.rapid.stock.model.v1.OptionCategory;
+import com.rapid.stock.repository.v1.OptionCategoryRepository;
+import com.rapid.stock.service.v1.OptionServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

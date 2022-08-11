@@ -1,6 +1,6 @@
 package com.rapid.stock.config;
 
-import com.rapid.stock.mapper.mongo.conversion.LocalDateTimeConverter;
+import com.rapid.stock.mapper.v1.conversion.LocalDateTimeConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;

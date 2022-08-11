@@ -2,7 +2,7 @@ version: "3.8"
 services:
   mongodb:
     image: mongo
-    container_name: rapid-stock-db
+    container_name: rd-stock-mongo-db
     ports:
       - 27017:27017
     volumes:
