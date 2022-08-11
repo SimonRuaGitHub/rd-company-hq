@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  mariadb:
+    image: mariadb
+    container_name: rapid-stock-db
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data-mariadb:/data
+    environment:
+      - MYSQL_ROOT_USERNAME=rootuser
+      - MYSQL_ROOT_PASSWORD=rootpass

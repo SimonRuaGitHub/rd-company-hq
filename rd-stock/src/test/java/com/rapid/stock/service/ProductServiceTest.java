@@ -2,9 +2,10 @@ package com.rapid.stock.service;
 
 import com.rapid.stock.dto.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.ParentProductMapper;
-import com.rapid.stock.model.*;
-import com.rapid.stock.repository.ParentProductRepository;
+import com.rapid.stock.mapper.mongo.ParentProductMapper;
+import com.rapid.stock.model.mongo.*;
+import com.rapid.stock.repository.mongo.ParentProductRepository;
+import com.rapid.stock.service.mongo.ProductServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

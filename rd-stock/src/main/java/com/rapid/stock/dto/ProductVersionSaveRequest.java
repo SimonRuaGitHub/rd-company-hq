@@ -1,7 +1,7 @@
 package com.rapid.stock.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rapid.stock.model.ProductType;
+import com.rapid.stock.model.mongo.ProductType;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;

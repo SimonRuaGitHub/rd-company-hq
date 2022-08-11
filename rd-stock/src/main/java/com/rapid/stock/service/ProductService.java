@@ -1,8 +1,7 @@
 package com.rapid.stock.service;
 
 import com.rapid.stock.dto.ParentProductSaveRequest;
-import com.rapid.stock.model.ParentProduct;
-import com.rapid.stock.model.Rack;
+import com.rapid.stock.model.mongo.ParentProduct;
 
 
 public interface ProductService {

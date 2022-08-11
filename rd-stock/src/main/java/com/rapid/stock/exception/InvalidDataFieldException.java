@@ -1,7 +1,5 @@
 package com.rapid.stock.exception;
 
-import com.rapid.stock.model.ParentProduct;
-
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 

@@ -1,10 +1,10 @@
 package com.rapid.stock.service;
 
 import com.rapid.stock.dto.RackDto;
-import com.rapid.stock.mapper.RackMapperSaveRequest;
-import com.rapid.stock.model.ParentProduct;
-import com.rapid.stock.model.Rack;
-import com.rapid.stock.repository.RackRepository;
+import com.rapid.stock.mapper.mongo.RackMapperSaveRequest;
+import com.rapid.stock.model.mongo.Rack;
+import com.rapid.stock.repository.mongo.RackRepository;
+import com.rapid.stock.service.mongo.RackServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
