@@ -1,18 +1,22 @@
 package com.rapid.stock.model.v2;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.annotation.Id;
+import jdk.jfr.Enabled;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Data
+@Entity
+@Table(name = "OPTION_CATEGORIES")
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class OptionCategory {
     @Id
