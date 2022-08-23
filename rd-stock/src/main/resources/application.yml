@@ -19,11 +19,11 @@ spring:
   config:
     activate:
       on-profile: rational-db
-jpa.hibernate.ddl-auto: update
-jpa.show-sql: true
-jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
-datasource:
-  url: jdbc:mariadb://localhost:3306/rd-stock-db
-  username: root
-  password: qwerty
-  driverClassName: com.mariadb.jdbc.Driver
+  jpa.hibernate.ddl-auto: update
+  jpa.show-sql: true
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mariadb://localhost:3306/rd-stock-db
+    username: root
+    password: qwerty
+    driver-class-name: org.mariadb.jdbc.Driver
