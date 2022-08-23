@@ -2,7 +2,6 @@ package com.rapid.stock.model.v2;
 
 import lombok.*;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -38,10 +37,13 @@ public class ParentProduct{
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "PRODUCT_RACKS",
-            joinColumns = {
+        joinColumns = {
             @JoinColumn(name = "product_id", referencedColumnName = "id"),
+        },
+        inverseJoinColumns = {
             @JoinColumn(name = "rack_id", referencedColumnName = "id")
-    })
+       }
+    )
     private List<Rack> associatedRacks;
 
     @Builder

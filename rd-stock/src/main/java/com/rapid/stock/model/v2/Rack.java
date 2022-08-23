@@ -2,7 +2,6 @@ package com.rapid.stock.model.v2;
 
 import lombok.*;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,7 +25,7 @@ public class Rack {
     @NotBlank(message = "companyId can't be empty")
     private String companyId;
 
-    @ManyToMany(mappedBy = "rack", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "associatedRacks", fetch = FetchType.LAZY)
     private List<ParentProduct> products;
 
     @OneToMany(fetch = FetchType.LAZY)
