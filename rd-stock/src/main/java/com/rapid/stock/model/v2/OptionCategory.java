@@ -4,9 +4,7 @@ import jdk.jfr.Enabled;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -31,13 +29,14 @@ public class OptionCategory {
 
     @Valid
     @NotEmpty(message = "List of options must not be empty")
-    private List options;
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+    private List<ParentProduct> products;
 
     @Builder
-    public OptionCategory(String name, String descrip, String label , List options) {
+    public OptionCategory(String name, String descrip, String label , List<ParentProduct> products) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
-        this.options = options;
+        this.products = products;
     }
 }
