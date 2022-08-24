@@ -1,6 +1,7 @@
 package com.rapid.stock.model.v1.annotations;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent;
@@ -10,6 +11,7 @@ import org.springframework.util.ReflectionUtils;
 
 @Component
 @RequiredArgsConstructor
+@Profile("decrapted")
 public class CascadeSaveMongoListener extends AbstractMongoEventListener {
 
     private final MongoTemplate mongoTemplate;

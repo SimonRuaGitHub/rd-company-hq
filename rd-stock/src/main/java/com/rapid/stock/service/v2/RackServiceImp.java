@@ -1,0 +1,23 @@
+package com.rapid.stock.service.v2;
+
+import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.model.v2.Rack;
+import com.rapid.stock.repository.v2.RackRepository;
+import com.rapid.stock.service.RackService;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+@Profile("rational-db")
+public class RackServiceImp implements RackService {
+
+    private final RackRepository rackRepository;
+
+    @Override
+    public Rack save(RackDto rackDto) {
+           return Rack.builder().build();
+    }
+
+}
