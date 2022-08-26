@@ -1,23 +1,29 @@
 package com.rapid.stock.model.v2;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Table(name = "PRODUCT_AVAILABILITIES")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Profile("rational-db")
 public class Availability {
 
        @Id
-       private String id;
+       @GeneratedValue
+       private Long id;
 
-       @Indexed(unique = true, sparse = true)
        @NotBlank(message = "companySiteID can't be empty or null")
        private String companySiteID;
 

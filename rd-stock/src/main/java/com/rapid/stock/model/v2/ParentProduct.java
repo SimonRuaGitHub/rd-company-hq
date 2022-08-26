@@ -21,13 +21,17 @@ public class ParentProduct{
     @Id
     @GeneratedValue
     private Long id;
+
     //Add as indexed inside db
     @NotBlank(message = "product id can't be blank")
     private String productId;
+
     @NotBlank(message = "name can't be blank")
     private String name;
+
     @NotBlank(message = "description can't be blank")
     private String description;
+
     @NotNull
     private LocalDateTime createdAt;
 
@@ -47,7 +51,7 @@ public class ParentProduct{
     private List<Rack> associatedRacks;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCTS_CATEGORIES",
+    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
             joinColumns = {
                     @JoinColumn(name = "product_id", referencedColumnName = "id"),
             },
@@ -56,6 +60,17 @@ public class ParentProduct{
             }
     )
     private List<OptionCategory> categories;
+
+    @ManyToMany
+    @JoinTable(name="PARENT_PRODUCTS_TYPES",
+            joinColumns = {
+                    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name= "type_id", referencedColumnName = "id")
+            }
+    )
+    private List<ProductType> productTypes;
 
     @Builder
     public ParentProduct(String productId, String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks) {
