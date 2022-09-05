@@ -32,7 +32,7 @@ public class RackMapperSaveRequest {
                       .build();
     }
 
-    private List<ParentProduct> getProducts(List<String> productIds){
+    private List<ParentProduct> getProducts(List<String> productIds) {
             return mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
     }
 

@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 public class Util {
 
     public List<Long> parseStringListToLong(List<String> values){
-           return values.stream()
-                        .map(Long::parseLong)
-                        .collect(Collectors.toList());
+
+           if(values != null && !values.isEmpty())
+               return values.stream()
+                            .map(Long::parseLong)
+                            .collect(Collectors.toList());
+           else
+               return null;
     }
 }

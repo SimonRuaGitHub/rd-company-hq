@@ -17,7 +17,7 @@ import java.util.List;
 public class Rack {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "rack should have some name")
@@ -26,6 +26,7 @@ public class Rack {
     private String description;
 
     @NotBlank(message = "companyId can't be empty")
+    @Column(name = "company_id")
     private String companyId;
 
     @ManyToMany(mappedBy = "associatedRacks", fetch = FetchType.LAZY)
