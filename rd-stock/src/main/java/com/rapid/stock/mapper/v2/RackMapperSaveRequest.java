@@ -25,12 +25,11 @@ public class RackMapperSaveRequest {
     public Rack mapRackSaveRequest(RackDto rackDto){
 
            return Rack.builder()
-                           .name(rackDto.getName())
-                           .description(rackDto.getDescription())
-                           .products(getProducts(rackDto.getProductIds()))
-                           .childRacks(getRacks(rackDto.getRacksIds()))
-                           .companyId(rackDto.getCompanyId())
-                           .build();
+                      .name(rackDto.getName())
+                      .description(rackDto.getDescription())
+                      .childRacks(getRacks(rackDto.getRacksIds()))
+                      .companyId(rackDto.getCompanyId())
+                      .build();
     }
 
     private List<ParentProduct> getProducts(List<String> productIds){

@@ -19,9 +19,12 @@ public class Rack {
     @Id
     @GeneratedValue
     private Long id;
+
     @NotBlank(message = "rack should have some name")
     private String name;
+
     private String description;
+
     @NotBlank(message = "companyId can't be empty")
     private String companyId;
 
