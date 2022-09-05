@@ -11,8 +11,9 @@ import java.util.List;
 public class MapperList {
 
     public <T> List<T> mapToEntitiesByIds(List<Long> ids, JpaRepository repository) {
-        if (ids != null && ids.isEmpty()){
-            return repository.findAllById((Iterable<Long>) ids);
+        if (ids != null && !ids.isEmpty()){
+            System.out.println("Ids: "+ids);
+            return repository.findAllById(((Iterable<Long>) ids));
         } else {
             return null;
         }

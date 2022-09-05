@@ -1,6 +1,7 @@
 package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.ParentProductRepository;
@@ -27,8 +28,9 @@ public class RackMapperSaveRequest {
            return Rack.builder()
                       .name(rackDto.getName())
                       .description(rackDto.getDescription())
-                      .childRacks(getRacks(rackDto.getRacksIds()))
+                      .childRacks(getChildRacks(rackDto.getRacksIds()))
                       .companyId(rackDto.getCompanyId())
+                      .parentRack(getParentRack(rackDto.getParentRackId()))
                       .build();
     }
 
@@ -36,7 +38,15 @@ public class RackMapperSaveRequest {
             return mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
     }
 
-    private List<Rack> getRacks(List<String> rackIds){
+    private List<Rack> getChildRacks(List<String> rackIds){
             return mapperList.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
+    }
+
+    private Rack getParentRack(Long id){
+            if(id != null && id > 0)
+               return rackRepository.findById(id)
+                                    .orElseThrow(() -> new NotFoundException("Parent rack with id: "+id+" was not found"));
+            else
+                return null;
     }
 }

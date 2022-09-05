@@ -10,5 +10,5 @@ public class RackDto {
     private List<String> productIds;
     private List<String> racksIds;
     private String companyId;
-    private String parentRackdId;
+    private Long parentRackId;
 }
