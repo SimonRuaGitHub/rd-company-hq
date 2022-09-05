@@ -37,11 +37,12 @@ public class Rack {
     private Rack parentRack;
 
     @Builder
-    public Rack(String name, String description, List<ParentProduct> products, List<Rack> childRacks, String companyId) {
+    public Rack(String name, String description, String companyId, List<ParentProduct> products, List<Rack> childRacks, Rack parentRack) {
         this.name = name;
         this.description = description;
+        this.companyId = companyId;
         this.products = products;
         this.childRacks = childRacks;
-        this.companyId = companyId;
+        this.parentRack = parentRack;
     }
 }

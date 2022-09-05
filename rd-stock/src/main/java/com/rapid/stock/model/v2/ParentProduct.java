@@ -22,7 +22,6 @@ public class ParentProduct{
     @GeneratedValue
     private Long id;
 
-    //Add as indexed inside db
     @NotBlank(message = "product id can't be blank")
     private String productId;
 

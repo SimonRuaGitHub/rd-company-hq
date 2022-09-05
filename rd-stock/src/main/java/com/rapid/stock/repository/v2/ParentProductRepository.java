@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Profile("rational-db")
-public interface ParentProductRepository extends JpaRepository<ParentProduct,String> {
+public interface ParentProductRepository extends JpaRepository<ParentProduct, Long> {
 }
