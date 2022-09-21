@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Profile("rational-db")
 public interface RackRepository extends JpaRepository<Rack, Long> {
+    boolean existsByNameAndCompanyId(String name, String companyId);
 }

@@ -2,7 +2,7 @@ package com.rapid.stock.mapper.v1;
 
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.DuplicatedReferenceException;
-import com.rapid.stock.exception.NotValidParentRackException;
+import com.rapid.stock.exception.NotValidRackException;
 import com.rapid.stock.model.v1.Rack;
 import com.rapid.stock.model.rules.GeneralSchemaRules;
 import com.rapid.stock.model.rules.RacksSchemaRules;
@@ -26,7 +26,7 @@ public class RackMapperSaveRequest {
             throw new DuplicatedReferenceException("Product ids can't be repeated");
 
         if ( rackSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
-             throw new NotValidParentRackException("Parent rack can't contain products and racks at the same time");
+             throw new NotValidRackException("Parent rack can't contain products and racks at the same time");
 
            Rack rack = Rack.builder()
                            .name(rackDto.getName())

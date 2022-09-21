@@ -42,8 +42,8 @@ public class ControllerExceptionMapping {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
-    @ExceptionHandler(NotValidParentRackException.class)
-    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidParentRackException ex){
+    @ExceptionHandler(NotValidRackException.class)
+    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidRackException ex){
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }

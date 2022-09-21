@@ -2,7 +2,7 @@ package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.NotFoundException;
-import com.rapid.stock.exception.NotValidParentRackException;
+import com.rapid.stock.exception.NotValidRackException;
 import com.rapid.stock.model.rules.RacksSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
@@ -29,12 +29,12 @@ public class RackMapperSaveRequest {
     public Rack mapRackSaveRequest(RackDto rackDto){
 
         if ( racksSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
-            throw new NotValidParentRackException("Parent rack can't contain products and racks at the same time");
+            throw new NotValidRackException("Parent rack can't contain products and racks at the same time");
 
            return Rack.builder()
-                      .name(rackDto.getName())
+                      .name(getRackNameValidated(rackDto.getName(), rackDto.getCompanyId()))
                       .description(rackDto.getDescription())
-                      .childRacks(getChildRacks(rackDto.getRacksIds()))
+                      .childRacks(getChildRacks(rackDto.getRacksIds(), rackDto.getCompanyId()))
                       .companyId(rackDto.getCompanyId())
                       .parentRack(getParentRack(rackDto.getParentRackId()))
                       .build();
@@ -44,15 +44,20 @@ public class RackMapperSaveRequest {
             return mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
     }
 
-    private List<Rack> getChildRacks(List<String> rackIds){
-            return mapperList.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
+    private List<Rack> getChildRacks(List<String> rackIds, String companyId){
+            List<Rack> childRacks = mapperList.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
+
+            if(childRacks != null && !childRacks.isEmpty())
+               return racksSchemaRules.childRacksOfSameCompany(childRacks, companyId);
+
+            return childRacks;
     }
 
     private Rack getParentRack(Long id){
-            if(id != null && id > 0)
-               return rackRepository.findById(id)
-                                    .orElseThrow(() -> new NotFoundException("Parent rack with id: "+id+" was not found"));
-            else
-                return null;
+            return racksSchemaRules.getExistingParentRack(id);
+    }
+
+    private String getRackNameValidated(String name, String companyId){
+            return racksSchemaRules.noRepeatedRackNameForCompany(name, companyId);
     }
 }
