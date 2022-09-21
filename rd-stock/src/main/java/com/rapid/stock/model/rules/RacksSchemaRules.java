@@ -1,4 +1,4 @@
-package com.rapid.stock.model.v1.rules;
+package com.rapid.stock.model.rules;
 
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;

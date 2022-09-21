@@ -8,7 +8,7 @@ import com.rapid.stock.model.v1.Availability;
 import com.rapid.stock.model.v1.OptionCategory;
 import com.rapid.stock.model.v1.ParentProduct;
 import com.rapid.stock.model.v1.ProductVersion;
-import com.rapid.stock.model.v1.rules.GeneralSchemaRules;
+import com.rapid.stock.model.rules.GeneralSchemaRules;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;

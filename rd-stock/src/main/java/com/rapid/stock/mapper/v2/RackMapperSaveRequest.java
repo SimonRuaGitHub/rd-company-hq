@@ -2,6 +2,8 @@ package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.NotFoundException;
+import com.rapid.stock.exception.NotValidParentRackException;
+import com.rapid.stock.model.rules.RacksSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.ParentProductRepository;
@@ -22,8 +24,12 @@ public class RackMapperSaveRequest {
     private final ParentProductRepository productRepository;
     private final RackRepository rackRepository;
     private final Util util;
+    private final RacksSchemaRules racksSchemaRules;
 
     public Rack mapRackSaveRequest(RackDto rackDto){
+
+        if ( racksSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
+            throw new NotValidParentRackException("Parent rack can't contain products and racks at the same time");
 
            return Rack.builder()
                       .name(rackDto.getName())
