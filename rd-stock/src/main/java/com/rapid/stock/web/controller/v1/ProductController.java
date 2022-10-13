@@ -3,6 +3,7 @@ package com.rapid.stock.web.controller.v1;
 import com.rapid.stock.dto.v1.ParentProductSaveRequest;
 import com.rapid.stock.service.v1.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/product/v1")
 @AllArgsConstructor
+@Profile("decrapted")
 public class ProductController {
 
     private final ProductService productService;
