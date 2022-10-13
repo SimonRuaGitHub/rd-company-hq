@@ -71,8 +71,10 @@ public class ParentProduct{
     )
     private List<ProductType> productTypes;
 
+    private String companyId;
+
     @Builder
-    public ParentProduct(String productId, String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes) {
+    public ParentProduct(String productId, String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId) {
         this.productId = productId;
         this.name = name;
         this.description = description;
@@ -80,6 +82,7 @@ public class ParentProduct{
         this.productVersions = productVersions;
         this.associatedRacks = associatedRacks;
         this.productTypes = productTypes;
+        this.companyId = companyId;
     }
 
 

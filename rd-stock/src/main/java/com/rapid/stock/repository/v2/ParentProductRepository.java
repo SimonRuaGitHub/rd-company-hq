@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Profile("rational-db")
 public interface ParentProductRepository extends JpaRepository<ParentProduct, Long> {
+    boolean existsByProductId(String productId);
+    boolean existsByNameAndCompanyId(String name, String companyId);
 }

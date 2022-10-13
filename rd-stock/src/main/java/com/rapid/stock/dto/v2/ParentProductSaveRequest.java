@@ -10,6 +10,7 @@ public class ParentProductSaveRequest {
        private String productName;
        private String productDescription;
        private String companyId;
-       private List<String> productVersions;
+       private List<String> productVersionIds;
        private List<String> rackIds;
+       private List<String> typeIds;
 }
