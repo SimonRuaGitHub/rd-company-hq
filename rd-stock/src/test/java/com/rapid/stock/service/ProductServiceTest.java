@@ -1,6 +1,6 @@
 package com.rapid.stock.service;
 
-import com.rapid.stock.dto.ParentProductSaveRequest;
+import com.rapid.stock.dto.v1.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v1.ParentProductMapper;
 import com.rapid.stock.model.v1.*;

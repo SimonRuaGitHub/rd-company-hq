@@ -1,6 +1,6 @@
 package com.rapid.stock.mapper.v1;
 
-import com.rapid.stock.dto.ParentProductSaveRequest;
+import com.rapid.stock.dto.v1.ParentProductSaveRequest;
 import com.rapid.stock.dto.AvailabilityDTO;
 import com.rapid.stock.dto.ProductVersionSaveRequest;
 import com.rapid.stock.exception.DuplicatedReferenceException;

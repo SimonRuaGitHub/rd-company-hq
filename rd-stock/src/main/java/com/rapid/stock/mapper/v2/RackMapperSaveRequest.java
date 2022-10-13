@@ -1,7 +1,6 @@
 package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.RackDto;
-import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.exception.NotValidRackException;
 import com.rapid.stock.model.rules.RacksSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
