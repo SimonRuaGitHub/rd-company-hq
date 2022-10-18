@@ -39,7 +39,7 @@ public class ProductServiceImp implements ProductService {
             savedProduct = productRepository.save(parentProduct);
         }catch(Exception ex){
             ex.printStackTrace();
-            throw new SaveException("Failed to create following product with id: "+parentProduct.getProductId());
+            throw new SaveException("Failed to create following product with id: "+parentProduct.getId());
         }
 
         return savedProduct;

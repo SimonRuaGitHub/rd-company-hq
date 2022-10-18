@@ -27,10 +27,10 @@ public class ParentProductMapper {
 
     public ParentProduct mapSaveRequest(ParentProductSaveRequest productSaveRequest) {
             return ParentProduct.builder()
-                    .id(productSaveRequest.getId())
                     .name(productSaveRequest.getProductName())
                     .description(productSaveRequest.getProductDescription())
                     .createdAt(LocalDateTime.now())
+                    .companyId(productSaveRequest.getCompanyId())
                     .productVersions(mapProductVersionsList(productSaveRequest.getProductVersionIds()))
                     .associatedRacks(mapRackList(productSaveRequest.getRackIds()))
                     .productTypes(mapProductTypesList(productSaveRequest.getTypeIds()))

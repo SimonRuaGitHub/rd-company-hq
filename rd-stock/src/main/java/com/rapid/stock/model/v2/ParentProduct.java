@@ -19,6 +19,7 @@ import java.util.List;
 public class ParentProduct{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "name can't be blank")
@@ -70,8 +71,7 @@ public class ParentProduct{
     private String companyId;
 
     @Builder
-    public ParentProduct(Long id, String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId) {
-        this.id = id;
+    public ParentProduct(String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId) {
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
