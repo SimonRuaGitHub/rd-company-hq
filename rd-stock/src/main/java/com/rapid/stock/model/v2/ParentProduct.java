@@ -36,7 +36,7 @@ public class ParentProduct{
     private List<ProductVersion> productVersions;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCT_RACKS",
+    @JoinTable(name = "PRODUCTS_RACKS",
         joinColumns = {
             @JoinColumn(name = "product_id", referencedColumnName = "id"),
         },
