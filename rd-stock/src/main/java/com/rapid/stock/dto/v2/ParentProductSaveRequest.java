@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class ParentProductSaveRequest {
-       private String productId;
+       private Long id;
        private String productName;
        private String productDescription;
        private String companyId;
