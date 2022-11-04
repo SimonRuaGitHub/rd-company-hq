@@ -68,6 +68,7 @@ public class ParentProduct{
     )
     private List<ProductType> productTypes;
 
+    @NotBlank(message = "Company id can't be blank")
     private String companyId;
 
     @Builder
