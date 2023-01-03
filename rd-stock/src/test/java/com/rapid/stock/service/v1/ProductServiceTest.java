@@ -1,4 +1,4 @@
-package com.rapid.stock.service;
+package com.rapid.stock.service.v1;
 
 import com.rapid.stock.dto.v1.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
