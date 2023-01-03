@@ -1,6 +1,7 @@
 package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
+import com.rapid.stock.model.rules.ProductSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -24,10 +25,11 @@ public class ParentProductMapper {
     private final Util util;
     private final ProductVersionRepository productVersionRepository;
     private final RackRepository rackRepository;
+    private final ProductSchemaRules productSchemaRules;
 
     public ParentProduct mapSaveRequest(ParentProductSaveRequest productSaveRequest) {
             return ParentProduct.builder()
-                    .name(productSaveRequest.getProductName())
+                    .name( getProductNameValidated(productSaveRequest.getProductName(), productSaveRequest.getCompanyId()) )
                     .description(productSaveRequest.getProductDescription())
                     .createdAt(LocalDateTime.now())
                     .companyId(productSaveRequest.getCompanyId())
@@ -47,5 +49,9 @@ public class ParentProductMapper {
 
     private List<ProductType> mapProductTypesList(List<String> typeIds){
         return mapperList.mapToEntitiesByIds(util.parseStringListToLong(typeIds), rackRepository);
+    }
+
+    private String getProductNameValidated(String productName, String companyId){
+        return productSchemaRules.noRepeatedProductNameForCompany(productName, companyId);
     }
 }
