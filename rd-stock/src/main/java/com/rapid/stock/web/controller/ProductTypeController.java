@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/type")
+@RequestMapping("/api/product/type")
 @AllArgsConstructor
 public class ProductTypeController {
 

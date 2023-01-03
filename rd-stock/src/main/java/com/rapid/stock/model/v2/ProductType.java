@@ -27,7 +27,8 @@ public class ProductType {
     private List<ParentProduct> parentProducts;
 
     @Builder
-    public ProductType(String name) {
+    public ProductType(String name, List<ParentProduct> parentProducts) {
         this.name = name;
+        this.parentProducts = parentProducts;
     }
 }
