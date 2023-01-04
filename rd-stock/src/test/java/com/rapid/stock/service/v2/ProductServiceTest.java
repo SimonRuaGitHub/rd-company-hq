@@ -3,10 +3,7 @@ package com.rapid.stock.service.v2;
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.ParentProductMapper;
-import com.rapid.stock.model.v2.Availability;
-import com.rapid.stock.model.v2.ProductVersion;
-import com.rapid.stock.model.v2.ParentProduct;
-import com.rapid.stock.model.v2.Rack;
+import com.rapid.stock.model.v2.*;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -137,7 +134,47 @@ public class ProductServiceTest {
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productService.save(ppSaveRequest) );
 
         //Then
-        assertThat(exception.getMessage()).contains("Some of the fields have invalid have invalid data or no data at all");
+        assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
+    }
+
+    @Test
+    public void can_save_product_with_product_types() {
+        //Given
+        ProductType typeBurgers = new ProductType();
+        typeBurgers.setId(Long.valueOf(62464));
+        typeBurgers.setName("burgers");
+        typeBurgers.setParentProducts(null);
+
+        ProductType typeLateNight = new ProductType();
+        typeLateNight.setId(Long.valueOf(62464));
+        typeLateNight.setName("late nite");
+        typeLateNight.setParentProducts(null);
+
+        ParentProduct expectedParentProduct = new ParentProduct();
+        expectedParentProduct.setId(Long.valueOf(235235));
+        expectedParentProduct.setName("product_name");
+        expectedParentProduct.setDescription("prod_description");
+        expectedParentProduct.setCompanyId("929094");
+        expectedParentProduct.setCreatedAt(LocalDateTime.now());
+        expectedParentProduct.setProductVersions(null);
+        expectedParentProduct.setProductTypes(List.of(typeBurgers, typeLateNight));
+        expectedParentProduct.setCategories(null);
+        expectedParentProduct.setAssociatedRacks(null);
+
+        ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
+
+        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+
+        //When
+        productService.save(ppSaveRequest);
+
+        //Then
+        ArgumentCaptor<ParentProduct> parProdArgumentCaptor = ArgumentCaptor.forClass(ParentProduct.class);
+        verify(parentProductRepository).save(parProdArgumentCaptor.capture());
+
+        ParentProduct capturedParentProduct = parProdArgumentCaptor.getValue();
+
+        assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
     }
 
 }

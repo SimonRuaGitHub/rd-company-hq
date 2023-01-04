@@ -30,7 +30,7 @@ public class ProductServiceImp implements ProductService {
         Set<ConstraintViolation<Object>> violations = validator.validate(parentProduct);
 
         if(!violations.isEmpty()) {
-            throw new InvalidDataFieldException("Some of the fields have invalid have invalid data or no data at all", violations);
+            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
         }
 
         ParentProduct savedProduct = null;

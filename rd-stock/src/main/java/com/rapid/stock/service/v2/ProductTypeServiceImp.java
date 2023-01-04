@@ -19,7 +19,7 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductTypeImp implements ProductTypeService {
+public class ProductTypeServiceImp implements ProductTypeService {
 
     private ProductTypeMapper productTypeMapper;
     private ProductTypeRepository productTypeRepository;
@@ -33,7 +33,7 @@ public class ProductTypeImp implements ProductTypeService {
         Set<ConstraintViolation<Object>> violations = validator.validate(productType);
 
         if(!violations.isEmpty()){
-            throw new InvalidDataFieldException("Some of the fields have invalid have invalid data or no data at all", violations);
+            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
         }
 
         ProductType savedProductType;

@@ -32,7 +32,7 @@ public class RackServiceImp implements RackService {
         Set<ConstraintViolation<Object>> violations = validator.validate(rack);
 
         if(!violations.isEmpty()){
-            throw new InvalidDataFieldException("Some of the fields have invalid have invalid data or no data at all", violations);
+            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
         }
 
         Rack insertedRack;
