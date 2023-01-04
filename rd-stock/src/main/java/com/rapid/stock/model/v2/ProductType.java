@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Profile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,7 @@ public class ProductType {
     private Long id;
 
     @NotBlank(message = "name can't be blank")
+    @Pattern(regexp = "^[^0-9]+$")
     private String name;
 
     @ManyToMany(mappedBy = "productTypes", fetch = FetchType.LAZY)
