@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "name can't be blank")
