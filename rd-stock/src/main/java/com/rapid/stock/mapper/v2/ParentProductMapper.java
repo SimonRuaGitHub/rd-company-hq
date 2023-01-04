@@ -5,6 +5,7 @@ import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.model.v2.Rack;
+import com.rapid.stock.repository.v2.ProductTypeRepository;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import com.rapid.stock.repository.v2.RackRepository;
 import com.rapid.stock.util.Util;
@@ -24,6 +25,7 @@ public class ParentProductMapper {
     private final Util util;
     private final ProductVersionRepository productVersionRepository;
     private final RackRepository rackRepository;
+    private final ProductTypeRepository productTypeRepository;
 
     public ParentProduct mapSaveRequest(ParentProductSaveRequest productSaveRequest) {
             return ParentProduct.builder()
@@ -46,6 +48,6 @@ public class ParentProductMapper {
     }
 
     private List<ProductType> mapProductTypesList(List<String> typeIds){
-        return mapperList.mapToEntitiesByIds(util.parseStringListToLong(typeIds), rackRepository);
+        return mapperList.mapToEntitiesByIds(util.parseStringListToLong(typeIds), productTypeRepository);
     }
 }

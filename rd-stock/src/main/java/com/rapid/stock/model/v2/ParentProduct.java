@@ -60,7 +60,7 @@ public class ParentProduct{
     @ManyToMany
     @JoinTable(name="PARENT_PRODUCTS_TYPES",
             joinColumns = {
-                    @JoinColumn(name = "product_type_id", referencedColumnName = "id")
+                    @JoinColumn(name = "parent_product_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
                     @JoinColumn(name= "type_id", referencedColumnName = "id")
