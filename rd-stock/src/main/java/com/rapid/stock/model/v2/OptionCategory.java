@@ -21,20 +21,19 @@ public class OptionCategory {
     @NotBlank(message = "Option category name can't  be blank")
     private String name;
     @NotBlank(message = "Option category description can't  be blank")
+    @Column(name = "description")
     private String descrip;
     @NotBlank(message = "Option category label can't  be blank")
     private String label;
 
-    @Valid
-    @NotEmpty(message = "List of options must not be empty")
-    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
-    private List<ParentProduct> products;
+    @ManyToMany(mappedBy = "optionCategories", fetch = FetchType.LAZY)
+    private List<ProductVersion> productVersions;
 
     @Builder
-    public OptionCategory(String name, String descrip, String label , List<ParentProduct> products) {
+    public OptionCategory(String name, String descrip, String label , List<ProductVersion> productVersions) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
-        this.products = products;
+        this.productVersions = productVersions;
     }
 }

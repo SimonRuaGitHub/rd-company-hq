@@ -46,17 +46,6 @@ public class ParentProduct{
     )
     private List<Rack> associatedRacks;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
-            joinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "id")
-            }
-    )
-    private List<OptionCategory> categories;
-
     @ManyToMany
     @JoinTable(name="PARENT_PRODUCTS_TYPES",
             joinColumns = {
