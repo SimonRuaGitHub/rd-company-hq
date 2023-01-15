@@ -55,7 +55,6 @@ public class ProductServiceTest {
         expectedParentProduct.setCreatedAt(LocalDateTime.now());
         expectedParentProduct.setProductVersions(null);
         expectedParentProduct.setProductTypes(null);
-        expectedParentProduct.setCategories(null);
         expectedParentProduct.setAssociatedRacks(null);
 
         when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
@@ -100,7 +99,6 @@ public class ProductServiceTest {
         expectedParentProduct.setCreatedAt(LocalDateTime.now());
         expectedParentProduct.setProductVersions(null);
         expectedParentProduct.setProductTypes(null);
-        expectedParentProduct.setCategories(null);
         expectedParentProduct.setAssociatedRacks(List.of(rackAlpha, rackSigma));
 
         when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
@@ -158,7 +156,6 @@ public class ProductServiceTest {
         expectedParentProduct.setCreatedAt(LocalDateTime.now());
         expectedParentProduct.setProductVersions(null);
         expectedParentProduct.setProductTypes(List.of(typeBurgers, typeLateNight));
-        expectedParentProduct.setCategories(null);
         expectedParentProduct.setAssociatedRacks(null);
 
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
