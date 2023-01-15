@@ -53,7 +53,6 @@ public class RackServiceTest {
         productAlpha.setCreatedAt(LocalDateTime.now());
         productAlpha.setProductVersions(null);
         productAlpha.setProductTypes(null);
-        productAlpha.setCategories(null);
         productAlpha.setAssociatedRacks(null);
 
         ParentProduct productBeta = new ParentProduct();
@@ -64,7 +63,6 @@ public class RackServiceTest {
         productBeta.setCreatedAt(LocalDateTime.now());
         productBeta.setProductVersions(null);
         productBeta.setProductTypes(null);
-        productBeta.setCategories(null);
         productBeta.setAssociatedRacks(null);
 
         Rack expectedRack = Rack.builder()
