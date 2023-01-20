@@ -73,15 +73,15 @@ public class OptionCategoryServiceTest {
     @Test
     public void cannot_save_option_category_with_invalid_data(){
         //Given
-        OptionCategory expectedOptionCategory = new OptionCategory();
-        expectedOptionCategory.setName("");
-        expectedOptionCategory.setDescrip(null);
-        expectedOptionCategory.setCompanyId("");
-        expectedOptionCategory.setLabel(null);
+        OptionCategory optionCategory = new OptionCategory();
+        optionCategory.setName("");
+        optionCategory.setDescrip(null);
+        optionCategory.setCompanyId("");
+        optionCategory.setLabel(null);
 
         //prepare mock for mapper
         OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapper.mapToOptionCategory(optionCategoryDTO)).thenReturn(expectedOptionCategory);
+        when(optionCategoryMapper.mapToOptionCategory(optionCategoryDTO)).thenReturn(optionCategory);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionCategoryService.save(optionCategoryDTO) );
