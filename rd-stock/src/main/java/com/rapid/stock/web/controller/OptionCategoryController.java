@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class OptionCategoryController {
     private final OptionCategoryService optionCategoryService;
 
     @PostMapping
-    public ResponseEntity saveOptionCategory(OptionCategoryDTO optionCategoryDTO){
+    public ResponseEntity saveOptionCategory(@RequestBody OptionCategoryDTO optionCategoryDTO){
            optionCategoryService.save(optionCategoryDTO);
            return ResponseEntity.status(HttpStatus.CREATED).build();
     }

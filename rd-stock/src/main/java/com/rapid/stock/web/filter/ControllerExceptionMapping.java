@@ -27,7 +27,7 @@ public class ControllerExceptionMapping {
     }
 
     @ExceptionHandler(InvalidDataFieldException.class)
-    public ResponseEntity<RestFieldErrors> handleUnableToSaveEntity(InvalidDataFieldException ex){
+    public ResponseEntity<RestFieldErrors> handleInvalidDataFieldException(InvalidDataFieldException ex){
 
         ex.printStackTrace();
         List<String> errorsMsgsField = ex.getViolations().stream().map(v -> v.getMessage()).collect(Collectors.toList());
@@ -36,15 +36,21 @@ public class ControllerExceptionMapping {
     }
 
     @ExceptionHandler(DuplicatedReferenceException.class)
-    public ResponseEntity<RestExceptionResult> handleExistingProduct(DuplicatedReferenceException ex){
+    public ResponseEntity<RestExceptionResult> handleDuplicatedReferenceException(DuplicatedReferenceException ex){
 
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
     @ExceptionHandler(NotValidRackException.class)
-    public ResponseEntity<RestExceptionResult> handleExistingProduct(NotValidRackException ex){
+    public ResponseEntity<RestExceptionResult> handleNotValidRackException(NotValidRackException ex){
             ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(NotValidOptionCategoryException.class)
+    public ResponseEntity<RestExceptionResult> handleNotValidOptionCategoryException(NotValidOptionCategoryException ex){
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 }
