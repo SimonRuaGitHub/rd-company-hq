@@ -1,4 +1,0 @@
-#ignore compilation folder
-/target
-.idea
-/docker-files/maria-db/data-mariadb
