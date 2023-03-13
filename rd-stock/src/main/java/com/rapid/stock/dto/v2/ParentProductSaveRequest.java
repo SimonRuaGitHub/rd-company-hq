@@ -12,4 +12,5 @@ public class ParentProductSaveRequest {
        private List<String> productVersionIds;
        private List<String> rackIds;
        private List<String> typeIds;
+       private List<String> optionCategoryIds;
 }

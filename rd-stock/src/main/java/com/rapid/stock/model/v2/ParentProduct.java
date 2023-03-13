@@ -31,6 +31,9 @@ public class ParentProduct{
     @NotNull
     private LocalDateTime createdAt;
 
+    @NotBlank(message = "Company id can't be blank")
+    private String companyId;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private List<ProductVersion> productVersions;
@@ -57,11 +60,19 @@ public class ParentProduct{
     )
     private List<ProductType> productTypes;
 
-    @NotBlank(message = "Company id can't be blank")
-    private String companyId;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
+            joinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "category_id", referencedColumnName = "id")
+            }
+    )
+    private List<OptionCategory> optionCategories;
 
     @Builder
-    public ParentProduct(String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId) {
+    public ParentProduct(String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId, List<OptionCategory> optionCategories) {
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
@@ -69,6 +80,7 @@ public class ParentProduct{
         this.associatedRacks = associatedRacks;
         this.productTypes = productTypes;
         this.companyId = companyId;
+        this.optionCategories = optionCategories;
     }
 
 

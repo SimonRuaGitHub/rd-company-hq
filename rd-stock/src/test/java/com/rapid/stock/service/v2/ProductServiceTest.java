@@ -174,4 +174,45 @@ public class ProductServiceTest {
         assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
     }
 
+    @Test
+    public void can_save_product_with_option_categories() {
+        //Given
+        OptionCategory optCategorySalsas = new OptionCategory();
+        optCategorySalsas.setName("Salsas");
+        optCategorySalsas.setDescrip("Seleccion de salsas para el producto");
+        optCategorySalsas.setLabel("Selecciona tu salsas");
+        optCategorySalsas.setCompanyId("929094");
+
+        OptionCategory optCategoryGaseosas = new OptionCategory();
+        optCategoryGaseosas.setName("Gaseosas");
+        optCategoryGaseosas.setDescrip("Seleccion de gaseosas para el producto");
+        optCategoryGaseosas.setLabel("Selecciona tu gaseosa");
+        optCategoryGaseosas.setCompanyId("929094");
+
+        ParentProduct expectedParentProduct = new ParentProduct();
+        expectedParentProduct.setId(Long.valueOf(235235));
+        expectedParentProduct.setName("product_name");
+        expectedParentProduct.setDescription("prod_description");
+        expectedParentProduct.setCompanyId("929094");
+        expectedParentProduct.setCreatedAt(LocalDateTime.now());
+        expectedParentProduct.setProductVersions(null);
+        expectedParentProduct.setOptionCategories(List.of(optCategorySalsas, optCategoryGaseosas));
+        expectedParentProduct.setAssociatedRacks(null);
+        expectedParentProduct.setProductTypes(null);
+
+        ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
+
+        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+
+        //When
+        productService.save(ppSaveRequest);
+
+        //Then
+        ArgumentCaptor<ParentProduct> parProdArgumentCaptor = ArgumentCaptor.forClass(ParentProduct.class);
+        verify(parentProductRepository).save(parProdArgumentCaptor.capture());
+
+        ParentProduct capturedParentProduct = parProdArgumentCaptor.getValue();
+
+        assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
+    }
 }

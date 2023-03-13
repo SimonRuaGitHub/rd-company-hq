@@ -44,25 +44,13 @@ public class ProductVersion{
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private ParentProduct parentProduct;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
-            joinColumns = {
-                    @JoinColumn(name = "product_version_id", referencedColumnName = "id"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "id")
-            }
-    )
-    private List<OptionCategory> optionCategories;
-
     @Builder
-    public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable, LocalDateTime createdAt, List<OptionCategory> optionCategories) {
+    public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable, LocalDateTime createdAt) {
         this.versionId = versionId;
         this.name = name;
         this.description = description;
         this.price = price;
         this.isAvailable = isAvailable;
         this.createdAt = createdAt;
-        this.optionCategories = optionCategories;
     }
 }

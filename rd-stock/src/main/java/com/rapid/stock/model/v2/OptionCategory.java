@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table(name = "OPTIONS_CATEGORIES")
+@Table(name = "OPTION_CATEGORIES")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class OptionCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     @NotBlank(message = "Option category name can't  be blank")
     private String name;
     @NotBlank(message = "Option category description can't  be blank")
@@ -29,15 +29,23 @@ public class OptionCategory {
     @NotBlank(message = "Option category company id can't  be blank")
     private String companyId;
 
-    @ManyToMany(mappedBy = "optionCategories", fetch = FetchType.LAZY)
-    private List<ProductVersion> productVersions;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
+            joinColumns = {
+                    @JoinColumn(name = "category_id", referencedColumnName = "id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "id")
+            }
+    )
+    private List<ParentProduct> parentProducts;
 
     @Builder
-    public OptionCategory(String name, String descrip, String label, String companyId , List<ProductVersion> productVersions) {
+    public OptionCategory(String name, String descrip, String label, String companyId , List<ParentProduct> parentProducts) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
         this.companyId = companyId;
-        this.productVersions = productVersions;
+        this.parentProducts = parentProducts;
     }
 }

@@ -1,10 +1,9 @@
 package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
-import com.rapid.stock.model.v2.ParentProduct;
-import com.rapid.stock.model.v2.ProductType;
-import com.rapid.stock.model.v2.ProductVersion;
-import com.rapid.stock.model.v2.Rack;
+import com.rapid.stock.model.rules.ProductSchemaRules;
+import com.rapid.stock.model.v2.*;
+import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import com.rapid.stock.repository.v2.ProductTypeRepository;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import com.rapid.stock.repository.v2.RackRepository;
@@ -26,6 +25,8 @@ public class ParentProductMapper {
     private final ProductVersionRepository productVersionRepository;
     private final RackRepository rackRepository;
     private final ProductTypeRepository productTypeRepository;
+    private final OptionCategoryRepository optionCategoryRepository;
+    private final ProductSchemaRules productSchemaRules;
 
     public ParentProduct mapSaveRequest(ParentProductSaveRequest productSaveRequest) {
             return ParentProduct.builder()
@@ -36,6 +37,7 @@ public class ParentProductMapper {
                     .productVersions(mapProductVersionsList(productSaveRequest.getProductVersionIds()))
                     .associatedRacks(mapRackList(productSaveRequest.getRackIds()))
                     .productTypes(mapProductTypesList(productSaveRequest.getTypeIds()))
+                    .optionCategories( mapOptionCategoryList(productSaveRequest.getOptionCategoryIds(), productSaveRequest.getCompanyId()) )
                     .build();
     }
 
@@ -49,5 +51,10 @@ public class ParentProductMapper {
 
     private List<ProductType> mapProductTypesList(List<String> typeIds){
         return mapperList.mapToEntitiesByIds(util.parseStringListToLong(typeIds), productTypeRepository);
+    }
+
+    private List<OptionCategory> mapOptionCategoryList(List<String> optionCategoryIds, String companyId) {
+        List<OptionCategory> mappedOptionCategories = mapperList.mapToEntitiesByIds(util.parseStringListToLong(optionCategoryIds), optionCategoryRepository);
+        return productSchemaRules.optionCategoriesOfSameCompany(mappedOptionCategories, companyId);
     }
 }

@@ -10,5 +10,5 @@ public class OptionCategoryDTO {
     private String description;
     private String label;
     private String companyId;
-    private List<String> prodVersionIds;
+    private List<String> productIds;
 }

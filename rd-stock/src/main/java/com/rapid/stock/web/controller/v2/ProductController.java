@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/product/v2")
+@RequestMapping("/api/v2/product")
 @AllArgsConstructor
 @Profile("rational-db")
 public class ProductController {

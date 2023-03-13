@@ -13,9 +13,13 @@ public class Util {
     public List<Long> parseStringListToLong(List<String> values){
 
            if(values != null && !values.isEmpty())
-               return values.stream()
-                            .map(Long::parseLong)
-                            .collect(Collectors.toList());
+               try {
+                   return values.stream()
+                           .map(Long::parseLong)
+                           .collect(Collectors.toList());
+               }catch(NumberFormatException nfe) {
+                   throw new NumberFormatException("The input is invalid to be parsed to a numeric format");
+               }
            else
                return null;
     }
