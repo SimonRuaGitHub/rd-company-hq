@@ -7,6 +7,6 @@ services:
       - 3306:3306
     volumes:
       - ./data-mariadb:/var/lib/mysql
-      - ./data-mariadb/sql-export:/sql-export
+      - ./sql-export:/sql-export
     environment:
       MARIADB_ROOT_PASSWORD: qwerty

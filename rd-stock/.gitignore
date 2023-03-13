@@ -1,0 +1,3 @@
+/target
+/docker-files/maria-db/data-mariadb
+/.idea
