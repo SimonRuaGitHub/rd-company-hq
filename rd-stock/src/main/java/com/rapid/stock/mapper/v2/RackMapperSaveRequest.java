@@ -2,6 +2,7 @@ package com.rapid.stock.mapper.v2;
 
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.NotValidRackException;
+import com.rapid.stock.model.rules.GeneralSchemaRules;
 import com.rapid.stock.model.rules.RacksSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
@@ -24,6 +25,7 @@ public class RackMapperSaveRequest {
     private final RackRepository rackRepository;
     private final Util util;
     private final RacksSchemaRules racksSchemaRules;
+    private final GeneralSchemaRules generalSchemaRules;
 
     public Rack mapRackSaveRequest(RackDto rackDto){
 
@@ -36,11 +38,17 @@ public class RackMapperSaveRequest {
                       .childRacks(getChildRacks(rackDto.getRacksIds(), rackDto.getCompanyId()))
                       .companyId(rackDto.getCompanyId())
                       .parentRack(getParentRack(rackDto.getParentRackId()))
+                      .products(getProducts(rackDto.getProductIds(), rackDto.getCompanyId()))
                       .build();
     }
 
-    private List<ParentProduct> getProducts(List<String> productIds) {
-            return mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
+    private List<ParentProduct> getProducts(List<String> productIds, String companyId) {
+            List<ParentProduct> mappedProducts = mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
+            generalSchemaRules.validateBusinessObjectsOfSameCompany(
+                    mappedProducts,
+                    companyId,
+                    () -> new NotValidRackException("Rack contains at least one product which doesn't belong to the same company"));
+            return mappedProducts;
     }
 
     private List<Rack> getChildRacks(List<String> rackIds, String companyId){

@@ -29,7 +29,15 @@ public class Rack {
     @Column(name = "company_id")
     private String companyId;
 
-    @ManyToMany(mappedBy = "associatedRacks", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "PRODUCTS_RACKS",
+            joinColumns = {
+                    @JoinColumn(name = "rack_id", referencedColumnName = "id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "id")
+            }
+    )
     private List<ParentProduct> products;
 
     @OneToMany(fetch = FetchType.LAZY)
