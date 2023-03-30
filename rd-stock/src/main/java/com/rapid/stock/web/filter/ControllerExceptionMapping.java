@@ -65,4 +65,10 @@ public class ControllerExceptionMapping {
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
+
+    @ExceptionHandler(NotValidProductVersionException.class)
+    public ResponseEntity<RestExceptionResult> handleNumberFormatException(NotValidProductVersionException ex){
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
 }

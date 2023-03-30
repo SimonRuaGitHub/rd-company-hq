@@ -16,7 +16,7 @@ import java.util.List;
 @Profile("rational-db")
 public class ProductTypeMapper {
 
-    private final MapperList mapperList;
+    private final CommonMapper commonMapper;
     private final Util util;
     private final ProductTypeRepository productTypeRepository;
 
@@ -28,6 +28,6 @@ public class ProductTypeMapper {
     }
 
     private List<ParentProduct> getParentProducts(List<String> parentProductIds){
-        return mapperList.mapToEntitiesByIds(util.parseStringListToLong(parentProductIds), productTypeRepository);
+        return commonMapper.mapToEntitiesByIds(util.parseStringListToLong(parentProductIds), productTypeRepository);
     }
 }

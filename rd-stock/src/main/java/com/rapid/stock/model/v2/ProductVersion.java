@@ -8,7 +8,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT_VERSIONS")
@@ -20,8 +19,9 @@ import java.util.List;
 public class ProductVersion{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //Define Index
+
     @NotBlank(message = "version Id can't be blank")
     private String versionId;
 
@@ -41,16 +41,18 @@ public class ProductVersion{
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private ParentProduct parentProduct;
 
     @Builder
-    public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable, LocalDateTime createdAt) {
+    public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable,
+                          LocalDateTime createdAt, ParentProduct parentProduct) {
         this.versionId = versionId;
         this.name = name;
         this.description = description;
         this.price = price;
         this.isAvailable = isAvailable;
         this.createdAt = createdAt;
+        this.parentProduct = parentProduct;
     }
 }

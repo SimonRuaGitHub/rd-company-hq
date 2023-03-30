@@ -22,7 +22,7 @@ import java.util.List;
 @Profile("rational-db")
 public class ParentProductMapper {
 
-    private final MapperList mapperList;
+    private final CommonMapper commonMapper;
     private final Util util;
     private final ProductVersionRepository productVersionRepository;
     private final RackRepository rackRepository;
@@ -50,11 +50,11 @@ public class ParentProductMapper {
     }
 
     private List<ProductVersion> mapProductVersionsList(List<String> productVersionIds){
-            return mapperList.mapToEntitiesByIds(util.parseStringListToLong(productVersionIds), productVersionRepository);
+            return commonMapper.mapToEntitiesByIds(util.parseStringListToLong(productVersionIds), productVersionRepository);
     }
 
     private List<Rack> mapRackList(List<String> rackIds, String companyId){
-        List<Rack> mappedRacks = mapperList.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
+        List<Rack> mappedRacks = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
         generalSchemaRules.validateBusinessObjectsOfSameCompany(
                 mappedRacks,
                 companyId,
@@ -63,11 +63,11 @@ public class ParentProductMapper {
     }
 
     private List<ProductType> mapProductTypesList(List<String> typeIds){
-        return mapperList.mapToEntitiesByIds(util.parseStringListToLong(typeIds), productTypeRepository);
+        return commonMapper.mapToEntitiesByIds(util.parseStringListToLong(typeIds), productTypeRepository);
     }
 
     private List<OptionCategory> mapOptionCategoryList(List<String> optionCategoryIds, String companyId) {
-        List<OptionCategory> mappedOptionCategories = mapperList.mapToEntitiesByIds(util.parseStringListToLong(optionCategoryIds), optionCategoryRepository);
+        List<OptionCategory> mappedOptionCategories = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(optionCategoryIds), optionCategoryRepository);
         return productSchemaRules.optionCategoriesOfSameCompany(mappedOptionCategories, companyId);
     }
 }

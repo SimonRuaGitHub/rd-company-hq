@@ -20,7 +20,7 @@ import java.util.List;
 @Profile("rational-db")
 public class RackMapperSaveRequest {
 
-    private final MapperList mapperList;
+    private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
     private final RackRepository rackRepository;
     private final Util util;
@@ -43,7 +43,7 @@ public class RackMapperSaveRequest {
     }
 
     private List<ParentProduct> getProducts(List<String> productIds, String companyId) {
-            List<ParentProduct> mappedProducts = mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
+            List<ParentProduct> mappedProducts = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
             generalSchemaRules.validateBusinessObjectsOfSameCompany(
                     mappedProducts,
                     companyId,
@@ -52,7 +52,7 @@ public class RackMapperSaveRequest {
     }
 
     private List<Rack> getChildRacks(List<String> rackIds, String companyId){
-            List<Rack> childRacks = mapperList.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
+            List<Rack> childRacks = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(rackIds), rackRepository);
 
             if(childRacks != null && !childRacks.isEmpty())
                return racksSchemaRules.childRacksOfSameCompany(childRacks, companyId);

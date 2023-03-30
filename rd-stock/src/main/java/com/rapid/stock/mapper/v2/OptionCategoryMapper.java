@@ -18,7 +18,7 @@ import java.util.List;
 public class OptionCategoryMapper {
 
     private final Util util;
-    private final MapperList mapperList;
+    private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
     private final OptionsSchemaRules optionsSchemaRules;
 
@@ -33,7 +33,7 @@ public class OptionCategoryMapper {
     }
 
     private List<ParentProduct> mapProductList(List<String> productIds, String companyId){
-        List<ParentProduct> mappedProducts = mapperList.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
+        List<ParentProduct> mappedProducts = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(productIds), productRepository);
         return optionsSchemaRules.productsOfSameCompany(mappedProducts, companyId);
     }
 
