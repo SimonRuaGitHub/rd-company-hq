@@ -6,4 +6,5 @@ import lombok.Data;
 public class AvailabilityDTO {
     private String companySiteID;
     private Integer quantityAvailable;
+    private Long productVersionId;
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCT_VERSIONS")
@@ -43,6 +44,10 @@ public class ProductVersion{
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private ParentProduct parentProduct;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_versions_id", referencedColumnName = "id")
+    private List<Availability> productAvailabilities;
 
     @Builder
     public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable,

@@ -25,6 +25,6 @@ public class ProductVersionController {
     public ResponseEntity<ProductVersion> saveProductVersion(@RequestBody ProductVersionSaveRequest productVersionSaveRequest){
            ProductVersion productVersion = productVersionService.save(productVersionSaveRequest);
            return ResponseEntity
-                   .status(HttpStatus.CREATED).body(productVersion);
+                   .status(HttpStatus.CREATED).build();
     }
 }
