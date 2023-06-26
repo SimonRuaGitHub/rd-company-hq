@@ -24,3 +24,7 @@ services:
       - "4566:4566"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./localstack/setup.sh:/etc/localstack/init/ready.d/init-aws.sh
+      - ../../src/test/resources:/tmp/localstack/test-data
+    tmpfs:
+      - /tmp/localstack:exec,mode=600
