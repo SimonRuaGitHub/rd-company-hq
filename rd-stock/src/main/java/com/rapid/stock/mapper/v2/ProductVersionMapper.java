@@ -6,7 +6,6 @@ import com.rapid.stock.model.rules.ProductVersionSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ParentProductRepository;
-import com.rapid.stock.repository.v2.ProductVersionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -39,6 +38,7 @@ public class ProductVersionMapper {
                    .createdAt(LocalDateTime.now())
                    .price(productVersionSaveRequest.getPrice())
                    .isAvailable(productVersionSaveRequest.isAvailable())
+                   .filename(productVersionSaveRequest.getFilename())
                    .parentProduct(parentProduct)
                    .build();
     }

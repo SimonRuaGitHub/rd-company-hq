@@ -27,3 +27,16 @@ spring:
     username: root
     password: qwerty
     driver-class-name: org.mariadb.jdbc.Driver
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA6ELP5Z5GZTP2AVBK
+      secret-key: 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
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    s3:
+     bucket:
+       name: productimagesrd

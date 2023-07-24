@@ -14,6 +14,7 @@ public class ProductVersionSaveRequest {
     @Getter(AccessLevel.NONE)
     private boolean isAvailable;
     private Long parentProductId;
+    private String filename;
 
     @JsonProperty("isAvailable")
     public boolean isAvailable(){

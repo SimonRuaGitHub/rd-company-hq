@@ -1,3 +1,3 @@
 /target
-/docker/local/maria-db/data-mariadb
+/docker/local-rd-stock/maria-db/data-mariadb
 /.idea

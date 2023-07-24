@@ -7,6 +7,7 @@ import com.rapid.stock.mapper.v2.ParentProductMapper;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

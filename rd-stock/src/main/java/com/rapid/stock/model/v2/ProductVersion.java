@@ -49,9 +49,20 @@ public class ProductVersion{
     @JoinColumn(name = "product_versions_id", referencedColumnName = "id")
     private List<Availability> productAvailabilities;
 
+    @NotBlank(message = "filename can't be blank")
+    private String filename;
+
     @Builder
-    public ProductVersion(String versionId, String name, String description, Double price, boolean isAvailable,
-                          LocalDateTime createdAt, ParentProduct parentProduct) {
+    public ProductVersion(
+            String versionId,
+            String name,
+            String description,
+            Double price,
+            boolean isAvailable,
+            LocalDateTime createdAt,
+            ParentProduct parentProduct,
+            String filename
+    ) {
         this.versionId = versionId;
         this.name = name;
         this.description = description;
@@ -59,5 +70,6 @@ public class ProductVersion{
         this.isAvailable = isAvailable;
         this.createdAt = createdAt;
         this.parentProduct = parentProduct;
+        this.filename = filename;
     }
 }

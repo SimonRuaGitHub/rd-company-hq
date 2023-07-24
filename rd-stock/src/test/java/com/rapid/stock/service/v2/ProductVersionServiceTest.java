@@ -13,6 +13,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -33,13 +34,21 @@ public class ProductVersionServiceTest {
     @Mock
     private ProductVersionRepository productVersionRepository;
 
+    @Mock
+    private StorageImageService storageImageService;
+
     private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     private ProductVersionService productVersionService;
 
     @BeforeEach
     public void setUpService(){
-        productVersionService = new ProductVersionServiceImp(productVersionMapper, productVersionRepository, validator);
+        productVersionService = new ProductVersionServiceImp(
+                productVersionMapper,
+                productVersionRepository,
+                validator,
+                storageImageService
+        );
     }
 
 
@@ -65,7 +74,7 @@ public class ProductVersionServiceTest {
         when(productVersionMapper.mapSaveRequest(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
-        productVersionService.save(productVersionSaveRequest);
+        productVersionService.save(productVersionSaveRequest, new MockMultipartFile("anyImg", "lorum".getBytes()));
 
         //Then
         ArgumentCaptor<ProductVersion> argumentCaptor = ArgumentCaptor.forClass(ProductVersion.class);
@@ -93,8 +102,13 @@ public class ProductVersionServiceTest {
         when(productVersionMapper.mapSaveRequest(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
-        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () ->
-                productVersionService.save(productVersionSaveRequest) );
+        InvalidDataFieldException exception = assertThrows(
+                InvalidDataFieldException.class,
+                () -> productVersionService.save(
+                        productVersionSaveRequest,
+                        new MockMultipartFile("anyImg", "lorum".getBytes())
+                )
+        );
 
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
