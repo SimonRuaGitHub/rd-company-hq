@@ -15,14 +15,14 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class OptionCategoryMapper {
+public class OptionCategoryMapper implements Mapper<OptionCategory,OptionCategoryDTO>{
 
     private final Util util;
     private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
     private final OptionsSchemaRules optionsSchemaRules;
 
-    public OptionCategory mapToOptionCategory(OptionCategoryDTO optionCategoryDTO){
+    public OptionCategory mapToEntity(OptionCategoryDTO optionCategoryDTO){
            return OptionCategory.builder()
                                .name(getNameValidated(optionCategoryDTO.getName(), optionCategoryDTO.getCompanyId()))
                                .descrip(optionCategoryDTO.getDescription())
