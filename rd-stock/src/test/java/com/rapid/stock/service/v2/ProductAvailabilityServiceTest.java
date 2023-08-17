@@ -74,7 +74,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock for mapper
         AvailabilityDTO availabilityDTO = Mockito.mock(AvailabilityDTO.class);
-        when(productAvailabilityMapper.mapToAvailability(availabilityDTO)).thenReturn(stubAvailability);
+        when(productAvailabilityMapper.mapToEntity(availabilityDTO)).thenReturn(stubAvailability);
 
         //When
         productAvailabilityService.save(availabilityDTO);
@@ -100,7 +100,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock
         AvailabilityDTO availabilityDTO = Mockito.mock(AvailabilityDTO.class);
-        when(productAvailabilityMapper.mapToAvailability(availabilityDTO)).thenReturn(stubAvailability);
+        when(productAvailabilityMapper.mapToEntity(availabilityDTO)).thenReturn(stubAvailability);
 
         //When
         InvalidDataFieldException exception = assertThrows(

@@ -1,13 +1,9 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.ProductTypeDTO;
-import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.ParentProductMapper;
 import com.rapid.stock.mapper.v2.ProductTypeMapper;
-import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductType;
-import com.rapid.stock.repository.v2.ParentProductRepository;
 import com.rapid.stock.repository.v2.ProductTypeRepository;
 import com.rapid.stock.service.ProductTypeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +49,7 @@ public class ProductTypeServiceTest {
 
         //Prepare mock
         ProductTypeDTO productTypeDTO = Mockito.mock(ProductTypeDTO.class);
-        when(productTypeMapper.mapProductType(productTypeDTO)).thenReturn(expectedProductType);
+        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
 
         //When
         productTypeService.save(productTypeDTO);
@@ -76,7 +72,7 @@ public class ProductTypeServiceTest {
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName(" ");
 
-        when(productTypeMapper.mapProductType(productTypeDTO)).thenReturn(expectedProductType);
+        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeDTO) );
@@ -94,7 +90,7 @@ public class ProductTypeServiceTest {
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName("235264");
 
-        when(productTypeMapper.mapProductType(productTypeDTO)).thenReturn(expectedProductType);
+        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeDTO) );

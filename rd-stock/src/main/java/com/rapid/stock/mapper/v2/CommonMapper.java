@@ -19,7 +19,7 @@ public class CommonMapper {
             System.out.println("Ids: "+ids);
 
             return ids.stream().map(id -> {
-                   Optional optObject = repository.findById(id);
+                   final Optional optObject = repository.findById(id);
 
                    if(optObject.isEmpty())
                        throw new NotFoundException("Entity id wasn't found: "+id);

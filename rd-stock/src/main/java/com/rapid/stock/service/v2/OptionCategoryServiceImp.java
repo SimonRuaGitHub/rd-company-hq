@@ -26,24 +26,12 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
 
     @Override
     public OptionCategory save(OptionCategoryDTO optionCategoryDTO) {
-
-        OptionCategory optionCategory = optionCategoryMapper.mapToOptionCategory(optionCategoryDTO);
-
-        Set<ConstraintViolation<Object>> violations = validator.validate(optionCategory);
-
-        if(!violations.isEmpty()) {
-            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
-        }
-
-        OptionCategory optionCategorySaved = null;
-
-        try{
-            optionCategorySaved = optionCategoryRepository.save(optionCategory);
-        }catch(Exception ex){
-            ex.printStackTrace();
-            throw new SaveException("Failed to create following option with name: "+optionCategory.getName());
-        }
-
-        return optionCategorySaved;
+        return GeneralSaveOperationService
+                .builder()
+                .mapper(optionCategoryMapper)
+                .repository(optionCategoryRepository)
+                .validator(validator)
+                .build()
+                .save(optionCategoryDTO);
     }
 }

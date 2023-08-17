@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class RackMapperSaveRequest {
+public class RackMapperSaveRequest implements Mapper<Rack, RackDto>{
 
     private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
@@ -27,7 +27,7 @@ public class RackMapperSaveRequest {
     private final RacksSchemaRules racksSchemaRules;
     private final GeneralSchemaRules generalSchemaRules;
 
-    public Rack mapRackSaveRequest(RackDto rackDto){
+    public Rack mapToEntity(RackDto rackDto){
 
         if ( racksSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
             throw new NotValidRackException("Parent rack can't contain products and racks at the same time");

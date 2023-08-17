@@ -27,25 +27,14 @@ public class ProductVersionServiceImp implements ProductVersionService{
 
     @Override
     public ProductVersion save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile multipartFile) {
-        ProductVersion productVersion = productVersionMapper.mapSaveRequest(productVersionSaveRequest);
+           storageImageService.uploadImage(multipartFile, productVersionSaveRequest.getFilename());
+           return GeneralSaveOperationService
+                   .builder()
+                   .mapper(productVersionMapper)
+                   .repository(productVersionRepository)
+                   .validator(validator)
+                   .build()
+                   .save(productVersionSaveRequest);
 
-        Set<ConstraintViolation<Object>> violations = validator.validate(productVersion);
-
-        if(!violations.isEmpty()){
-            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
-        }
-
-        ProductVersion savedProductVersion;
-
-        try {
-            storageImageService.uploadImage(multipartFile, productVersion.getFilename());
-            savedProductVersion = productVersionRepository.save(productVersion);
-        } catch (Exception ex){
-            ex.printStackTrace();
-            throw new SaveException("Failed to save following product version with version id: "
-                    + productVersion.getVersionId());
-        }
-
-        return savedProductVersion;
     }
 }

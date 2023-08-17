@@ -68,10 +68,11 @@ public class ProductVersionServiceTest {
         expectedProductVersion.setAvailable(true);
         expectedProductVersion.setCreatedAt(LocalDateTime.now());
         expectedProductVersion.setParentProduct(parentProduct);
+        expectedProductVersion.setFilename("burger.png");
 
         //Prepare mock
         ProductVersionSaveRequest productVersionSaveRequest = Mockito.mock(ProductVersionSaveRequest.class);
-        when(productVersionMapper.mapSaveRequest(productVersionSaveRequest)).thenReturn(expectedProductVersion);
+        when(productVersionMapper.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
         productVersionService.save(productVersionSaveRequest, new MockMultipartFile("anyImg", "lorum".getBytes()));
@@ -99,7 +100,7 @@ public class ProductVersionServiceTest {
 
         //Prepare mock
         ProductVersionSaveRequest productVersionSaveRequest = Mockito.mock(ProductVersionSaveRequest.class);
-        when(productVersionMapper.mapSaveRequest(productVersionSaveRequest)).thenReturn(expectedProductVersion);
+        when(productVersionMapper.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
         InvalidDataFieldException exception = assertThrows(

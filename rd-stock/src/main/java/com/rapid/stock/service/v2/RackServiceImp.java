@@ -26,25 +26,13 @@ public class RackServiceImp implements RackService {
 
     @Override
     public Rack save(RackDto rackDto) {
-
-        Rack rack = rackMapper.mapRackSaveRequest(rackDto);
-
-        Set<ConstraintViolation<Object>> violations = validator.validate(rack);
-
-        if(!violations.isEmpty()){
-            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
-        }
-
-        Rack insertedRack;
-
-        try {
-            insertedRack = rackRepository.save(rack);
-        } catch (Exception ex){
-            ex.printStackTrace();
-            throw new SaveException("Failed to save following rack with name: "+rack.getName());
-        }
-
-        return insertedRack;
+        return GeneralSaveOperationService
+                .builder()
+                .validator(validator)
+                .mapper(rackMapper)
+                .repository(rackRepository)
+                .build()
+                .save(rackDto);
     }
 
 }

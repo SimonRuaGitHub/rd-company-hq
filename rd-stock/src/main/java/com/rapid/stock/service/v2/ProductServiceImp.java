@@ -26,23 +26,12 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ParentProduct save(ParentProductSaveRequest parentProductDto) {
-        ParentProduct parentProduct = parentProductMapper.mapSaveRequest(parentProductDto);
-
-        Set<ConstraintViolation<Object>> violations = validator.validate(parentProduct);
-
-        if(!violations.isEmpty()) {
-            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
-        }
-
-        ParentProduct savedProduct = null;
-
-        try{
-            savedProduct = productRepository.save(parentProduct);
-        }catch(Exception ex){
-            ex.printStackTrace();
-            throw new SaveException("Failed to create following product with id: "+parentProduct.getId());
-        }
-
-        return savedProduct;
+        return GeneralSaveOperationService
+                .builder()
+                .mapper(parentProductMapper)
+                .repository(productRepository)
+                .validator(validator)
+                .build()
+                .save(parentProductDto);
     }
 }
