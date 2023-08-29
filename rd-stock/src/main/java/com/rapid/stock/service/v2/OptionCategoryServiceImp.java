@@ -32,6 +32,7 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
                 .mapper(optionCategoryMapper)
                 .repository(optionCategoryRepository)
                 .validator(validator)
-                .build().save(optionCategoryDTO);
+                .build()
+                .save(optionCategoryDTO);
     }
 }

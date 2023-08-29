@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class OptionCategoryMapper implements Mapper<OptionCategory,OptionCategoryDTO>{
+public class OptionCategoryMapper implements Mapper<OptionCategory, OptionCategoryDTO>{
 
     private final Util util;
     private final CommonMapper commonMapper;
