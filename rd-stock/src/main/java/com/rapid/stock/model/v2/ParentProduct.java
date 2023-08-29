@@ -49,8 +49,8 @@ public class ParentProduct{
     )
     private List<Rack> associatedRacks;
 
-    @ManyToMany
-    @JoinTable(name="PARENT_PRODUCTS_TYPES",
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name= "PARENT_PRODUCTS_TYPES",
             joinColumns = {
                     @JoinColumn(name = "parent_product_id", referencedColumnName = "id")
             },

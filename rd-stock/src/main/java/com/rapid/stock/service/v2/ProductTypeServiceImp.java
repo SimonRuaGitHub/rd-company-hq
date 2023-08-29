@@ -27,24 +27,12 @@ public class ProductTypeServiceImp implements ProductTypeService {
 
     @Override
     public ProductType save(ProductTypeDTO productTypeDTO) {
-
-        ProductType productType = productTypeMapper.mapProductType(productTypeDTO);
-
-        Set<ConstraintViolation<Object>> violations = validator.validate(productType);
-
-        if(!violations.isEmpty()){
-            throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
-        }
-
-        ProductType savedProductType;
-
-        try {
-            savedProductType = productTypeRepository.save(productType);
-        } catch (Exception ex){
-            ex.printStackTrace();
-            throw new SaveException("Failed to save following product type with name: "+ productType.getName());
-        }
-
-        return savedProductType;
+        return GeneralSaveOperationService
+                .builder()
+                .mapper(productTypeMapper)
+                .repository(productTypeRepository)
+                .validator(validator)
+                .build()
+                .save(productTypeDTO);
     }
 }

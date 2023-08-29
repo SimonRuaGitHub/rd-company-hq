@@ -25,7 +25,15 @@ public class ProductType {
     @Pattern(regexp = "^[^0-9]+$")
     private String name;
 
-    @ManyToMany(mappedBy = "productTypes", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name= "PARENT_PRODUCTS_TYPES",
+            inverseJoinColumns = {
+                    @JoinColumn(name = "parent_product_id", referencedColumnName = "id")
+            },
+            joinColumns = {
+                    @JoinColumn(name= "type_id", referencedColumnName = "id")
+            }
+    )
     private List<ParentProduct> parentProducts;
 
     @Builder
