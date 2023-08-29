@@ -26,7 +26,6 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
 
     @Override
     public OptionCategory save(OptionCategoryDTO optionCategoryDTO) {
-
         return GeneralSaveOperationService
                 .builder()
                 .mapper(optionCategoryMapper)

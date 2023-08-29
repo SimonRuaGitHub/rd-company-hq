@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ParentProductMapper {
+public class ParentProductMapper implements Mapper<ParentProduct, ParentProductSaveRequest>{
 
     private final CommonMapper commonMapper;
     private final Util util;
@@ -31,7 +31,7 @@ public class ParentProductMapper {
     private final ProductSchemaRules productSchemaRules;
     private final GeneralSchemaRules generalSchemaRules;
 
-    public ParentProduct mapSaveRequest(ParentProductSaveRequest productSaveRequest) {
+    public ParentProduct mapToEntity(ParentProductSaveRequest productSaveRequest) {
             return ParentProduct.builder()
                     .name(getValidatedName(productSaveRequest.getProductName(), productSaveRequest.getCompanyId()))
                     .description(productSaveRequest.getProductDescription())

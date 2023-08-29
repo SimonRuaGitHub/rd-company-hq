@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -57,7 +56,7 @@ public class ProductServiceTest {
         expectedParentProduct.setProductTypes(null);
         expectedParentProduct.setAssociatedRacks(null);
 
-        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -101,7 +100,7 @@ public class ProductServiceTest {
         expectedParentProduct.setProductTypes(null);
         expectedParentProduct.setAssociatedRacks(List.of(rackAlpha, rackSigma));
 
-        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -126,7 +125,7 @@ public class ProductServiceTest {
         expectedParentProduct.setCreatedAt(null);
         expectedParentProduct.setCompanyId(null);
 
-        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productService.save(ppSaveRequest) );
@@ -160,7 +159,7 @@ public class ProductServiceTest {
 
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
 
-        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -202,7 +201,7 @@ public class ProductServiceTest {
 
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
 
-        when(parentProductMapper.mapSaveRequest(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
