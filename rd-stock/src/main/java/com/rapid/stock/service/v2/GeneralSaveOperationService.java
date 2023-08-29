@@ -7,6 +7,7 @@ import lombok.Builder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Optional;
 import java.util.Set;
 
 public class GeneralSaveOperationService {
@@ -16,8 +17,8 @@ public class GeneralSaveOperationService {
     private final JpaRepository repository;
 
     public <T,G> T save(G dto) {
-        T entity = (T) mapper.mapToEntity(dto);
-        Set<ConstraintViolation<Object>> violations = validator.validate(entity);
+        final T entity = (T) mapper.mapToEntity(dto);
+        final Set<ConstraintViolation<Object>> violations = validator.validate(entity);
 
         if(!violations.isEmpty()) {
             throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
