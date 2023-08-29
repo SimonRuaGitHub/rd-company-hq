@@ -16,13 +16,13 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductVersionMapper {
+public class ProductVersionMapper implements Mapper<ProductVersion, ProductVersionSaveRequest>{
 
     private final CommonMapper commonMapper;
     private final ParentProductRepository parentProductRepository;
     private final ProductVersionSchemaRules productVersionSchemaRules;
 
-    public ProductVersion mapSaveRequest(ProductVersionSaveRequest productVersionSaveRequest) {
+    public ProductVersion mapToEntity(ProductVersionSaveRequest productVersionSaveRequest) {
 
            ParentProduct parentProduct = getParentProduct(productVersionSaveRequest.getParentProductId());
 
