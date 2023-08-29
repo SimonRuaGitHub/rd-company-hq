@@ -73,7 +73,7 @@ public class RackServiceTest {
                 .products(List.of(productAlpha, productBeta))
                 .build();
 
-        when(rackMapper.mapRackSaveRequest(any(RackDto.class))).thenReturn(expectedRack);
+        when(rackMapper.mapToEntity(any(RackDto.class))).thenReturn(expectedRack);
 
         //When
         rackService.save(rackDto);
