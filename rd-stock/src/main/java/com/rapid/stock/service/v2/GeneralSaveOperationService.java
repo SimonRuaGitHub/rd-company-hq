@@ -30,7 +30,7 @@ public class GeneralSaveOperationService {
             savedEntity = (T) repository.save(entity);
         }catch(Exception ex){
             ex.printStackTrace();
-            throw new SaveException("Failed to create following entity: "+savedEntity);
+            throw new SaveException("Failed to save information in database: "+ex.getMessage());
         }
 
         return savedEntity;
