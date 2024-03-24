@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -34,5 +36,16 @@ public class ProductTypeServiceImp implements ProductTypeService {
                 .validator(validator)
                 .build()
                 .save(productTypeDTO);
+    }
+
+    @Override
+    public List<String> getAllProductTypeNames() {
+        return productTypeRepository
+                .findAll()
+                .stream()
+                .map(ProductType::getName)
+                .collect(
+                        Collectors.toList()
+                );
     }
 }
