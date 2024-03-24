@@ -17,6 +17,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -98,4 +100,30 @@ public class ProductTypeServiceTest {
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
     }
+
+    @Test
+    public void can_return_all_product_type_names(){
+        //Given
+        ProductType productTypeA = new ProductType();
+        productTypeA.setId(Long.valueOf(1));
+        productTypeA.setName("sushi");
+
+        ProductType productTypeB = new ProductType();
+        productTypeB.setId(Long.valueOf(2));
+        productTypeB.setName("burgers");
+
+        List<ProductType> productTypes = List.of(productTypeA, productTypeB);
+
+        List<String> expectedProductTypeNames = List.of("sushi", "burgers");
+
+        //Prepare mock
+        when(productTypeRepository.findAll()).thenReturn(productTypes);
+
+        //When
+        List<String> actualProductTypeNames = productTypeService.getAllProductTypeNames();
+
+        //Then
+        assertThat(actualProductTypeNames).isEqualTo(expectedProductTypeNames);
+    }
+
 }
