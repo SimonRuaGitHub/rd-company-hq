@@ -125,5 +125,4 @@ public class ProductTypeServiceTest {
         //Then
         assertThat(actualProductTypeNames).isEqualTo(expectedProductTypeNames);
     }
-
 }

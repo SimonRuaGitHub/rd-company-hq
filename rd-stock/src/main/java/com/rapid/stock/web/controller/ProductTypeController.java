@@ -22,7 +22,7 @@ public class ProductTypeController {
            return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
+    @GetMapping(path = "/name")
     public ResponseEntity<List<String>> getAllTypeNames(){
         List<String> productTypeNames = productTypeService.getAllProductTypeNames();
         return ResponseEntity.status(HttpStatus.OK).body(productTypeNames);
