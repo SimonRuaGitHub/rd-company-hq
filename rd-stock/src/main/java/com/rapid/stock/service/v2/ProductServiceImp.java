@@ -9,10 +9,14 @@ import com.rapid.stock.repository.v2.ParentProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -33,5 +37,11 @@ public class ProductServiceImp implements ProductService {
                 .validator(validator)
                 .build()
                 .save(parentProductDto);
+    }
+
+    @Override
+    public Page<ParentProduct> getAll(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+        return productRepository.findAll(pageRequest);
     }
 }
