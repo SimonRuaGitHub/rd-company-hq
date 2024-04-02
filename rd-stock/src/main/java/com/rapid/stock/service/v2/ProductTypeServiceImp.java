@@ -48,4 +48,9 @@ public class ProductTypeServiceImp implements ProductTypeService {
                         Collectors.toList()
                 );
     }
+
+    @Override
+    public List<ProductType> getAllProductTypes() {
+        return productTypeRepository.findAll();
+    }
 }

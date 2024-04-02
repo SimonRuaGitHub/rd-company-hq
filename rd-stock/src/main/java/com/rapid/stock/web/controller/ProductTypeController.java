@@ -1,6 +1,7 @@
 package com.rapid.stock.web.controller;
 
 import com.rapid.stock.dto.ProductTypeDTO;
+import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.service.ProductTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,11 @@ public class ProductTypeController {
     public ResponseEntity<List<String>> getAllTypeNames(){
         List<String> productTypeNames = productTypeService.getAllProductTypeNames();
         return ResponseEntity.status(HttpStatus.OK).body(productTypeNames);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductType>> getAllTypes(){
+        List<ProductType> productTypes = productTypeService.getAllProductTypes();
+        return ResponseEntity.status(HttpStatus.OK).body(productTypes);
     }
 }

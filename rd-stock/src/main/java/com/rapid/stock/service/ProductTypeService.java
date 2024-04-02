@@ -9,4 +9,6 @@ public interface ProductTypeService {
     public ProductType save(ProductTypeDTO productTypeDTO);
 
     public List<String> getAllProductTypeNames();
+
+    public List<ProductType> getAllProductTypes();
 }
