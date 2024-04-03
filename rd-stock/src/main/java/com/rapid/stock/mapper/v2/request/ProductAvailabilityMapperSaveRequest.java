@@ -1,7 +1,8 @@
-package com.rapid.stock.mapper.v2;
+package com.rapid.stock.mapper.v2.request;
 
 
 import com.rapid.stock.dto.AvailabilityDTO;
+import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductAvailabilityMapper implements Mapper<Availability, AvailabilityDTO>{
+public class ProductAvailabilityMapperSaveRequest implements MapperRequest<Availability, AvailabilityDTO> {
 
     private final ProductVersionRepository productVersionRepository;
     private final CommonMapper commonMapper;

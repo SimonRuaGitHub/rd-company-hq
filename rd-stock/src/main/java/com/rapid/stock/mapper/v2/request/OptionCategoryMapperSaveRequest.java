@@ -1,6 +1,7 @@
-package com.rapid.stock.mapper.v2;
+package com.rapid.stock.mapper.v2.request;
 
 import com.rapid.stock.dto.OptionCategoryDTO;
+import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.OptionsSchemaRules;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ParentProduct;
@@ -15,7 +16,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class OptionCategoryMapper implements Mapper<OptionCategory, OptionCategoryDTO>{
+public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCategory, OptionCategoryDTO> {
 
     private final Util util;
     private final CommonMapper commonMapper;

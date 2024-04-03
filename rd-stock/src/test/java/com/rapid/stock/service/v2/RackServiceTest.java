@@ -1,7 +1,7 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.RackDto;
-import com.rapid.stock.mapper.v2.RackMapperSaveRequest;
+import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;

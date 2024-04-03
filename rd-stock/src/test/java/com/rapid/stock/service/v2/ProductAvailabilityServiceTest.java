@@ -2,7 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.AvailabilityDTO;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.ProductAvailabilityMapper;
+import com.rapid.stock.mapper.v2.request.ProductAvailabilityMapperSaveRequest;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class ProductAvailabilityServiceTest {
 
     @Mock
-    private ProductAvailabilityMapper productAvailabilityMapper;
+    private ProductAvailabilityMapperSaveRequest productAvailabilityMapper;
 
     @Mock
     private ProductAvailabilityRepository productAvailabilityRepository;

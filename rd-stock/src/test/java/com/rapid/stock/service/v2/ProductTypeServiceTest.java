@@ -2,7 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.ProductTypeDTO;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.ProductTypeMapper;
+import com.rapid.stock.mapper.v2.request.ProductTypeMapperSaveRequest;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.repository.v2.ProductTypeRepository;
 import com.rapid.stock.service.ProductTypeService;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ProductTypeServiceTest {
     @Mock
-    private ProductTypeMapper productTypeMapper;
+    private ProductTypeMapperSaveRequest productTypeMapper;
 
     @Mock
     private ProductTypeRepository productTypeRepository;

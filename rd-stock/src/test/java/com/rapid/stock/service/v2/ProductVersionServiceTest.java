@@ -2,7 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.ProductVersionMapper;
+import com.rapid.stock.mapper.v2.request.ProductVersionMapperSaveRequest;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class ProductVersionServiceTest {
     @Mock
-    private ProductVersionMapper productVersionMapper;
+    private ProductVersionMapperSaveRequest productVersionMapper;
 
     @Mock
     private ProductVersionRepository productVersionRepository;

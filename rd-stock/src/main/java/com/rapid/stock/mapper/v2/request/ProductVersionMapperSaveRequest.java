@@ -1,7 +1,8 @@
-package com.rapid.stock.mapper.v2;
+package com.rapid.stock.mapper.v2.request;
 
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.exception.NotValidProductVersionException;
+import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.ProductVersionSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductVersionMapper implements Mapper<ProductVersion, ProductVersionSaveRequest>{
+public class ProductVersionMapperSaveRequest implements MapperRequest<ProductVersion, ProductVersionSaveRequest> {
 
     private final CommonMapper commonMapper;
     private final ParentProductRepository parentProductRepository;

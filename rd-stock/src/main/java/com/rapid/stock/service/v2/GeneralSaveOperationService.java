@@ -2,18 +2,17 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.SaveException;
-import com.rapid.stock.mapper.v2.Mapper;
+import com.rapid.stock.mapper.v2.request.MapperRequest;
 import lombok.Builder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.Optional;
 import java.util.Set;
 
 public class GeneralSaveOperationService {
 
     private final Validator validator;
-    private final Mapper mapper;
+    private final MapperRequest mapper;
     private final JpaRepository repository;
 
     public <T,G> T save(G dto) {
@@ -37,7 +36,7 @@ public class GeneralSaveOperationService {
     }
 
     @Builder
-    public GeneralSaveOperationService(Validator validator, Mapper mapper, JpaRepository repository) {
+    public GeneralSaveOperationService(Validator validator, MapperRequest mapper, JpaRepository repository) {
         this.validator = validator;
         this.mapper = mapper;
         this.repository = repository;

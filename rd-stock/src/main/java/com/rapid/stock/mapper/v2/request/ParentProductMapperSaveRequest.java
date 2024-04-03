@@ -1,7 +1,8 @@
-package com.rapid.stock.mapper.v2;
+package com.rapid.stock.mapper.v2.request;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.NotValidProductException;
+import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.GeneralSchemaRules;
 import com.rapid.stock.model.rules.ProductSchemaRules;
 import com.rapid.stock.model.v2.*;
@@ -20,7 +21,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ParentProductMapper implements Mapper<ParentProduct, ParentProductSaveRequest>{
+public class ParentProductMapperSaveRequest implements MapperRequest<ParentProduct, ParentProductSaveRequest> {
 
     private final CommonMapper commonMapper;
     private final Util util;

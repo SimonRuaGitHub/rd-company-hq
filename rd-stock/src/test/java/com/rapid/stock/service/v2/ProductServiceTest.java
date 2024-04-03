@@ -2,7 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.ParentProductMapper;
+import com.rapid.stock.mapper.v2.request.ParentProductMapperSaveRequest;
 import com.rapid.stock.model.v2.*;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class ProductServiceTest {
 
     @Mock
-    private ParentProductMapper parentProductMapper;
+    private ParentProductMapperSaveRequest parentProductMapper;
 
     @Mock
     private ParentProductRepository parentProductRepository;

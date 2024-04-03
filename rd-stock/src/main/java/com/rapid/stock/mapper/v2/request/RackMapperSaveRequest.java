@@ -1,7 +1,8 @@
-package com.rapid.stock.mapper.v2;
+package com.rapid.stock.mapper.v2.request;
 
 import com.rapid.stock.dto.RackDto;
 import com.rapid.stock.exception.NotValidRackException;
+import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.GeneralSchemaRules;
 import com.rapid.stock.model.rules.RacksSchemaRules;
 import com.rapid.stock.model.v2.ParentProduct;
@@ -18,7 +19,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class RackMapperSaveRequest implements Mapper<Rack, RackDto>{
+public class RackMapperSaveRequest implements MapperRequest<Rack, RackDto> {
 
     private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;

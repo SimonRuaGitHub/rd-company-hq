@@ -2,7 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.OptionCategoryDTO;
 import com.rapid.stock.exception.InvalidDataFieldException;
-import com.rapid.stock.mapper.v2.OptionCategoryMapper;
+import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class OptionCategoryServiceTest {
 
     @Mock
-    private OptionCategoryMapper optionCategoryMapper;
+    private OptionCategoryMapperSaveRequest optionCategoryMapper;
 
     @Mock
     private OptionCategoryRepository optionCategoryRepository;
