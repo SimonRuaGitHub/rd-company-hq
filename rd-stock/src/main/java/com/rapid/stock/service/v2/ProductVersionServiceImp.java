@@ -8,6 +8,9 @@ import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,5 +39,11 @@ public class ProductVersionServiceImp implements ProductVersionService{
                    .build()
                    .save(productVersionSaveRequest);
 
+    }
+
+    @Override
+    public Page<ProductVersion> getAll(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+        return productVersionRepository.findAll(pageRequest);
     }
 }

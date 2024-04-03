@@ -8,6 +8,9 @@ import com.rapid.stock.service.v2.ProductVersionService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/product/version")
+@RequestMapping("api/products/versions")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductVersionController {
@@ -39,5 +42,14 @@ public class ProductVersionController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<Page<ProductVersion>> getAll(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        Page<ProductVersion> pageProductVersions = productVersionService.getAll(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(pageProductVersions);
     }
 }

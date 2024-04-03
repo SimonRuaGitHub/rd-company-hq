@@ -39,4 +39,4 @@ cloud:
       auto: false
     s3:
      bucket:
-       name: productimagesrd
+       name: rd-product-version-images
