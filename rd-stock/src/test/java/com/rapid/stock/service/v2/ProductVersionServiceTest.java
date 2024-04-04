@@ -3,6 +3,7 @@ package com.rapid.stock.service.v2;
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ProductVersionMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.ProductVersionMapperSaveResponse;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
@@ -29,7 +30,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class ProductVersionServiceTest {
     @Mock
-    private ProductVersionMapperSaveRequest productVersionMapper;
+    private ProductVersionMapperSaveRequest productVersionMapperSaveRequest;
+
+    @Mock
+    private ProductVersionMapperSaveResponse productVersionMapperSaveResponse;
 
     @Mock
     private ProductVersionRepository productVersionRepository;
@@ -44,7 +48,8 @@ public class ProductVersionServiceTest {
     @BeforeEach
     public void setUpService(){
         productVersionService = new ProductVersionServiceImp(
-                productVersionMapper,
+                productVersionMapperSaveRequest,
+                productVersionMapperSaveResponse,
                 productVersionRepository,
                 validator,
                 storageImageService
@@ -72,7 +77,7 @@ public class ProductVersionServiceTest {
 
         //Prepare mock
         ProductVersionSaveRequest productVersionSaveRequest = Mockito.mock(ProductVersionSaveRequest.class);
-        when(productVersionMapper.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
+        when(productVersionMapperSaveRequest.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
         productVersionService.save(productVersionSaveRequest, new MockMultipartFile("anyImg", "lorum".getBytes()));
@@ -100,7 +105,7 @@ public class ProductVersionServiceTest {
 
         //Prepare mock
         ProductVersionSaveRequest productVersionSaveRequest = Mockito.mock(ProductVersionSaveRequest.class);
-        when(productVersionMapper.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
+        when(productVersionMapperSaveRequest.mapToEntity(productVersionSaveRequest)).thenReturn(expectedProductVersion);
 
         //When
         InvalidDataFieldException exception = assertThrows(

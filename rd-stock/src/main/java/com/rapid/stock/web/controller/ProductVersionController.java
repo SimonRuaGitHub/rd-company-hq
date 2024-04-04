@@ -3,6 +3,7 @@ package com.rapid.stock.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
+import com.rapid.stock.dto.v2.ProductVersionSaveResponse;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.service.v2.ProductVersionService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class ProductVersionController {
     private final ObjectMapper mapper;
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<ProductVersion> saveProductVersion(
+    public ResponseEntity<ProductVersionSaveResponse> saveProductVersion(
             @RequestParam(value = "product-version") String jsonProductVersion,
             @RequestParam(value = "product-image") MultipartFile image
     ) {
@@ -37,8 +38,8 @@ public class ProductVersionController {
                             jsonProductVersion,
                             ProductVersionSaveRequest.class
                     );
-            ProductVersion productVersion = productVersionService.save(productVersionSaveRequest, image);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            ProductVersionSaveResponse pvSaveResponse = productVersionService.save(productVersionSaveRequest, image);
+            return ResponseEntity.status(HttpStatus.CREATED).body(pvSaveResponse);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
