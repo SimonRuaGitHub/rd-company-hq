@@ -1,5 +1,6 @@
 package com.rapid.stock.model.v2;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
@@ -38,6 +39,7 @@ public class Rack {
                     @JoinColumn(name = "product_id", referencedColumnName = "id")
             }
     )
+    @JsonBackReference
     private List<ParentProduct> products;
 
     @OneToMany(fetch = FetchType.LAZY)

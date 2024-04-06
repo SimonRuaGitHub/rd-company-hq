@@ -49,6 +49,7 @@ public class ParentProduct{
             @JoinColumn(name = "rack_id", referencedColumnName = "id")
        }
     )
+    @JsonManagedReference
     private List<Rack> associatedRacks;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
