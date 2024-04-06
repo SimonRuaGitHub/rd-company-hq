@@ -7,6 +7,8 @@ import com.rapid.stock.repository.v2.RackRepository;
 import com.rapid.stock.service.RackService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
@@ -31,4 +33,9 @@ public class RackServiceImp implements RackService {
                 .save(rackDto);
     }
 
+    @Override
+    public Page<Rack> getAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return rackRepository.findAll(pageRequest);
+    }
 }

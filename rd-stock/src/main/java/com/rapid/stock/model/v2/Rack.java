@@ -1,6 +1,7 @@
 package com.rapid.stock.model.v2;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
@@ -44,10 +45,12 @@ public class Rack {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_rack_id", referencedColumnName = "id")
+    @JsonManagedReference
     private List<Rack> childRacks;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_rack_id", referencedColumnName = "id")
+    @JsonBackReference
     private Rack parentRack;
 
     @Builder

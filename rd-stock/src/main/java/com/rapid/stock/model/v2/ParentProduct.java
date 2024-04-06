@@ -61,6 +61,7 @@ public class ParentProduct{
                     @JoinColumn(name= "type_id", referencedColumnName = "id")
             }
     )
+    @JsonManagedReference
     private List<ProductType> productTypes;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -72,6 +73,7 @@ public class ParentProduct{
                     @JoinColumn(name = "category_id", referencedColumnName = "id")
             }
     )
+    @JsonManagedReference
     private List<OptionCategory> optionCategories;
 
     @Builder
