@@ -1,5 +1,6 @@
 package com.rapid.stock.model.v2;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
@@ -31,9 +32,10 @@ public class Availability {
        @NotNull(message = "createdAt can't be null")
        private LocalDateTime createdAt;
 
-      @ManyToOne
-      @JoinColumn(name = "product_versions_id", referencedColumnName = "id")
-      private ProductVersion productVersion;
+       @ManyToOne
+       @JoinColumn(name = "product_versions_id", referencedColumnName = "id")
+       @JsonBackReference
+       private ProductVersion productVersion;
 
        @Builder
        public Availability(String id,

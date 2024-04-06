@@ -1,5 +1,7 @@
 package com.rapid.stock.model.v2;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
@@ -43,10 +45,12 @@ public class ProductVersion{
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JsonBackReference
     private ParentProduct parentProduct;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_versions_id", referencedColumnName = "id")
+    @JsonManagedReference
     private List<Availability> productAvailabilities;
 
     @NotBlank(message = "filename can't be blank")

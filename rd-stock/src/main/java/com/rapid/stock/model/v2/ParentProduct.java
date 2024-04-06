@@ -1,5 +1,6 @@
 package com.rapid.stock.model.v2;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.context.annotation.Profile;
 
@@ -36,6 +37,7 @@ public class ParentProduct{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JsonManagedReference
     private List<ProductVersion> productVersions;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
