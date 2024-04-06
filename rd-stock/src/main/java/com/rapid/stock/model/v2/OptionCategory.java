@@ -1,5 +1,6 @@
 package com.rapid.stock.model.v2;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,6 +39,7 @@ public class OptionCategory {
                     @JoinColumn(name = "product_id", referencedColumnName = "id")
             }
     )
+    @JsonBackReference
     private List<ParentProduct> parentProducts;
 
     @Builder

@@ -6,6 +6,8 @@ import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
@@ -28,5 +30,11 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
                 .validator(validator)
                 .build()
                 .save(optionCategoryDTO);
+    }
+
+    @Override
+    public Page<OptionCategory> getAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return optionCategoryRepository.findAll(pageRequest);
     }
 }
