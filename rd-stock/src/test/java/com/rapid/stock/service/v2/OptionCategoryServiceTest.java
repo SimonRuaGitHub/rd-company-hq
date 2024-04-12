@@ -1,8 +1,10 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.OptionCategoryDTO;
+import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
@@ -29,7 +31,10 @@ import static org.mockito.Mockito.when;
 public class OptionCategoryServiceTest {
 
     @Mock
-    private OptionCategoryMapperSaveRequest optionCategoryMapper;
+    private OptionCategoryMapperSaveRequest optionCategoryMapperSaveRequest;
+
+    private final OptionCategoryMapperSaveResponse optionCategoryMapperSaveResponse =
+            new OptionCategoryMapperSaveResponse();
 
     @Mock
     private OptionCategoryRepository optionCategoryRepository;
@@ -40,7 +45,12 @@ public class OptionCategoryServiceTest {
 
     @BeforeEach
     public void setUpService(){
-        optionCategoryService = new OptionCategoryServiceImp(optionCategoryMapper, validator, optionCategoryRepository);
+        optionCategoryService = new OptionCategoryServiceImp(
+                optionCategoryMapperSaveRequest,
+                optionCategoryMapperSaveResponse,
+                validator,
+                optionCategoryRepository
+        );
     }
 
     @Test
@@ -54,7 +64,7 @@ public class OptionCategoryServiceTest {
 
         //prepare mock for mapper
         OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapper.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
 
         //When
         optionCategoryService.save(optionCategoryDTO);
@@ -79,7 +89,7 @@ public class OptionCategoryServiceTest {
 
         //prepare mock for mapper
         OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapper.mapToEntity(optionCategoryDTO)).thenReturn(optionCategory);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(optionCategory);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionCategoryService.save(optionCategoryDTO) );
@@ -122,7 +132,7 @@ public class OptionCategoryServiceTest {
 
         //prepare mock for mapper
         OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapper.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
 
         //When
         optionCategoryService.save(optionCategoryDTO);

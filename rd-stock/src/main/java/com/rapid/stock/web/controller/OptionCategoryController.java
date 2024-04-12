@@ -1,6 +1,8 @@
 package com.rapid.stock.web.controller;
 
 import com.rapid.stock.dto.OptionCategoryDTO;
+import com.rapid.stock.dto.OptionCategorySaveResponse;
+import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.service.v2.OptionCategoryService;
 import lombok.AllArgsConstructor;
@@ -17,9 +19,9 @@ public class OptionCategoryController {
     private final OptionCategoryService optionCategoryService;
 
     @PostMapping
-    public ResponseEntity<Void> saveOptionCategory(@RequestBody OptionCategoryDTO optionCategoryDTO) {
-           optionCategoryService.save(optionCategoryDTO);
-           return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<OptionCategorySaveResponse> saveOptionCategory(@RequestBody OptionCategoryDTO optionCategoryDTO) {
+           OptionCategorySaveResponse optionCategorySaveResponse = optionCategoryService.save(optionCategoryDTO);
+           return ResponseEntity.status(HttpStatus.CREATED).body(optionCategorySaveResponse);
     }
 
     @GetMapping(params = {"page", "size"})

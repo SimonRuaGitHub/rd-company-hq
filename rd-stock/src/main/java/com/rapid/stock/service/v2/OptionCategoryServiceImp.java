@@ -1,7 +1,9 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.OptionCategoryDTO;
+import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
@@ -17,19 +19,22 @@ import javax.validation.Validator;
 @Profile("rational-db")
 public class OptionCategoryServiceImp implements OptionCategoryService {
 
-    private final OptionCategoryMapperSaveRequest optionCategoryMapper;
+    private final OptionCategoryMapperSaveRequest optionCategoryMapperSaveRequest;
+    private final OptionCategoryMapperSaveResponse optionCategoryMapperSaveResponse;
     private final Validator validator;
     private final OptionCategoryRepository optionCategoryRepository;
 
     @Override
-    public OptionCategory save(OptionCategoryDTO optionCategoryDTO) {
-        return GeneralSaveOperationService
+    public OptionCategorySaveResponse save(OptionCategoryDTO optionCategoryDTO) {
+        OptionCategory optionCategory = GeneralSaveOperationService
                 .builder()
-                .mapper(optionCategoryMapper)
+                .mapper(optionCategoryMapperSaveRequest)
                 .repository(optionCategoryRepository)
                 .validator(validator)
                 .build()
                 .save(optionCategoryDTO);
+
+        return optionCategoryMapperSaveResponse.map(optionCategory);
     }
 
     @Override
