@@ -1,7 +1,7 @@
 package com.rapid.stock.web.controller;
 
-import com.rapid.stock.dto.RackDto;
-import com.rapid.stock.model.v2.ProductVersion;
+import com.rapid.stock.dto.RackSaveRequest;
+import com.rapid.stock.dto.RackSaveResponse;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.service.RackService;
 import lombok.AllArgsConstructor;
@@ -18,9 +18,9 @@ public class RackController {
     private final RackService rackService;
 
     @PostMapping
-    public ResponseEntity<Void> saveRack(@RequestBody RackDto rackDto){
-           rackService.save(rackDto);
-           return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<RackSaveResponse> saveRack(@RequestBody RackSaveRequest rackSaveRequest){
+           RackSaveResponse rackSaveResponse = rackService.save(rackSaveRequest);
+           return ResponseEntity.status(HttpStatus.CREATED).body(rackSaveResponse);
     }
 
     @GetMapping(params = {"page", "size"})

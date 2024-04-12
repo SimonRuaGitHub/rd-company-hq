@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class GeneralSaveOperationService {
 
@@ -23,16 +24,12 @@ public class GeneralSaveOperationService {
             throw new InvalidDataFieldException("Some of the fields have invalid data or no data at all", violations);
         }
 
-        T savedEntity = null;
-
         try{
-            savedEntity = (T) repository.save(entity);
+            return (T) repository.save(entity);
         }catch(Exception ex){
             ex.printStackTrace();
             throw new SaveException("Failed to save information in database: "+ex.getMessage());
         }
-
-        return savedEntity;
     }
 
     @Builder

@@ -1,7 +1,9 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.RackSaveRequest;
+import com.rapid.stock.dto.RackSaveResponse;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.RackMapperSaveResponse;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;
 import com.rapid.stock.service.RackService;
@@ -19,20 +21,23 @@ import javax.validation.Validator;
 public class RackServiceImp implements RackService {
 
     private final RackRepository rackRepository;
-    private final RackMapperSaveRequest rackMapper;
+    private final RackMapperSaveRequest rackMapperSaveRequest;
+    private final RackMapperSaveResponse rackMapperSaveResponse;
     private final Validator validator;
 
     @Override
-    public Rack save(RackSaveRequest rackSaveRequest) {
+    public RackSaveResponse save(RackSaveRequest rackSaveRequest) {
         Rack rack = GeneralSaveOperationService
                     .builder()
                     .validator(validator)
-                    .mapper(rackMapper)
+                    .mapper(rackMapperSaveRequest)
                     .repository(rackRepository)
                     .build()
                     .save(rackSaveRequest);
 
-      return rack;
+        RackSaveResponse rackSaveResponse = rackMapperSaveResponse.map(rack);
+
+        return rackSaveResponse;
     }
 
     @Override
