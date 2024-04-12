@@ -1,6 +1,5 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.OptionCategoryDTO;
 import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;

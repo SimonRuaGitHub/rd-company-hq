@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.ProductTypeDTO;
+import com.rapid.stock.dto.ProductTypeSaveRequest;
 import com.rapid.stock.mapper.v2.request.ProductTypeMapperSaveRequest;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.repository.v2.ProductTypeRepository;
@@ -24,14 +24,14 @@ public class ProductTypeServiceImp implements ProductTypeService {
     private Validator validator;
 
     @Override
-    public ProductType save(ProductTypeDTO productTypeDTO) {
+    public ProductType save(ProductTypeSaveRequest productTypeSaveRequest) {
         return GeneralSaveOperationService
                 .builder()
                 .mapper(productTypeMapper)
                 .repository(productTypeRepository)
                 .validator(validator)
                 .build()
-                .save(productTypeDTO);
+                .save(productTypeSaveRequest);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.rapid.stock.mapper.v2.request;
 
-import com.rapid.stock.dto.OptionCategoryDTO;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.OptionsSchemaRules;
 import com.rapid.stock.model.v2.OptionCategory;

@@ -1,8 +1,6 @@
 package com.rapid.stock.web.controller;
 
-import com.rapid.stock.dto.OptionCategoryDTO;
 import com.rapid.stock.dto.OptionCategorySaveResponse;
-import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.service.v2.OptionCategoryService;
 import lombok.AllArgsConstructor;

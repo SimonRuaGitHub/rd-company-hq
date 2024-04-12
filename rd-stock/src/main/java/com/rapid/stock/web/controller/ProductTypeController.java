@@ -1,6 +1,6 @@
 package com.rapid.stock.web.controller;
 
-import com.rapid.stock.dto.ProductTypeDTO;
+import com.rapid.stock.dto.ProductTypeSaveRequest;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.service.ProductTypeService;
 import lombok.AllArgsConstructor;
@@ -18,8 +18,8 @@ public class ProductTypeController {
     private final ProductTypeService productTypeService;
 
     @PostMapping
-    public ResponseEntity<Void> saveType(@RequestBody ProductTypeDTO productTypeDTO){
-           productTypeService.save(productTypeDTO);
+    public ResponseEntity<Void> saveType(@RequestBody ProductTypeSaveRequest productTypeSaveRequest){
+           productTypeService.save(productTypeSaveRequest);
            return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

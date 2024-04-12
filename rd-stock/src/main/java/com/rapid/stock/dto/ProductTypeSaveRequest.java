@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProductTypeDTO {
+public class ProductTypeSaveRequest {
     private String name;
     private List<String> parentProductIds;
 }

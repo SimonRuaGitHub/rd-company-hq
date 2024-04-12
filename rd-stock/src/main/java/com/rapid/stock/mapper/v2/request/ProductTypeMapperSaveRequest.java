@@ -1,6 +1,6 @@
 package com.rapid.stock.mapper.v2.request;
 
-import com.rapid.stock.dto.ProductTypeDTO;
+import com.rapid.stock.dto.ProductTypeSaveRequest;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductType;
@@ -15,16 +15,16 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductTypeMapperSaveRequest implements MapperRequest<ProductType, ProductTypeDTO> {
+public class ProductTypeMapperSaveRequest implements MapperRequest<ProductType, ProductTypeSaveRequest> {
 
     private final CommonMapper commonMapper;
     private final Util util;
     private final ParentProductRepository parentProductRepository;
 
-    public ProductType mapToEntity(ProductTypeDTO productTypeDTO){
+    public ProductType mapToEntity(ProductTypeSaveRequest productTypeSaveRequest){
            return ProductType.builder()
-                             .name(productTypeDTO.getName())
-                             .parentProducts(getParentProducts(productTypeDTO.getParentProductIds()))
+                             .name(productTypeSaveRequest.getName())
+                             .parentProducts(getParentProducts(productTypeSaveRequest.getParentProductIds()))
                              .build();
     }
 

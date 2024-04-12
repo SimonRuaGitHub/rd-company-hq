@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.ProductTypeDTO;
+import com.rapid.stock.dto.ProductTypeSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ProductTypeMapperSaveRequest;
 import com.rapid.stock.model.v2.ProductType;
@@ -50,11 +50,11 @@ public class ProductTypeServiceTest {
         expectedProductType.setName("burgers");
 
         //Prepare mock
-        ProductTypeDTO productTypeDTO = Mockito.mock(ProductTypeDTO.class);
-        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
+        ProductTypeSaveRequest productTypeSaveRequest = Mockito.mock(ProductTypeSaveRequest.class);
+        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
-        productTypeService.save(productTypeDTO);
+        productTypeService.save(productTypeSaveRequest);
 
         //Then
         ArgumentCaptor<ProductType> prodTypeArgumentCaptor = ArgumentCaptor.forClass(ProductType.class);
@@ -68,16 +68,16 @@ public class ProductTypeServiceTest {
     @Test
     public void cannot_save_product_type_with_blank_name(){
         //Given
-        ProductTypeDTO productTypeDTO = Mockito.mock(ProductTypeDTO.class);
+        ProductTypeSaveRequest productTypeSaveRequest = Mockito.mock(ProductTypeSaveRequest.class);
 
         ProductType expectedProductType = new ProductType();
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName(" ");
 
-        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
+        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
-        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeDTO) );
+        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeSaveRequest) );
 
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
@@ -86,16 +86,16 @@ public class ProductTypeServiceTest {
     @Test
     public void cannot_save_product_type_with_numeric_name(){
         //Given
-        ProductTypeDTO productTypeDTO = Mockito.mock(ProductTypeDTO.class);
+        ProductTypeSaveRequest productTypeSaveRequest = Mockito.mock(ProductTypeSaveRequest.class);
 
         ProductType expectedProductType = new ProductType();
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName("235264");
 
-        when(productTypeMapper.mapToEntity(productTypeDTO)).thenReturn(expectedProductType);
+        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
-        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeDTO) );
+        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeSaveRequest) );
 
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
