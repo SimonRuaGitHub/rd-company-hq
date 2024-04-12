@@ -1,6 +1,6 @@
 package com.rapid.stock.mapper.v1;
 
-import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.dto.RackSaveRequest;
 import com.rapid.stock.exception.DuplicatedReferenceException;
 import com.rapid.stock.exception.NotValidRackException;
 import com.rapid.stock.model.v1.Rack;
@@ -20,20 +20,20 @@ public class RackMapperSaveRequest {
     private final RacksSchemaRules rackSchemaRules;
     private final GeneralSchemaRules generalSchemaRules;
 
-    public Rack mapRackSaveRequest(RackDto rackDto){
+    public Rack mapRackSaveRequest(RackSaveRequest rackSaveRequest){
 
-        if (rackDto.getProductIds() != null && generalSchemaRules.repeatedIDsInsideCollection(rackDto.getProductIds()))
+        if (rackSaveRequest.getProductIds() != null && generalSchemaRules.repeatedIDsInsideCollection(rackSaveRequest.getProductIds()))
             throw new DuplicatedReferenceException("Product ids can't be repeated");
 
-        if ( rackSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
+        if ( rackSchemaRules.noParentRacksWithProducts(rackSaveRequest.getRacksIds(), rackSaveRequest.getProductIds()) )
              throw new NotValidRackException("Parent rack can't contain products and racks at the same time");
 
            Rack rack = Rack.builder()
-                           .name(rackDto.getName())
-                           .description(rackDto.getDescription())
-                           .products(parentProductMapper.mapToParentProductForRacks(rackDto.getProductIds()))
-                           .racks(rackMapperList.mapToRackEntities(rackDto.getRacksIds()))
-                           .companyId(rackDto.getCompanyId())
+                           .name(rackSaveRequest.getName())
+                           .description(rackSaveRequest.getDescription())
+                           .products(parentProductMapper.mapToParentProductForRacks(rackSaveRequest.getProductIds()))
+                           .racks(rackMapperList.mapToRackEntities(rackSaveRequest.getRacksIds()))
+                           .companyId(rackSaveRequest.getCompanyId())
                            .build();
            return rack;
     }

@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.dto.RackSaveRequest;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;
@@ -23,14 +23,16 @@ public class RackServiceImp implements RackService {
     private final Validator validator;
 
     @Override
-    public Rack save(RackDto rackDto) {
-        return GeneralSaveOperationService
-                .builder()
-                .validator(validator)
-                .mapper(rackMapper)
-                .repository(rackRepository)
-                .build()
-                .save(rackDto);
+    public Rack save(RackSaveRequest rackSaveRequest) {
+        Rack rack = GeneralSaveOperationService
+                    .builder()
+                    .validator(validator)
+                    .mapper(rackMapper)
+                    .repository(rackRepository)
+                    .build()
+                    .save(rackSaveRequest);
+
+      return rack;
     }
 
     @Override

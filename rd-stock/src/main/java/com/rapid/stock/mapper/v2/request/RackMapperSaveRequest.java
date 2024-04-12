@@ -1,6 +1,6 @@
 package com.rapid.stock.mapper.v2.request;
 
-import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.dto.RackSaveRequest;
 import com.rapid.stock.exception.NotValidRackException;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.GeneralSchemaRules;
@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class RackMapperSaveRequest implements MapperRequest<Rack, RackDto> {
+public class RackMapperSaveRequest implements MapperRequest<Rack, RackSaveRequest> {
 
     private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
@@ -28,18 +28,18 @@ public class RackMapperSaveRequest implements MapperRequest<Rack, RackDto> {
     private final RacksSchemaRules racksSchemaRules;
     private final GeneralSchemaRules generalSchemaRules;
 
-    public Rack mapToEntity(RackDto rackDto){
+    public Rack mapToEntity(RackSaveRequest rackSaveRequest){
 
-        if ( racksSchemaRules.noParentRacksWithProducts(rackDto.getRacksIds(), rackDto.getProductIds()) )
+        if ( racksSchemaRules.noParentRacksWithProducts(rackSaveRequest.getRacksIds(), rackSaveRequest.getProductIds()) )
             throw new NotValidRackException("Parent rack can't contain products and racks at the same time");
 
            return Rack.builder()
-                      .name(getRackNameValidated(rackDto.getName(), rackDto.getCompanyId()))
-                      .description(rackDto.getDescription())
-                      .childRacks(getChildRacks(rackDto.getRacksIds(), rackDto.getCompanyId()))
-                      .companyId(rackDto.getCompanyId())
-                      .parentRack(getParentRack(rackDto.getParentRackId()))
-                      .products(getProducts(rackDto.getProductIds(), rackDto.getCompanyId()))
+                      .name(getRackNameValidated(rackSaveRequest.getName(), rackSaveRequest.getCompanyId()))
+                      .description(rackSaveRequest.getDescription())
+                      .childRacks(getChildRacks(rackSaveRequest.getRacksIds(), rackSaveRequest.getCompanyId()))
+                      .companyId(rackSaveRequest.getCompanyId())
+                      .parentRack(getParentRack(rackSaveRequest.getParentRackId()))
+                      .products(getProducts(rackSaveRequest.getProductIds(), rackSaveRequest.getCompanyId()))
                       .build();
     }
 

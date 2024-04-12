@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RackDto {
+public class RackSaveRequest {
     private String name;
     private String description;
     private List<String> productIds;

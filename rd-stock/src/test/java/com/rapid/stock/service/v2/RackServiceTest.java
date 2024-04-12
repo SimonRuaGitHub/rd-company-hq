@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.RackDto;
+import com.rapid.stock.dto.RackSaveRequest;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
@@ -44,7 +44,7 @@ public class RackServiceTest {
     @Test
     public void can_create_rack_with_associated_products(){
         //Given
-        RackDto rackDto = Mockito.mock(RackDto.class);
+        RackSaveRequest rackSaveRequest = Mockito.mock(RackSaveRequest.class);
         ParentProduct productAlpha = new ParentProduct();
         productAlpha.setId(Long.valueOf(235235));
         productAlpha.setName("product_name alpha");
@@ -73,10 +73,10 @@ public class RackServiceTest {
                 .products(List.of(productAlpha, productBeta))
                 .build();
 
-        when(rackMapper.mapToEntity(any(RackDto.class))).thenReturn(expectedRack);
+        when(rackMapper.mapToEntity(any(RackSaveRequest.class))).thenReturn(expectedRack);
 
         //When
-        rackService.save(rackDto);
+        rackService.save(rackSaveRequest);
 
         //Then
         ArgumentCaptor<Rack> rackArgumentCaptor = ArgumentCaptor.forClass(Rack.class);
