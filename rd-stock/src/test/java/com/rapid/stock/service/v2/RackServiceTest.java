@@ -1,7 +1,9 @@
 package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.RackSaveRequest;
+import com.rapid.stock.dto.RackSaveResponse;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.RackMapperSaveResponse;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;
@@ -20,8 +22,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RackServiceTest {
@@ -30,7 +31,9 @@ public class RackServiceTest {
     private RackRepository rackRepository;
 
     @Mock
-    private RackMapperSaveRequest rackMapper;
+    private RackMapperSaveRequest rackMapperSaveRequest;
+
+    private final RackMapperSaveResponse rackSaveMapperSaveResponse = new RackMapperSaveResponse();
 
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
@@ -38,7 +41,12 @@ public class RackServiceTest {
 
     @BeforeEach
     public void setUpServiceService() {
-        this.rackService = new RackServiceImp(rackRepository, rackMapper, validator);
+        this.rackService = new RackServiceImp(
+                rackRepository,
+                rackMapperSaveRequest,
+                rackSaveMapperSaveResponse,
+                validator
+        );
     }
 
     @Test
@@ -65,7 +73,7 @@ public class RackServiceTest {
         productBeta.setProductTypes(null);
         productBeta.setAssociatedRacks(null);
 
-        Rack expectedRack = Rack.builder()
+        Rack expectedPreviousToSaveRack = Rack.builder()
                 .companyId("02353")
                 .name("Beers")
                 .description("Duff beers rack")
@@ -73,17 +81,37 @@ public class RackServiceTest {
                 .products(List.of(productAlpha, productBeta))
                 .build();
 
-        when(rackMapper.mapToEntity(any(RackSaveRequest.class))).thenReturn(expectedRack);
+        Rack expectedSavedRack = Rack
+                .builder()
+                .companyId("02353")
+                .name("Beers")
+                .description("Duff beers rack")
+                .childRacks(null)
+                .products(List.of(productAlpha, productBeta))
+                .build();
+        expectedSavedRack.setId(123L);
+
+        RackSaveResponse expectedRackSaveResponse = RackSaveResponse
+                .builder()
+                .id(expectedSavedRack.getId())
+                .name(expectedSavedRack.getName())
+                .companyId(expectedSavedRack.getCompanyId())
+                .build();
+
+        when(rackMapperSaveRequest.mapToEntity(any(RackSaveRequest.class))).thenReturn(expectedPreviousToSaveRack);
+        when(rackRepository.save(any(Rack.class))).thenReturn(expectedSavedRack);
 
         //When
-        rackService.save(rackSaveRequest);
+        RackSaveResponse actualRackSaveResponse = rackService.save(rackSaveRequest);
 
         //Then
+        //Rack to save is equal to the Rack mapped by save request mapper
         ArgumentCaptor<Rack> rackArgumentCaptor = ArgumentCaptor.forClass(Rack.class);
         verify(rackRepository).save(rackArgumentCaptor.capture());
-
         Rack capturedRack = rackArgumentCaptor.getValue();
+        assertThat(capturedRack).isEqualTo(expectedPreviousToSaveRack);
 
-        assertThat(capturedRack).isEqualTo(expectedRack);
+        //Rack save response is the expected one
+        assertThat(actualRackSaveResponse).isEqualTo(expectedRackSaveResponse);
     }
 }
