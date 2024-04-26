@@ -1,6 +1,7 @@
 package com.rapid.stock.web.controller;
 
 import com.rapid.stock.dto.AvailabilitySaveRequest;
+import com.rapid.stock.dto.AvailabilitySaveResponse;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.service.v2.ProductAvailabilityService;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,9 @@ public class ProductAvailabilityController {
     private final ProductAvailabilityService productAvailabilityService;
 
     @PostMapping
-    public ResponseEntity<Void> saveProductAvailability(@RequestBody AvailabilitySaveRequest availabilitySaveRequest) {
-        productAvailabilityService.save(availabilitySaveRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<AvailabilitySaveResponse> saveProductAvailability(@RequestBody AvailabilitySaveRequest availabilitySaveRequest) {
+        AvailabilitySaveResponse availabilitySaveResponse = productAvailabilityService.save(availabilitySaveRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(availabilitySaveResponse);
     }
 
     @GetMapping(params = {"page", "size"})
