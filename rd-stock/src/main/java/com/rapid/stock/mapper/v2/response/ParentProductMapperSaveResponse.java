@@ -12,6 +12,7 @@ public class ParentProductMapperSaveResponse {
                 .builder()
                 .id(parentProduct.getId())
                 .name(parentProduct.getName())
+                .companyId(parentProduct.getCompanyId())
                 .build();
     }
 }

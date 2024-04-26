@@ -10,4 +10,5 @@ import java.time.LocalDateTime;
 public class ParentProductSaveResponse {
     private Long id;
     private String name;
+    private String companyId;
 }
