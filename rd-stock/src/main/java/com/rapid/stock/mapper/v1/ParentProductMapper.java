@@ -1,7 +1,7 @@
 package com.rapid.stock.mapper.v1;
 
 import com.rapid.stock.dto.v1.ParentProductSaveRequest;
-import com.rapid.stock.dto.AvailabilityDTO;
+import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.dto.ProductVersionSaveRequest;
 import com.rapid.stock.exception.DuplicatedReferenceException;
 import com.rapid.stock.model.v1.Availability;
@@ -60,9 +60,9 @@ public class ParentProductMapper {
                                       .collect(Collectors.toList());
        }
 
-       public List<Availability> mapToProductAvailabilityList(List<AvailabilityDTO> productAvailabilityDTOList){
-              if(productAvailabilityDTOList != null && !productAvailabilityDTOList.isEmpty())
-                     return productAvailabilityDTOList.stream()
+       public List<Availability> mapToProductAvailabilityList(List<AvailabilitySaveRequest> productAvailabilitySaveRequestList){
+              if(productAvailabilitySaveRequestList != null && !productAvailabilitySaveRequestList.isEmpty())
+                     return productAvailabilitySaveRequestList.stream()
                                                       .map(prodAvailDto ->
                                                                Availability.builder()
                                                                .companySiteID(prodAvailDto.getCompanySiteID())

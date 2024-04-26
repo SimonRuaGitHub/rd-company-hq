@@ -3,7 +3,7 @@ package com.rapid.stock.dto;
 import lombok.Data;
 
 @Data
-public class AvailabilityDTO {
+public class AvailabilitySaveRequest {
     private String companySiteID;
     private Integer quantityAvailable;
     private Long productVersionId;

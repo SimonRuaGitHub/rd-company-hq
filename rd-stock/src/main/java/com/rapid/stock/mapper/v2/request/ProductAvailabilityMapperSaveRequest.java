@@ -1,7 +1,7 @@
 package com.rapid.stock.mapper.v2.request;
 
 
-import com.rapid.stock.dto.AvailabilityDTO;
+import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -16,18 +16,18 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 @Profile("rational-db")
-public class ProductAvailabilityMapperSaveRequest implements MapperRequest<Availability, AvailabilityDTO> {
+public class ProductAvailabilityMapperSaveRequest implements MapperRequest<Availability, AvailabilitySaveRequest> {
 
     private final ProductVersionRepository productVersionRepository;
     private final CommonMapper commonMapper;
 
-    public Availability mapToEntity(AvailabilityDTO availabilityDTO) {
+    public Availability mapToEntity(AvailabilitySaveRequest availabilitySaveRequest) {
           return Availability.builder()
                   .id(UUID.randomUUID().toString())
-                  .companySiteID(availabilityDTO.getCompanySiteID())
-                  .quantityAvailable(availabilityDTO.getQuantityAvailable())
+                  .companySiteID(availabilitySaveRequest.getCompanySiteID())
+                  .quantityAvailable(availabilitySaveRequest.getQuantityAvailable())
                   .createdAt(LocalDateTime.now())
-                  .productVersion( getProductVersion( availabilityDTO.getProductVersionId() ) )
+                  .productVersion( getProductVersion( availabilitySaveRequest.getProductVersionId() ) )
                   .build();
     }
 

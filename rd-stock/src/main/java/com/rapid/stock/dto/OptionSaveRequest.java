@@ -9,5 +9,5 @@ public class OptionSaveRequest {
     private int id;
     private String name;
     private Double price;
-    private List<AvailabilityDTO> optionAvailabilities;
+    private List<AvailabilitySaveRequest> optionAvailabilities;
 }

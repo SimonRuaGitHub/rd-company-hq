@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.AvailabilityDTO;
+import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.mapper.v2.request.ProductAvailabilityMapperSaveRequest;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.repository.v2.ProductAvailabilityRepository;
@@ -22,14 +22,14 @@ public class ProductAvailabilityServiceImp implements ProductAvailabilityService
     private final ProductAvailabilityRepository productAvailabilityRepository;
 
     @Override
-    public Availability save(AvailabilityDTO availabilityDTO) {
+    public Availability save(AvailabilitySaveRequest availabilitySaveRequest) {
         return GeneralSaveOperationService
                 .builder()
                 .mapper(productAvailabilityMapper)
                 .repository(productAvailabilityRepository)
                 .validator(validator)
                 .build()
-                .save(availabilityDTO);
+                .save(availabilitySaveRequest);
     }
 
     @Override

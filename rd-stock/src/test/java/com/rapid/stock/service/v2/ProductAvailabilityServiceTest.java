@@ -1,6 +1,6 @@
 package com.rapid.stock.service.v2;
 
-import com.rapid.stock.dto.AvailabilityDTO;
+import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ProductAvailabilityMapperSaveRequest;
 import com.rapid.stock.model.v2.Availability;
@@ -73,11 +73,11 @@ public class ProductAvailabilityServiceTest {
                 .build();
 
         //Prepare mock for mapper
-        AvailabilityDTO availabilityDTO = Mockito.mock(AvailabilityDTO.class);
-        when(productAvailabilityMapper.mapToEntity(availabilityDTO)).thenReturn(stubAvailability);
+        AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
+        when(productAvailabilityMapper.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
-        productAvailabilityService.save(availabilityDTO);
+        productAvailabilityService.save(availabilitySaveRequest);
 
         //Then
         ArgumentCaptor<Availability> argumentCaptor = ArgumentCaptor.forClass(Availability.class);
@@ -99,13 +99,13 @@ public class ProductAvailabilityServiceTest {
                 .build();
 
         //Prepare mock
-        AvailabilityDTO availabilityDTO = Mockito.mock(AvailabilityDTO.class);
-        when(productAvailabilityMapper.mapToEntity(availabilityDTO)).thenReturn(stubAvailability);
+        AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
+        when(productAvailabilityMapper.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
         InvalidDataFieldException exception = assertThrows(
                 InvalidDataFieldException.class,
-                () -> productAvailabilityService.save(availabilityDTO)
+                () -> productAvailabilityService.save(availabilitySaveRequest)
         );
 
         //Then
