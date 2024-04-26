@@ -3,7 +3,6 @@ package com.rapid.stock.service.v1;
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.SaveException;
-import com.rapid.stock.mapper.v1.OptionMapper;
 import com.rapid.stock.model.v1.OptionCategory;
 import com.rapid.stock.repository.v1.OptionCategoryRepository;
 import com.rapid.stock.service.OptionService;

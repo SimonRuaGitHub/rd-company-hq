@@ -1,5 +1,6 @@
 package com.rapid.stock.web.controller;
 
+import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.service.v2.OptionCategoryService;
@@ -17,8 +18,10 @@ public class OptionCategoryController {
     private final OptionCategoryService optionCategoryService;
 
     @PostMapping
-    public ResponseEntity<OptionCategorySaveResponse> saveOptionCategory(@RequestBody OptionCategoryDTO optionCategoryDTO) {
-           OptionCategorySaveResponse optionCategorySaveResponse = optionCategoryService.save(optionCategoryDTO);
+    public ResponseEntity<OptionCategorySaveResponse> saveOptionCategory(
+            @RequestBody OptionCategorySaveRequest optionCategorySaveRequest
+    ) {
+           OptionCategorySaveResponse optionCategorySaveResponse = optionCategoryService.save(optionCategorySaveRequest);
            return ResponseEntity.status(HttpStatus.CREATED).body(optionCategorySaveResponse);
     }
 

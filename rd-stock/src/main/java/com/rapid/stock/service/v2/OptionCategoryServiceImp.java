@@ -1,5 +1,6 @@
 package com.rapid.stock.service.v2;
 
+import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
@@ -24,14 +25,14 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
     private final OptionCategoryRepository optionCategoryRepository;
 
     @Override
-    public OptionCategorySaveResponse save(OptionCategoryDTO optionCategoryDTO) {
+    public OptionCategorySaveResponse save(OptionCategorySaveRequest optionCategorySaveRequest) {
         OptionCategory optionCategory = GeneralSaveOperationService
                 .builder()
                 .mapper(optionCategoryMapperSaveRequest)
                 .repository(optionCategoryRepository)
                 .validator(validator)
                 .build()
-                .save(optionCategoryDTO);
+                .save(optionCategorySaveRequest);
 
         return optionCategoryMapperSaveResponse.map(optionCategory);
     }

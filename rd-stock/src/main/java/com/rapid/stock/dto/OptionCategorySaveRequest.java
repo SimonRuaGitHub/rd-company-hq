@@ -8,5 +8,6 @@ public class OptionCategorySaveRequest {
     private String name;
     private String description;
     private String label;
-    private List<OptionSaveRequest> options;
+    private String companyId;
+    private List<String> parentProductIds;
 }
