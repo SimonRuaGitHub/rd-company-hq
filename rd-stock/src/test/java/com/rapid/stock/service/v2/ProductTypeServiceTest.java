@@ -3,6 +3,7 @@ package com.rapid.stock.service.v2;
 import com.rapid.stock.dto.ProductTypeSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ProductTypeMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.ProductTypeMapperSaveResponse;
 import com.rapid.stock.model.v2.ProductType;
 import com.rapid.stock.repository.v2.ProductTypeRepository;
 import com.rapid.stock.service.ProductTypeService;
@@ -21,14 +22,16 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductTypeServiceTest {
     @Mock
-    private ProductTypeMapperSaveRequest productTypeMapper;
+    private ProductTypeMapperSaveRequest productTypeMapperSaveRequest;
+
+    @Mock
+    private ProductTypeMapperSaveResponse productTypeMapperSaveResponse;
 
     @Mock
     private ProductTypeRepository productTypeRepository;
@@ -39,7 +42,12 @@ public class ProductTypeServiceTest {
 
     @BeforeEach
     public void setUpService(){
-        productTypeService = new ProductTypeServiceImp(productTypeMapper, productTypeRepository, validator);
+        productTypeService = new ProductTypeServiceImp(
+                productTypeMapperSaveRequest,
+                productTypeMapperSaveResponse,
+                productTypeRepository,
+                validator
+        );
     }
 
     @Test
@@ -51,7 +59,7 @@ public class ProductTypeServiceTest {
 
         //Prepare mock
         ProductTypeSaveRequest productTypeSaveRequest = Mockito.mock(ProductTypeSaveRequest.class);
-        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
+        when(productTypeMapperSaveRequest.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
         productTypeService.save(productTypeSaveRequest);
@@ -74,7 +82,7 @@ public class ProductTypeServiceTest {
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName(" ");
 
-        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
+        when(productTypeMapperSaveRequest.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeSaveRequest) );
@@ -92,7 +100,7 @@ public class ProductTypeServiceTest {
         expectedProductType.setId(Long.valueOf(41535));
         expectedProductType.setName("235264");
 
-        when(productTypeMapper.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
+        when(productTypeMapperSaveRequest.mapToEntity(productTypeSaveRequest)).thenReturn(expectedProductType);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productTypeService.save(productTypeSaveRequest) );

@@ -3,6 +3,7 @@ package com.rapid.stock.service.v2;
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ParentProductMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.ParentProductMapperSaveResponse;
 import com.rapid.stock.model.v2.*;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,10 @@ import static org.mockito.Mockito.when;
 public class ProductServiceTest {
 
     @Mock
-    private ParentProductMapperSaveRequest parentProductMapper;
+    private ParentProductMapperSaveRequest parentProductMapperSaveRequest;
+
+    @Mock
+    private ParentProductMapperSaveResponse parentProductMapperSaveResponse;
 
     @Mock
     private ParentProductRepository parentProductRepository;
@@ -38,7 +42,11 @@ public class ProductServiceTest {
 
     @BeforeEach
     public void setUpService(){
-        productService = new ProductServiceImp(parentProductRepository, parentProductMapper, validator);
+        productService = new ProductServiceImp(parentProductRepository,
+                parentProductMapperSaveRequest,
+                parentProductMapperSaveResponse,
+                validator
+        );
     }
 
     @Test
@@ -56,7 +64,7 @@ public class ProductServiceTest {
         expectedParentProduct.setProductTypes(null);
         expectedParentProduct.setAssociatedRacks(null);
 
-        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapperSaveRequest.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -100,7 +108,7 @@ public class ProductServiceTest {
         expectedParentProduct.setProductTypes(null);
         expectedParentProduct.setAssociatedRacks(List.of(rackAlpha, rackSigma));
 
-        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapperSaveRequest.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -125,7 +133,7 @@ public class ProductServiceTest {
         expectedParentProduct.setCreatedAt(null);
         expectedParentProduct.setCompanyId(null);
 
-        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapperSaveRequest.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> productService.save(ppSaveRequest) );
@@ -159,7 +167,7 @@ public class ProductServiceTest {
 
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
 
-        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapperSaveRequest.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
@@ -201,7 +209,7 @@ public class ProductServiceTest {
 
         ParentProductSaveRequest ppSaveRequest = Mockito.mock(ParentProductSaveRequest.class);
 
-        when(parentProductMapper.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
+        when(parentProductMapperSaveRequest.mapToEntity(any(ParentProductSaveRequest.class))).thenReturn(expectedParentProduct);
 
         //When
         productService.save(ppSaveRequest);
