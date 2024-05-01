@@ -1,13 +1,11 @@
-version: "3.9"
-
 services:
   mariadb:
     image: mariadb
     container_name: rd-stock-maria-db
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      - ./maria-db/data-mariadb:/var/lib/mysql
+      - db_data:/var/lib/mysql
       - ./maria-db/sql-export:/sql-export
     environment:
       MARIADB_ROOT_PASSWORD: qwerty
@@ -24,9 +22,6 @@ services:
       - DATA_DIR=/tmp/localstack/data
     ports:
       - "4566:4566"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./localstack/setup.sh:/etc/localstack/init/ready.d/init-aws.sh
-      - ../../src/test/resources:/tmp/localstack/test-data
-    tmpfs:
-      - /tmp/localstack:exec,mode=600
+
+volumes:
+  db_data:
