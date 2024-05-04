@@ -18,6 +18,9 @@ services:
       - TEST_AWS_ACCOUNT_ID=000000000000
       - AWS_DEFAULT_REGION=us-west-2
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./localstack/setup.sh:/etc/localstack/init/ready.d/init-aws.sh
+      - ./localstack:/var/lib/localstack'
     ports:
       - "4566:4566"
