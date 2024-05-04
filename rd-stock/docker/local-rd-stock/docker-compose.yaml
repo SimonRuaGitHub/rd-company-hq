@@ -5,8 +5,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
-      - ./maria-db/sql-export:/sql-export
+      - ./maria-db/sql-export/rd_stock_db_creation.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MARIADB_ROOT_PASSWORD: qwerty
 
@@ -22,6 +21,3 @@ services:
       - DATA_DIR=/tmp/localstack/data
     ports:
       - "4566:4566"
-
-volumes:
-  db_data:
