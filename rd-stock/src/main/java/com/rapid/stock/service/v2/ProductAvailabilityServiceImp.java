@@ -16,7 +16,6 @@ import javax.validation.Validator;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductAvailabilityServiceImp implements ProductAvailabilityService {
 
     private final Validator validator;

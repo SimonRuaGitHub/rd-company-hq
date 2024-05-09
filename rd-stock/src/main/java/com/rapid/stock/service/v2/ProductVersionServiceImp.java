@@ -18,7 +18,6 @@ import javax.validation.Validator;
 
 @Service
 @RequiredArgsConstructor
-@Profile("rational-db")
 public class ProductVersionServiceImp implements ProductVersionService{
 
     private final ProductVersionMapperSaveRequest productVersionMapperSaveRequest;

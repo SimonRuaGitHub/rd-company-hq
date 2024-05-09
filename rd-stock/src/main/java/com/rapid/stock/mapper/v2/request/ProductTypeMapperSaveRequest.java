@@ -14,7 +14,6 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductTypeMapperSaveRequest implements MapperRequest<ProductType, ProductTypeSaveRequest> {
 
     private final CommonMapper commonMapper;
