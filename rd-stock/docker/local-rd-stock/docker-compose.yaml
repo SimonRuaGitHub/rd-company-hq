@@ -25,3 +25,16 @@ services:
       - ./localstack:/var/lib/localstack
     ports:
       - "4566:4566"
+
+  rd-stock:
+    container_name: rd-stock
+    build:
+      context: ../../
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      localstack:
+          condition: service_started
+      mariadb:
+          condition: service_started
