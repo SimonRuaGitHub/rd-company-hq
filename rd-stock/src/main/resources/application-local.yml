@@ -6,7 +6,7 @@ spring:
   jpa.show-sql: true
   jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: jdbc:mariadb://mariadb:3306/rd_stock_db
+    url: jdbc:mariadb://${HOST_DB_RD_STOCK}:3306/rd_stock_db
     username: root
     password: qwerty
     driver-class-name: org.mariadb.jdbc.Driver
