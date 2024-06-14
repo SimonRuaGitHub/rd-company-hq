@@ -20,7 +20,6 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class ParentProductMapperSaveRequest implements MapperRequest<ParentProduct, ParentProductSaveRequest> {
 
     private final CommonMapper commonMapper;

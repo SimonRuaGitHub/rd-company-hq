@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductAvailabilityMapperSaveRequest implements MapperRequest<Availability, AvailabilitySaveRequest> {
 
     private final ProductVersionRepository productVersionRepository;

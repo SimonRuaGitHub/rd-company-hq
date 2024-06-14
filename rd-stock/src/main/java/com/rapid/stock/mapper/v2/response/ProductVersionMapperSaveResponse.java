@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-@Profile("rational-db")
 public class ProductVersionMapperSaveResponse {
     
     public ProductVersionSaveResponse map(String versionId) {

@@ -17,7 +17,6 @@ import javax.validation.Validator;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class RackServiceImp implements RackService {
 
     private final RackRepository rackRepository;

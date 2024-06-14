@@ -17,7 +17,6 @@ import javax.validation.Validator;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductServiceImp implements ProductService {
 
     private final ParentProductRepository productRepository;

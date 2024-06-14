@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  autoconfigure.exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+  jpa.show-sql: true
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mariadb://${HOST_DB_RD_STOCK}:3306/rd_stock_db
+    username: root
+    password: qwerty
+    driver-class-name: org.mariadb.jdbc.Driver
+
+cloud:
+  aws:
+    credentials:
+      access-key: <AWS-ACCESS-KEY>
+      secret-key: <AWS-SECRET-KEY>
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    s3:
+      bucket:
+        name: rd-product-version-images

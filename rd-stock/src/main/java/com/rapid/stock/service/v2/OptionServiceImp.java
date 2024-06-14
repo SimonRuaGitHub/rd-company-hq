@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class OptionServiceImp implements OptionService {
 
     @Override

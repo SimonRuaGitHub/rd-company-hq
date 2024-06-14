@@ -1,14 +1,12 @@
-version: "3.9"
-
 services:
   mariadb:
     image: mariadb
     container_name: rd-stock-maria-db
+    command: --lower_case_table_names=1
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      - ./maria-db/data-mariadb:/var/lib/mysql
-      - ./maria-db/sql-export:/sql-export
+      - ./maria-db/sql-export/rd_stock_db_creation.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MARIADB_ROOT_PASSWORD: qwerty
 
@@ -21,12 +19,22 @@ services:
       - TEST_AWS_ACCOUNT_ID=000000000000
       - AWS_DEFAULT_REGION=us-west-2
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - DATA_DIR=/tmp/localstack/data
-    ports:
-      - "4566:4566"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./localstack/setup.sh:/etc/localstack/init/ready.d/init-aws.sh
-      - ../../src/test/resources:/tmp/localstack/test-data
-    tmpfs:
-      - /tmp/localstack:exec,mode=600
+      - ./localstack:/var/lib/localstack
+    ports:
+      - "4566:4566"
+
+  rd-stock:
+    container_name: rd-stock
+    build:
+      context: ../../
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      localstack:
+          condition: service_started
+      mariadb:
+          condition: service_started

@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@Profile("rational-db")
 public class CommonMapper {
 
     public <T> List<T> mapToEntitiesByIds(List<Long> ids, JpaRepository repository) {

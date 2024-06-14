@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-@Profile("rational-db")
 public interface ProductVersionRepository extends JpaRepository<ProductVersion, Long> {
     List<ProductVersion> findByParentProduct(ParentProduct parentProduct);
 }

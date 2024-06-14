@@ -1,5 +1,6 @@
 package com.rapid.stock.service.v2;
 
+import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
@@ -62,11 +63,11 @@ public class OptionCategoryServiceTest {
         expectedOptionCategory.setLabel("Select your drinks");
 
         //prepare mock for mapper
-        OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
+        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(expectedOptionCategory);
 
         //When
-        optionCategoryService.save(optionCategoryDTO);
+        optionCategoryService.save(OptionCategorySaveRequest);
 
         //Then
         ArgumentCaptor<OptionCategory> optionCategoryArgumentCaptor = ArgumentCaptor.forClass(OptionCategory.class);
@@ -87,11 +88,11 @@ public class OptionCategoryServiceTest {
         optionCategory.setLabel(null);
 
         //prepare mock for mapper
-        OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(optionCategory);
+        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(optionCategory);
 
         //When
-        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionCategoryService.save(optionCategoryDTO) );
+        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionCategoryService.save(OptionCategorySaveRequest) );
 
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
@@ -130,11 +131,11 @@ public class OptionCategoryServiceTest {
         expectedOptionCategory.setParentProducts(List.of(parentProductOne, parentProductTwo));
 
         //prepare mock for mapper
-        OptionCategoryDTO optionCategoryDTO = Mockito.mock(OptionCategoryDTO.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategoryDTO)).thenReturn(expectedOptionCategory);
+        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(expectedOptionCategory);
 
         //When
-        optionCategoryService.save(optionCategoryDTO);
+        optionCategoryService.save(OptionCategorySaveRequest);
 
         //Then
         ArgumentCaptor<OptionCategory> optionCategoryArgumentCaptor = ArgumentCaptor.forClass(OptionCategory.class);

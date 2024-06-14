@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v2/products")
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductController {
 
     private final ProductService productService;

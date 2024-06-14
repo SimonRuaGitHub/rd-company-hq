@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductTypeServiceImp implements ProductTypeService {
 
     private ProductTypeMapperSaveRequest productTypeMapperSaveRequest;

@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductVersionMapperSaveRequest implements MapperRequest<ProductVersion, ProductVersionSaveRequest> {
 
     private final CommonMapper commonMapper;

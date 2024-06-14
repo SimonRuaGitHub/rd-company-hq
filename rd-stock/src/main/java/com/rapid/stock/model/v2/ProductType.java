@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Profile("rational-db")
 public class ProductType {
 
     @Id

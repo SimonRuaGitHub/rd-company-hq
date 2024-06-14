@@ -15,7 +15,6 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCategory, OptionCategorySaveRequest> {
 
     private final Util util;

@@ -18,7 +18,6 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-@Profile("rational-db")
 public class RackMapperSaveRequest implements MapperRequest<Rack, RackSaveRequest> {
 
     private final CommonMapper commonMapper;

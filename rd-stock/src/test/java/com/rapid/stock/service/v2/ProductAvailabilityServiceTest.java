@@ -3,6 +3,7 @@ package com.rapid.stock.service.v2;
 import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.mapper.v2.request.ProductAvailabilityMapperSaveRequest;
+import com.rapid.stock.mapper.v2.response.ProductAvailabilityMapperSaveResponse;
 import com.rapid.stock.model.v2.Availability;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -29,7 +30,10 @@ import static org.mockito.Mockito.when;
 public class ProductAvailabilityServiceTest {
 
     @Mock
-    private ProductAvailabilityMapperSaveRequest productAvailabilityMapper;
+    private ProductAvailabilityMapperSaveRequest productAvailabilityMapperSaveRequest;
+
+    @Mock
+    private ProductAvailabilityMapperSaveResponse productAvailabilityMapperSaveResponse;
 
     @Mock
     private ProductAvailabilityRepository productAvailabilityRepository;
@@ -42,7 +46,8 @@ public class ProductAvailabilityServiceTest {
     public void setUpService() {
         productAvailabilityService = new ProductAvailabilityServiceImp(
                 validator,
-                productAvailabilityMapper,
+                productAvailabilityMapperSaveRequest,
+                productAvailabilityMapperSaveResponse,
                 productAvailabilityRepository
         );
     }
@@ -74,7 +79,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock for mapper
         AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
-        when(productAvailabilityMapper.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
+        when(productAvailabilityMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
         productAvailabilityService.save(availabilitySaveRequest);
@@ -100,7 +105,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock
         AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
-        when(productAvailabilityMapper.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
+        when(productAvailabilityMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
         InvalidDataFieldException exception = assertThrows(

@@ -16,7 +16,6 @@ import javax.validation.Validator;
 
 @Service
 @AllArgsConstructor
-@Profile("rational-db")
 public class OptionCategoryServiceImp implements OptionCategoryService {
 
     private final OptionCategoryMapperSaveRequest optionCategoryMapperSaveRequest;
