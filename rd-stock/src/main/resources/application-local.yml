@@ -20,6 +20,7 @@ cloud:
       static: us-east-1
     stack:
       auto: false
+    url: http://localhost:4566
     s3:
       bucket:
         name: rd-product-version-images
