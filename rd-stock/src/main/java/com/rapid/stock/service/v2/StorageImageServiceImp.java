@@ -25,7 +25,6 @@ public class StorageImageServiceImp implements StorageImageService{
 
     public String uploadImage(MultipartFile multipartFile, String fileName) {
        File file = fromMultipartfileToFile(multipartFile);
-       System.out.println("Buckets list: "+ s3Client.listBuckets());
        return s3Client
                .putObject(new PutObjectRequest(bucketName, fileName, file))
                .getVersionId();

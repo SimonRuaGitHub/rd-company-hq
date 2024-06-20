@@ -30,6 +30,7 @@ public class StorageFilesConfig {
         return AmazonS3ClientBuilder.standard()
                 .withCredentials(getCredentialsProvider())
                 .withEndpointConfiguration(getLocalEndpointConfiguration())
+                .withPathStyleAccessEnabled(true)
                 .build();
     }
 
