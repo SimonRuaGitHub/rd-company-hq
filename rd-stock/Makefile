@@ -6,3 +6,6 @@ stop-local:
 
 database-terminal:
 	docker exec -it rd-stock-maria-db /bin/bash
+
+package-only:
+	mvn clean package -DskipTests

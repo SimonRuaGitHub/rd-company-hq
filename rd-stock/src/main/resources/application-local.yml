@@ -14,12 +14,13 @@ spring:
 cloud:
   aws:
     credentials:
-      access-key: <AWS-ACCESS-KEY>
-      secret-key: <AWS-SECRET-KEY>
+      access-key: foobar
+      secret-key: foobar
     region:
       static: us-east-1
     stack:
       auto: false
     s3:
+      url: http://${LOCALSTACK_HOST}:4566
       bucket:
         name: rd-product-version-images
