@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,4 +35,10 @@ public class ProductController {
         Page<ParentProduct> parentProductsPage = productService.getAll(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(parentProductsPage);
     }
-}
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
+        productService.delete(productId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+ }

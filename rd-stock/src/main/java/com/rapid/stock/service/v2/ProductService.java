@@ -12,4 +12,6 @@ public interface ProductService {
     ParentProductSaveResponse save(ParentProductSaveRequest parentProductDto);
 
     Page<ParentProduct> getAll(int page, int size);
+
+    void delete(Long productId);
 }

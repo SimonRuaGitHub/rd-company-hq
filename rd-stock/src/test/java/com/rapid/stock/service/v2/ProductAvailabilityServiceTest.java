@@ -30,10 +30,10 @@ import static org.mockito.Mockito.when;
 public class ProductAvailabilityServiceTest {
 
     @Mock
-    private ProductAvailabilityMapperSaveRequest productAvailabilityMapperSaveRequest;
+    private ProductAvailabilityMapperSaveRequest paMapperSaveRequest;
 
     @Mock
-    private ProductAvailabilityMapperSaveResponse productAvailabilityMapperSaveResponse;
+    private ProductAvailabilityMapperSaveResponse paMapperSaveResponse;
 
     @Mock
     private ProductAvailabilityRepository productAvailabilityRepository;
@@ -46,8 +46,8 @@ public class ProductAvailabilityServiceTest {
     public void setUpService() {
         productAvailabilityService = new ProductAvailabilityServiceImp(
                 validator,
-                productAvailabilityMapperSaveRequest,
-                productAvailabilityMapperSaveResponse,
+                paMapperSaveRequest,
+                paMapperSaveResponse,
                 productAvailabilityRepository
         );
     }
@@ -79,7 +79,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock for mapper
         AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
-        when(productAvailabilityMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
+        when(paMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
         productAvailabilityService.save(availabilitySaveRequest);
@@ -105,7 +105,7 @@ public class ProductAvailabilityServiceTest {
 
         //Prepare mock
         AvailabilitySaveRequest availabilitySaveRequest = Mockito.mock(AvailabilitySaveRequest.class);
-        when(productAvailabilityMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
+        when(paMapperSaveRequest.mapToEntity(availabilitySaveRequest)).thenReturn(stubAvailability);
 
         //When
         InvalidDataFieldException exception = assertThrows(

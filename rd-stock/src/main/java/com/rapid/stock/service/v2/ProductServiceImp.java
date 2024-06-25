@@ -2,6 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.dto.v2.ParentProductSaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ParentProductMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ParentProductMapperSaveResponse;
 import com.rapid.stock.model.v2.ParentProduct;
@@ -41,5 +42,13 @@ public class ProductServiceImp implements ProductService {
     public Page<ParentProduct> getAll(int page, int size) {
         Pageable pageRequest = PageRequest.of(page, size);
         return productRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public void delete(Long productId) {
+       ParentProduct product = productRepository.findById(productId).orElseThrow(
+               () -> new NotFoundException("Parent product not found with ID: " + productId)
+       );
+       productRepository.delete(product);
     }
 }

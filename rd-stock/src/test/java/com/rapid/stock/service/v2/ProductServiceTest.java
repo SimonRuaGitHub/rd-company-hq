@@ -2,10 +2,12 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.v2.ParentProductSaveRequest;
 import com.rapid.stock.exception.InvalidDataFieldException;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ParentProductMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ParentProductMapperSaveResponse;
 import com.rapid.stock.model.v2.*;
 import com.rapid.stock.repository.v2.ParentProductRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +19,13 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
@@ -221,5 +224,81 @@ public class ProductServiceTest {
         ParentProduct capturedParentProduct = parProdArgumentCaptor.getValue();
 
         assertThat(capturedParentProduct).isEqualTo(expectedParentProduct);
+    }
+
+    @Test
+    public void can_delete_parent_product() {
+        //Given
+        OptionCategory optCategoryGaseosas = new OptionCategory();
+        optCategoryGaseosas.setName("Gaseosas");
+        optCategoryGaseosas.setDescrip("Seleccion de gaseosas para el producto");
+        optCategoryGaseosas.setLabel("Selecciona tu gaseosa");
+        optCategoryGaseosas.setCompanyId("929094");
+
+        ProductType typeLateNight = new ProductType();
+        typeLateNight.setId(Long.valueOf(62464));
+        typeLateNight.setName("late nite");
+        typeLateNight.setParentProducts(null);
+
+        Rack rackAlpha = new Rack();
+        rackAlpha.setId(Long.valueOf(235490));
+        rackAlpha.setName("Rack Alpha");
+        rackAlpha.setCompanyId("929094");
+        rackAlpha.setParentRack(null);
+        rackAlpha.setChildRacks(null);
+        rackAlpha.setProducts(null);
+
+        ProductVersion productVersion = new ProductVersion();
+        productVersion.setId(1L);
+        productVersion.setName("prod_version_alpha");
+        productVersion.setCreatedAt(LocalDateTime.now());
+        productVersion.setFilename("/prod_version_alpha.png");
+        productVersion.setPrice(2455.4D);
+        productVersion.setVersionId(UUID.randomUUID().toString());
+
+        ParentProduct parentProduct = new ParentProduct();
+        long productId = 2;
+        parentProduct.setId(productId);
+        parentProduct.setName("product_name");
+        parentProduct.setDescription("prod_description");
+        parentProduct.setCompanyId("929094");
+        parentProduct.setCreatedAt(LocalDateTime.now());
+        parentProduct.setProductVersions(null);
+        parentProduct.setOptionCategories(List.of(optCategoryGaseosas));
+        parentProduct.setAssociatedRacks(List.of(rackAlpha));
+        parentProduct.setProductTypes(List.of(typeLateNight));
+
+        when(parentProductRepository.findById(productId)).thenReturn(Optional.of(parentProduct));
+
+        //When
+        productService.delete(productId);
+
+        //Then
+        verify(parentProductRepository, times(1)).delete(parentProduct);
+    }
+
+    @Test
+    public void cannot_delete_unexisting_product() {
+        //Given
+        ParentProduct parentProduct = new ParentProduct();
+        long productId = 2;
+        parentProduct.setId(productId);
+        parentProduct.setName("product_name");
+        parentProduct.setDescription("prod_description");
+        parentProduct.setCompanyId("929094");
+        parentProduct.setCreatedAt(LocalDateTime.now());
+        parentProduct.setProductVersions(null);
+
+        when(parentProductRepository.findById(productId)).thenReturn(Optional.empty());
+
+        //When
+        NotFoundException notFoundException = assertThrows(
+                NotFoundException.class, () -> productService.delete(productId)
+        );
+
+        //Then
+        Assertions.assertThat(
+                notFoundException.getMessage()
+        ).isEqualTo("Parent product not found with ID: " + productId);
     }
 }

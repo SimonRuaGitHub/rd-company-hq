@@ -63,11 +63,11 @@ public class OptionCategoryServiceTest {
         expectedOptionCategory.setLabel("Select your drinks");
 
         //prepare mock for mapper
-        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(expectedOptionCategory);
+        OptionCategorySaveRequest optionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategorySaveRequest)).thenReturn(expectedOptionCategory);
 
         //When
-        optionCategoryService.save(OptionCategorySaveRequest);
+        optionCategoryService.save(optionCategorySaveRequest);
 
         //Then
         ArgumentCaptor<OptionCategory> optionCategoryArgumentCaptor = ArgumentCaptor.forClass(OptionCategory.class);
@@ -88,11 +88,13 @@ public class OptionCategoryServiceTest {
         optionCategory.setLabel(null);
 
         //prepare mock for mapper
-        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(optionCategory);
+        OptionCategorySaveRequest optionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategorySaveRequest)).thenReturn(optionCategory);
 
         //When
-        InvalidDataFieldException exception = assertThrows(InvalidDataFieldException.class, () -> optionCategoryService.save(OptionCategorySaveRequest) );
+        InvalidDataFieldException exception = assertThrows(
+                InvalidDataFieldException.class, () -> optionCategoryService.save(optionCategorySaveRequest)
+        );
 
         //Then
         assertThat(exception.getMessage()).contains("Some of the fields have invalid data or no data at all");
@@ -131,11 +133,11 @@ public class OptionCategoryServiceTest {
         expectedOptionCategory.setParentProducts(List.of(parentProductOne, parentProductTwo));
 
         //prepare mock for mapper
-        OptionCategorySaveRequest OptionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
-        when(optionCategoryMapperSaveRequest.mapToEntity(OptionCategorySaveRequest)).thenReturn(expectedOptionCategory);
+        OptionCategorySaveRequest optionCategorySaveRequest = Mockito.mock(OptionCategorySaveRequest.class);
+        when(optionCategoryMapperSaveRequest.mapToEntity(optionCategorySaveRequest)).thenReturn(expectedOptionCategory);
 
         //When
-        optionCategoryService.save(OptionCategorySaveRequest);
+        optionCategoryService.save(optionCategorySaveRequest);
 
         //Then
         ArgumentCaptor<OptionCategory> optionCategoryArgumentCaptor = ArgumentCaptor.forClass(OptionCategory.class);
