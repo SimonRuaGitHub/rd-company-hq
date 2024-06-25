@@ -24,7 +24,7 @@ public class StorageFilesConfig {
     private String url;
 
     @Bean
-    @Profile("local")
+    @Profile({"local","local-docker"})
     public AmazonS3 localS3Client() {
 
         return AmazonS3ClientBuilder.standard()

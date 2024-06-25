@@ -1,12 +1,12 @@
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: local-docker
   autoconfigure.exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
   jpa.show-sql: true
   jpa.properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: jdbc:mariadb://localhost:3306/rd_stock_db
+    url: jdbc:mariadb://mariadb:3306/rd_stock_db
     username: root
     password: qwerty
     driver-class-name: org.mariadb.jdbc.Driver
@@ -21,6 +21,6 @@ cloud:
     stack:
       auto: false
     s3:
-      url: http://s3.localhost.localstack.cloud:4566
+      url: http://localstack:4566
       bucket:
         name: rd-product-version-images

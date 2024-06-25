@@ -34,6 +34,8 @@ services:
       context: ../../
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_PROFILE=local-docker
 
     depends_on:
       localstack:
