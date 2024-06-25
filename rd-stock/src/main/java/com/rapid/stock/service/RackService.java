@@ -9,4 +9,6 @@ public interface RackService {
     public RackSaveResponse save(RackSaveRequest rackSaveRequest);
 
     public Page<Rack> getAll(int page, int size);
+
+    public void delete(Long rackId);
 }

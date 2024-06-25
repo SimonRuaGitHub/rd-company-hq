@@ -31,4 +31,10 @@ public class RackController {
         Page<Rack> racks = rackService.getAll(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(racks);
     }
+
+    @DeleteMapping("/{rackId}")
+    public ResponseEntity<Void> delete(@PathVariable Long rackId) {
+        rackService.delete(rackId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

@@ -86,6 +86,4 @@ public class ParentProduct{
         this.companyId = companyId;
         this.optionCategories = optionCategories;
     }
-
-
 }

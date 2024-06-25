@@ -2,8 +2,10 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.RackSaveRequest;
 import com.rapid.stock.dto.RackSaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.RackMapperSaveResponse;
+import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;
 import com.rapid.stock.service.RackService;
@@ -43,5 +45,13 @@ public class RackServiceImp implements RackService {
     public Page<Rack> getAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return rackRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public void delete(Long rackId) {
+        Rack rack = rackRepository.findById(rackId).orElseThrow(
+                () -> new NotFoundException("RackId not found: " + rackId)
+        );
+        rackRepository.delete(rack);
     }
 }
