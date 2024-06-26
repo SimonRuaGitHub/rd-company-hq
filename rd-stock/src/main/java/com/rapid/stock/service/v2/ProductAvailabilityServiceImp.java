@@ -44,7 +44,7 @@ public class ProductAvailabilityServiceImp implements ProductAvailabilityService
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         GeneralDeleteOperationService
                 .builder()
                 .repository(productAvailabilityRepository)

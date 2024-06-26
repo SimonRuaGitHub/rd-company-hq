@@ -31,4 +31,10 @@ public class ProductAvailabilityController {
         Page<Availability> availabilities = productAvailabilityService.getAll(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(availabilities);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        productAvailabilityService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

@@ -53,4 +53,10 @@ public class ProductVersionController {
         Page<ProductVersion> pageProductVersions = productVersionService.getAll(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(pageProductVersions);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        productVersionService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
