@@ -33,4 +33,10 @@ public class OptionCategoryController {
           Page<OptionCategory> optionCategories = optionCategoryService.getAll(page, size);
           return ResponseEntity.status(HttpStatus.OK).body(optionCategories);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        optionCategoryService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

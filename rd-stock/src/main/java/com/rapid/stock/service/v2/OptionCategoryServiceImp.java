@@ -2,6 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.dto.OptionCategorySaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
 import com.rapid.stock.model.v2.OptionCategory;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -40,5 +42,19 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
     public Page<OptionCategory> getAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return optionCategoryRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public void delete(Long id) {
+        Supplier<RuntimeException> exceptionSupplier =
+                () -> new NotFoundException("Option category id: " + id + " was not found");
+
+        GeneralDeleteOperationService deleteOperationService = GeneralDeleteOperationService
+                .builder()
+                .repository(optionCategoryRepository)
+                .exceptionSupplier(exceptionSupplier)
+                .build();
+
+        deleteOperationService.delete(id);
     }
 }

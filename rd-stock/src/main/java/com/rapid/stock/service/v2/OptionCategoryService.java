@@ -9,4 +9,6 @@ public interface OptionCategoryService {
     public OptionCategorySaveResponse save(OptionCategorySaveRequest optionCategorySaveRequest);
 
     public Page<OptionCategory> getAll(int page, int size);
+
+    public void delete(Long id);
 }
