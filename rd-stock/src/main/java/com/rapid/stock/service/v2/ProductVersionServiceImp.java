@@ -2,6 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.dto.v2.ProductVersionSaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ProductVersionMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ProductVersionMapperSaveResponse;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -18,7 +19,7 @@ import javax.validation.Validator;
 
 @Service
 @RequiredArgsConstructor
-public class ProductVersionServiceImp implements ProductVersionService{
+public class ProductVersionServiceImp implements ProductVersionService {
 
     private final ProductVersionMapperSaveRequest productVersionMapperSaveRequest;
     private final ProductVersionMapperSaveResponse productVersionMapperSaveResponse;
@@ -45,5 +46,15 @@ public class ProductVersionServiceImp implements ProductVersionService{
     public Page<ProductVersion> getAll(int page, int size) {
         Pageable pageRequest = PageRequest.of(page, size);
         return productVersionRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public void delete(Long id) {
+        GeneralDeleteOperationService
+                .builder()
+                .repository(productVersionRepository)
+                .exceptionSupplier(() -> new NotFoundException("Product version not found with ID: " + id))
+                .build()
+                .delete(id);
     }
 }

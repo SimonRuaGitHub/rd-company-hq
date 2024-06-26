@@ -38,7 +38,7 @@ public class ProductTypeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteType(@PathVariable("id") Long typeId) throws Throwable {
-        productTypeService.deleteType(typeId);
+        productTypeService.delete(typeId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

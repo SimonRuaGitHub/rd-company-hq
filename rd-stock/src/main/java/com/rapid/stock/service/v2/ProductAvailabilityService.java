@@ -8,4 +8,5 @@ import org.springframework.data.domain.Page;
 public interface ProductAvailabilityService {
     AvailabilitySaveResponse save(AvailabilitySaveRequest availabilitySaveRequest);
     Page<Availability> getAll(int page, int size);
+    void delete(Long id);
 }

@@ -13,5 +13,5 @@ public interface ProductTypeService {
 
     public List<ProductType> getAllProductTypes();
 
-    public void deleteType(Long typeId) throws Throwable;
+    public void delete(Long typeId) throws Throwable;
 }

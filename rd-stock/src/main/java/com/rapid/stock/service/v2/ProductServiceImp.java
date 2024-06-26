@@ -46,9 +46,11 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void delete(Long productId) {
-       ParentProduct product = productRepository.findById(productId).orElseThrow(
-               () -> new NotFoundException("Parent product not found with ID: " + productId)
-       );
-       productRepository.delete(product);
+        GeneralDeleteOperationService
+                .builder()
+                .repository(productRepository)
+                .exceptionSupplier(() -> new NotFoundException("Parent product not found with ID: " + productId))
+                .build()
+                .delete(productId);
     }
 }

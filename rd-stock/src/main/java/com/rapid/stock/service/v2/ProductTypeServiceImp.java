@@ -58,16 +58,12 @@ public class ProductTypeServiceImp implements ProductTypeService {
     }
 
     @Override
-    public void deleteType(Long typeId) throws Throwable {
-        Supplier<RuntimeException> exceptionSupplier =
-                () -> new NotFoundException("Type ID: " + typeId + " was not found");
-
-        GeneralDeleteOperationService deleteOperationService = GeneralDeleteOperationService
+    public void delete(Long typeId) throws Throwable {
+        GeneralDeleteOperationService
                 .builder()
                 .repository(productTypeRepository)
-                .exceptionSupplier(exceptionSupplier)
-                .build();
-
-        deleteOperationService.delete(typeId);
+                .exceptionSupplier(() -> new NotFoundException("Type ID: " + typeId + " was not found"))
+                .build()
+                .delete(typeId);
     }
 }

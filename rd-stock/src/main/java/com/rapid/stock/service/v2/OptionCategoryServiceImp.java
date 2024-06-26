@@ -46,15 +46,11 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
 
     @Override
     public void delete(Long id) {
-        Supplier<RuntimeException> exceptionSupplier =
-                () -> new NotFoundException("Option category id: " + id + " was not found");
-
-        GeneralDeleteOperationService deleteOperationService = GeneralDeleteOperationService
+        GeneralDeleteOperationService
                 .builder()
                 .repository(optionCategoryRepository)
-                .exceptionSupplier(exceptionSupplier)
-                .build();
-
-        deleteOperationService.delete(id);
+                .exceptionSupplier(() -> new NotFoundException("Option category ID: " + id + " was not found"))
+                .build()
+                .delete(id);
     }
 }

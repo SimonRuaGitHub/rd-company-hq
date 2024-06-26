@@ -11,4 +11,6 @@ public interface ProductVersionService {
     ProductVersionSaveResponse save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile image);
 
     Page<ProductVersion> getAll(int page, int size);
+
+    void delete(Long id);
 }

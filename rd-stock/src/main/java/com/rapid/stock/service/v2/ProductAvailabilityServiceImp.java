@@ -2,6 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.AvailabilitySaveRequest;
 import com.rapid.stock.dto.AvailabilitySaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ProductAvailabilityMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ProductAvailabilityMapperSaveResponse;
 import com.rapid.stock.model.v2.Availability;
@@ -40,5 +41,15 @@ public class ProductAvailabilityServiceImp implements ProductAvailabilityService
     public Page<Availability> getAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return productAvailabilityRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public void delete(Long id) {
+        GeneralDeleteOperationService
+                .builder()
+                .repository(productAvailabilityRepository)
+                .exceptionSupplier(() -> new NotFoundException("product availability with ID: " + id + " was not found"))
+                .build()
+                .delete(id);
     }
 }

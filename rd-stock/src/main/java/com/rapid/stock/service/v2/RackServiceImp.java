@@ -50,15 +50,11 @@ public class RackServiceImp implements RackService {
 
     @Override
     public void delete(Long rackId) {
-        Supplier<RuntimeException> exceptionSupplier =
-                () -> new NotFoundException("Rack ID: " + rackId + " was not found");
-
-        GeneralDeleteOperationService deleteOperationService = GeneralDeleteOperationService
+        GeneralDeleteOperationService
                 .builder()
                 .repository(rackRepository)
-                .exceptionSupplier(exceptionSupplier)
-                .build();
-
-        deleteOperationService.delete(rackId);
+                .exceptionSupplier(() -> new NotFoundException("Rack ID: " + rackId + " was not found"))
+                .build()
+                .delete(rackId);
     }
 }
