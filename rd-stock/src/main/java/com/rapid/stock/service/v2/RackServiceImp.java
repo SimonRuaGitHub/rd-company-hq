@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -49,9 +50,15 @@ public class RackServiceImp implements RackService {
 
     @Override
     public void delete(Long rackId) {
-        Rack rack = rackRepository.findById(rackId).orElseThrow(
-                () -> new NotFoundException("RackId not found: " + rackId)
-        );
-        rackRepository.delete(rack);
+        Supplier<RuntimeException> exceptionSupplier =
+                () -> new NotFoundException("Rack ID: " + rackId + " was not found");
+
+        GeneralDeleteOperationService deleteOperationService = GeneralDeleteOperationService
+                .builder()
+                .repository(rackRepository)
+                .exceptionSupplier(exceptionSupplier)
+                .build();
+
+        deleteOperationService.delete(rackId);
     }
 }
