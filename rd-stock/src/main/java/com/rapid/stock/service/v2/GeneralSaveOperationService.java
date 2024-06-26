@@ -16,6 +16,13 @@ public class GeneralSaveOperationService {
     private final MapperRequest mapper;
     private final JpaRepository repository;
 
+    @Builder
+    public GeneralSaveOperationService(Validator validator, MapperRequest mapper, JpaRepository repository) {
+        this.validator = validator;
+        this.mapper = mapper;
+        this.repository = repository;
+    }
+
     public <T,G> T save(G dto) {
         final T entity = (T) mapper.mapToEntity(dto);
         final Set<ConstraintViolation<Object>> violations = validator.validate(entity);
@@ -30,12 +37,5 @@ public class GeneralSaveOperationService {
             ex.printStackTrace();
             throw new SaveException("Failed to save information in database: "+ex.getMessage());
         }
-    }
-
-    @Builder
-    public GeneralSaveOperationService(Validator validator, MapperRequest mapper, JpaRepository repository) {
-        this.validator = validator;
-        this.mapper = mapper;
-        this.repository = repository;
     }
 }

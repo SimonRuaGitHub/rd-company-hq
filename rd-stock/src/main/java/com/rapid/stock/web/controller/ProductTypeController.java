@@ -35,4 +35,10 @@ public class ProductTypeController {
         List<ProductType> productTypes = productTypeService.getAllProductTypes();
         return ResponseEntity.status(HttpStatus.OK).body(productTypes);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteType(@PathVariable("id") Long typeId) throws Throwable {
+        productTypeService.deleteType(typeId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

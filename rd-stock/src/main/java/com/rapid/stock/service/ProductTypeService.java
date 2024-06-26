@@ -12,4 +12,6 @@ public interface ProductTypeService {
     public List<String> getAllProductTypeNames();
 
     public List<ProductType> getAllProductTypes();
+
+    public void deleteType(Long typeId) throws Throwable;
 }
