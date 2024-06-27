@@ -5,10 +5,11 @@ import com.rapid.stock.dto.v2.ProductVersionSaveResponse;
 import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ProductVersionMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ProductVersionMapperSaveResponse;
+import com.rapid.stock.model.operations.GeneralDeleteOperation;
+import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public class ProductVersionServiceImp implements ProductVersionService {
     @Override
     public ProductVersionSaveResponse save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile multipartFile) {
           storageImageService.uploadImage(multipartFile, productVersionSaveRequest.getFilename());
-          final ProductVersion productVersion = GeneralSaveOperationService
+          final ProductVersion productVersion = GeneralSaveOperation
                            .builder()
                            .mapper(productVersionMapperSaveRequest)
                            .repository(productVersionRepository)
@@ -50,7 +51,7 @@ public class ProductVersionServiceImp implements ProductVersionService {
 
     @Override
     public void delete(Long id) {
-        GeneralDeleteOperationService
+        GeneralDeleteOperation
                 .builder()
                 .repository(productVersionRepository)
                 .exceptionSupplier(() -> new NotFoundException("Product version not found with ID: " + id))

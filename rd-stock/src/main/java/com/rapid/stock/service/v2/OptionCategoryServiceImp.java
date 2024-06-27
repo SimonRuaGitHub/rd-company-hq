@@ -5,16 +5,16 @@ import com.rapid.stock.dto.OptionCategorySaveResponse;
 import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.OptionCategoryMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.OptionCategoryMapperSaveResponse;
+import com.rapid.stock.model.operations.GeneralDeleteOperation;
+import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
-import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
 
     @Override
     public OptionCategorySaveResponse save(OptionCategorySaveRequest optionCategorySaveRequest) {
-        OptionCategory optionCategory = GeneralSaveOperationService
+        OptionCategory optionCategory = GeneralSaveOperation
                 .builder()
                 .mapper(optionCategoryMapperSaveRequest)
                 .repository(optionCategoryRepository)
@@ -46,7 +46,7 @@ public class OptionCategoryServiceImp implements OptionCategoryService {
 
     @Override
     public void delete(Long id) {
-        GeneralDeleteOperationService
+        GeneralDeleteOperation
                 .builder()
                 .repository(optionCategoryRepository)
                 .exceptionSupplier(() -> new NotFoundException("Option category ID: " + id + " was not found"))

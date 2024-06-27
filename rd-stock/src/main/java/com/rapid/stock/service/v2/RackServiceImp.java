@@ -5,18 +5,17 @@ import com.rapid.stock.dto.RackSaveResponse;
 import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.RackMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.RackMapperSaveResponse;
-import com.rapid.stock.model.v2.ParentProduct;
+import com.rapid.stock.model.operations.GeneralDeleteOperation;
+import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.Rack;
 import com.rapid.stock.repository.v2.RackRepository;
 import com.rapid.stock.service.RackService;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
-import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +28,7 @@ public class RackServiceImp implements RackService {
 
     @Override
     public RackSaveResponse save(RackSaveRequest rackSaveRequest) {
-        Rack rack = GeneralSaveOperationService
+        Rack rack = GeneralSaveOperation
                     .builder()
                     .validator(validator)
                     .mapper(rackMapperSaveRequest)
@@ -50,7 +49,7 @@ public class RackServiceImp implements RackService {
 
     @Override
     public void delete(Long rackId) {
-        GeneralDeleteOperationService
+        GeneralDeleteOperation
                 .builder()
                 .repository(rackRepository)
                 .exceptionSupplier(() -> new NotFoundException("Rack ID: " + rackId + " was not found"))

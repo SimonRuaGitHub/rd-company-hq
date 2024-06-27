@@ -1,4 +1,4 @@
-package com.rapid.stock.service.v2;
+package com.rapid.stock.model.operations;
 
 import com.rapid.stock.exception.InvalidDataFieldException;
 import com.rapid.stock.exception.SaveException;
@@ -8,16 +8,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
-import java.util.function.Supplier;
 
-public class GeneralSaveOperationService {
+public class GeneralSaveOperation {
 
     private final Validator validator;
     private final MapperRequest mapper;
     private final JpaRepository repository;
 
     @Builder
-    public GeneralSaveOperationService(Validator validator, MapperRequest mapper, JpaRepository repository) {
+    public GeneralSaveOperation(Validator validator, MapperRequest mapper, JpaRepository repository) {
         this.validator = validator;
         this.mapper = mapper;
         this.repository = repository;

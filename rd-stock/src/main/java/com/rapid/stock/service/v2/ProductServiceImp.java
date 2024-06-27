@@ -5,10 +5,11 @@ import com.rapid.stock.dto.v2.ParentProductSaveResponse;
 import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.ParentProductMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ParentProductMapperSaveResponse;
+import com.rapid.stock.model.operations.GeneralDeleteOperation;
+import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public ParentProductSaveResponse save(ParentProductSaveRequest parentProductDto) {
-         ParentProduct parentProduct = GeneralSaveOperationService
+         ParentProduct parentProduct = GeneralSaveOperation
                                             .builder()
                                             .mapper(parentProductMapperSaveRequestMapper)
                                             .repository(productRepository)
@@ -46,7 +47,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void delete(Long productId) {
-        GeneralDeleteOperationService
+        GeneralDeleteOperation
                 .builder()
                 .repository(productRepository)
                 .exceptionSupplier(() -> new NotFoundException("Parent product not found with ID: " + productId))
