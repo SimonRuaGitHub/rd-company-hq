@@ -51,11 +51,10 @@ public class ProductVersionServiceImp implements ProductVersionService {
 
     @Override
     public void delete(Long id) {
-        GeneralDeleteOperation
-                .builder()
-                .repository(productVersionRepository)
-                .exceptionSupplier(() -> new NotFoundException("Product version not found with ID: " + id))
-                .build()
-                .delete(id);
+        ProductVersion productVersion = productVersionRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Product version ID: " + id + " was not found")
+        );
+        productVersionRepository.delete(productVersion);
+        storageImageService.deleteImage(productVersion.getFilename());
     }
 }

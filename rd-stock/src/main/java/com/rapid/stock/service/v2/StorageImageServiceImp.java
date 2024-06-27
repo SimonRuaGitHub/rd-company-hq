@@ -1,6 +1,9 @@
 package com.rapid.stock.service.v2;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,14 @@ public class StorageImageServiceImp implements StorageImageService{
     @Value("${cloud.aws.s3.bucket.name}")
     private String bucketName;
     private final AmazonS3 s3Client;
+
+    public void deleteImage(String key) {
+        try {
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String uploadImage(MultipartFile multipartFile, String fileName) {
        File file = fromMultipartfileToFile(multipartFile);
