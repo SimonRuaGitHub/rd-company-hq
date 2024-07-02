@@ -34,10 +34,10 @@ public class StorageImageServiceImp implements StorageImageService{
         }
     }
 
-    public String uploadImage(MultipartFile multipartFile, String fileName) {
+    public String uploadImage(MultipartFile multipartFile, String key) {
        File file = fromMultipartfileToFile(multipartFile);
        return s3Client
-               .putObject(new PutObjectRequest(bucketName, fileName, file))
+               .putObject(new PutObjectRequest(bucketName, key, file))
                .getVersionId();
     }
 
