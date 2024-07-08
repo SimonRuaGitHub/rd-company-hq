@@ -27,6 +27,7 @@ public class ProductTypeServiceImp implements ProductTypeService {
     private ProductTypeRepository productTypeRepository;
     private Validator validator;
 
+
     @Override
     public ProductTypeSaveResponse save(ProductTypeSaveRequest productTypeSaveRequest) {
         ProductType productType = GeneralSaveOperation

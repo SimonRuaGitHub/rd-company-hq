@@ -22,11 +22,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class StorageImageServiceImp implements StorageImageService{
-    @Value("${cloud.aws.s3.bucket.name}")
-    private String bucketName;
+
     private final AmazonS3 s3Client;
 
-    public void deleteImage(String key) {
+    public void deleteImage(String bucketName, String key) {
         try {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
         } catch (AmazonServiceException e) {
@@ -34,8 +33,9 @@ public class StorageImageServiceImp implements StorageImageService{
         }
     }
 
-    public String uploadImage(MultipartFile multipartFile, String key) {
+    public String uploadImage(String bucketName,  String key, MultipartFile multipartFile) {
        File file = fromMultipartfileToFile(multipartFile);
+
        return s3Client
                .putObject(new PutObjectRequest(bucketName, key, file))
                .getVersionId();

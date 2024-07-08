@@ -22,4 +22,6 @@ cloud:
       auto: false
     s3:
       bucket:
-        name: rd-product-version-images
+        product:
+          name: rd-product-version-images
+          template-key: company_id=%d/product_id=%d/version_id=%s/
