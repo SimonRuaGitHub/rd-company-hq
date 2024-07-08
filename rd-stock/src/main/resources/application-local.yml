@@ -11,6 +11,11 @@ spring:
     password: qwerty
     driver-class-name: org.mariadb.jdbc.Driver
 
+
+logging:
+  level:
+    root: TRACE
+
 cloud:
   aws:
     credentials:

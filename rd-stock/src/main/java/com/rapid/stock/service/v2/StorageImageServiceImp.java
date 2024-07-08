@@ -1,13 +1,13 @@
 package com.rapid.stock.service.v2;
 
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.apachecommons.CommonsLog;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,30 +15,33 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
+@CommonsLog
 public class StorageImageServiceImp implements StorageImageService{
 
     private final AmazonS3 s3Client;
+    private final String BUCKET_NAME_KEY_SEPARATOR = "/";
 
     public void deleteImage(String bucketName, String key) {
         try {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
         } catch (AmazonServiceException e) {
-            e.printStackTrace();
+            throw new AmazonS3Exception(e.getMessage());
         }
     }
 
-    public String uploadImage(String bucketName,  String key, MultipartFile multipartFile) {
+    public void uploadImage(String bucketName,  String key, MultipartFile multipartFile) {
        File file = fromMultipartfileToFile(multipartFile);
 
-       return s3Client
-               .putObject(new PutObjectRequest(bucketName, key, file))
-               .getVersionId();
+       try {
+          s3Client.putObject(new PutObjectRequest(bucketName, key, file));
+       } catch (AmazonServiceException e) {
+           throw new AmazonS3Exception(e.getMessage());
+       }
     }
 
     private File fromMultipartfileToFile(MultipartFile file) {

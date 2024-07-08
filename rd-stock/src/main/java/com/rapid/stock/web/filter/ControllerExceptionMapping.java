@@ -1,5 +1,6 @@
 package com.rapid.stock.web.filter;
 
+import com.amazonaws.AmazonServiceException;
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
 import com.rapid.stock.exception.*;
@@ -70,5 +71,11 @@ public class ControllerExceptionMapping {
     public ResponseEntity<RestExceptionResult> handleNumberFormatException(NotValidProductVersionException ex){
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    public ResponseEntity<RestExceptionResult> handleS3Exception(AmazonS3Exception ex) {
+        AmazonServiceException exception = (AmazonServiceException) ex;
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
     }
 }
