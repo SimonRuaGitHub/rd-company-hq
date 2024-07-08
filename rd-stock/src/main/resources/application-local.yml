@@ -25,4 +25,4 @@ cloud:
       bucket:
         product:
           name: rd-product-version-images
-          template-key: company_id=%d/product_id=%d/version_id=%s/
+          template-key: company_id=%s/product_id=%d/version_id=%s/

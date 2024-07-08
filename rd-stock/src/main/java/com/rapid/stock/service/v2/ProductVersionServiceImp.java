@@ -30,9 +30,9 @@ public class ProductVersionServiceImp implements ProductVersionService {
     private final StorageImageService storageImageService;
 
     @Value("${cloud.aws.s3.bucket.product.template-key}")
-    private final String templateKey;
+    private String templateKey;
     @Value("${cloud.aws.s3.bucket.product.name}")
-    private final String bucketName;
+    private String bucketName;
 
     @Override
     public ProductVersionSaveResponse save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile multipartFile) {
