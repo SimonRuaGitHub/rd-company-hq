@@ -1,6 +1,7 @@
 package com.rapid.stock.web.filter;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
 import com.rapid.stock.exception.*;
@@ -73,8 +74,16 @@ public class ControllerExceptionMapping {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
+    @ExceptionHandler(AmazonS3Exception.class)
     public ResponseEntity<RestExceptionResult> handleS3Exception(AmazonS3Exception ex) {
-        AmazonServiceException exception = (AmazonServiceException) ex;
+        AmazonServiceException exception = ex;
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(SdkClientS3Exception.class)
+    public ResponseEntity<RestExceptionResult> handleS3Exception(SdkClientS3Exception ex) {
+        SdkClientException exception = ex;
         exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
     }
