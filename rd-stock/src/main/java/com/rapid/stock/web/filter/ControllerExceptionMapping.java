@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
+import com.rapid.stock.dto.S3ErrorOperation;
 import com.rapid.stock.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,11 +75,19 @@ public class ControllerExceptionMapping {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
-    @ExceptionHandler(AmazonS3Exception.class)
-    public ResponseEntity<RestExceptionResult> handleS3Exception(AmazonS3Exception ex) {
-        AmazonServiceException exception = ex;
-        exception.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
+    @ExceptionHandler(S3Exception.class)
+    public ResponseEntity<S3ErrorOperation> handleS3Exception(S3Exception ex) {
+        ex.printStackTrace();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new S3ErrorOperation(
+                        ex.getStatusCode(),
+                        ex.getMessage(),
+                        ex.getBucket(),
+                        ex.getKey(),
+                        ex.getOperationType().toString()
+                )
+        );
     }
 
     @ExceptionHandler(SdkClientS3Exception.class)

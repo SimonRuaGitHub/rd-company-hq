@@ -1,12 +1,13 @@
 package com.rapid.stock.service.v2;
 
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.rapid.stock.exception.S3Exception;
 import com.rapid.stock.exception.SdkClientS3Exception;
+import com.rapid.stock.model.v2.S3OperationType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,9 @@ public class StorageImageServiceImp implements StorageImageService {
     public void deleteImage(String bucketName, String key) {
         try {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
-        } catch (AmazonServiceException e) {
-            throw new AmazonS3Exception(e.getMessage());
-        }  catch (SdkClientException e) {
+        } catch (AmazonS3Exception e) {
+            throw new S3Exception(e.getMessage(), bucketName, key , e.getStatusCode(), S3OperationType.DELETE);
+        } catch (SdkClientException e) {
             throw new SdkClientS3Exception(e.getMessage());
         }
     }
@@ -40,8 +41,8 @@ public class StorageImageServiceImp implements StorageImageService {
 
        try {
           s3Client.putObject(new PutObjectRequest(bucketName, key, file));
-       } catch (AmazonServiceException e) {
-           throw new AmazonS3Exception(e.getMessage());
+       } catch (AmazonS3Exception e) {
+           throw new S3Exception(e.getMessage(), bucketName, key, e.getStatusCode(), S3OperationType.PUT);
        } catch (SdkClientException e) {
            throw new SdkClientS3Exception(e.getMessage());
        }
