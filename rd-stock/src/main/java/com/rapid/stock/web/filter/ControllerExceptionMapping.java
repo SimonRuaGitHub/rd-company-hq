@@ -93,12 +93,12 @@ public class ControllerExceptionMapping {
     @ExceptionHandler(SdkClientException.class)
     public ResponseEntity<RestExceptionResult> handleSdkClientException(SdkClientException ex) {
         ex.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new RestExceptionResult(ex.getMessage()));
     }
 
     @ExceptionHandler(AmazonServiceException.class)
     public ResponseEntity<RestExceptionResult> handleAmazonServiceException(AmazonServiceException ex) {
         ex.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new RestExceptionResult(ex.getMessage()));
     }
 }
