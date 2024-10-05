@@ -79,7 +79,7 @@ public class ControllerExceptionMapping {
     public ResponseEntity<S3ErrorOperation> handleS3Exception(S3Exception ex) {
         ex.printStackTrace();
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new S3ErrorOperation(
                         ex.getStatusCode(),
                         ex.getMessage(),
