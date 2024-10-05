@@ -31,8 +31,6 @@ public class StorageImageServiceImp implements StorageImageService {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
         } catch (AmazonS3Exception e) {
             throw new S3Exception(e.getMessage(), bucketName, key , e.getStatusCode(), S3OperationType.DELETE);
-        } catch (SdkClientException e) {
-            throw new SdkClientS3Exception(e.getMessage());
         }
     }
 
@@ -43,8 +41,6 @@ public class StorageImageServiceImp implements StorageImageService {
           s3Client.putObject(new PutObjectRequest(bucketName, key, file));
        } catch (AmazonS3Exception e) {
            throw new S3Exception(e.getMessage(), bucketName, key, e.getStatusCode(), S3OperationType.PUT);
-       } catch (SdkClientException e) {
-           throw new SdkClientS3Exception(e.getMessage());
        }
     }
 

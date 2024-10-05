@@ -90,10 +90,15 @@ public class ControllerExceptionMapping {
         );
     }
 
-    @ExceptionHandler(SdkClientS3Exception.class)
-    public ResponseEntity<RestExceptionResult> handleS3Exception(SdkClientS3Exception ex) {
-        SdkClientException exception = ex;
-        exception.printStackTrace();
+    @ExceptionHandler(SdkClientException.class)
+    public ResponseEntity<RestExceptionResult> handleSdkClientException(SdkClientException ex) {
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(AmazonServiceException.class)
+    public ResponseEntity<RestExceptionResult> handleAmazonServiceException(AmazonServiceException ex) {
+        ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new RestExceptionResult(ex.getMessage()));
     }
 }
