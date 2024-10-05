@@ -1,7 +1,10 @@
 package com.rapid.stock.web.filter;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
+import com.rapid.stock.dto.S3ErrorOperation;
 import com.rapid.stock.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,5 +73,32 @@ public class ControllerExceptionMapping {
     public ResponseEntity<RestExceptionResult> handleNumberFormatException(NotValidProductVersionException ex){
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(S3Exception.class)
+    public ResponseEntity<S3ErrorOperation> handleS3Exception(S3Exception ex) {
+        ex.printStackTrace();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new S3ErrorOperation(
+                        ex.getStatusCode(),
+                        ex.getMessage(),
+                        ex.getBucket(),
+                        ex.getKey(),
+                        ex.getOperationType().toString()
+                )
+        );
+    }
+
+    @ExceptionHandler(SdkClientException.class)
+    public ResponseEntity<RestExceptionResult> handleSdkClientException(SdkClientException ex) {
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new RestExceptionResult(ex.getMessage()));
+    }
+
+    @ExceptionHandler(AmazonServiceException.class)
+    public ResponseEntity<RestExceptionResult> handleAmazonServiceException(AmazonServiceException ex) {
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new RestExceptionResult(ex.getMessage()));
     }
 }

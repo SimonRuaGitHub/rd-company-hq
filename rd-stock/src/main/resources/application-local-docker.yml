@@ -23,4 +23,6 @@ cloud:
     s3:
       url: http://localstack:4566
       bucket:
-        name: rd-product-version-images
+        product:
+          name: rd-product-version-images
+          template-key: company_id=%s/product_id=%d/version_id=%s/

@@ -10,6 +10,7 @@ import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,13 @@ public class ProductVersionServiceImp implements ProductVersionService {
     private final Validator validator;
     private final StorageImageService storageImageService;
 
+    @Value("${cloud.aws.s3.bucket.product.template-key}")
+    private String templateKey;
+    @Value("${cloud.aws.s3.bucket.product.name}")
+    private String bucketName;
+
     @Override
     public ProductVersionSaveResponse save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile multipartFile) {
-          storageImageService.uploadImage(multipartFile, productVersionSaveRequest.getFilename());
           final ProductVersion productVersion = GeneralSaveOperation
                            .builder()
                            .mapper(productVersionMapperSaveRequest)
@@ -39,6 +44,9 @@ public class ProductVersionServiceImp implements ProductVersionService {
                            .build()
                            .save(productVersionSaveRequest);
 
+        String keyWithFileName = generateFullKey(productVersion);
+
+        storageImageService.uploadImage(bucketName, keyWithFileName, multipartFile);
 
         return productVersionMapperSaveResponse.map(productVersion.getVersionId());
     }
@@ -54,7 +62,22 @@ public class ProductVersionServiceImp implements ProductVersionService {
         ProductVersion productVersion = productVersionRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Product version ID: " + id + " was not found")
         );
+
         productVersionRepository.delete(productVersion);
-        storageImageService.deleteImage(productVersion.getFilename());
+
+        String keyWithFileName = generateFullKey(productVersion);
+
+        storageImageService.deleteImage(bucketName, keyWithFileName);
+    }
+
+    private String generateFullKey(ProductVersion productVersion) {
+        String key = String.format(
+                templateKey,
+                productVersion.getParentProduct().getCompanyId(),
+                productVersion.getParentProduct().getId(),
+                productVersion.getVersionId()
+        );
+
+        return key.concat(productVersion.getFilename());
     }
 }
