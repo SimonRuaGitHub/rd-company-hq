@@ -4,7 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.rapid.stock.dto.RestExceptionResult;
 import com.rapid.stock.dto.RestFieldErrors;
-import com.rapid.stock.dto.S3ErrorOperation;
+import com.rapid.stock.dto.StorageImageError;
 import com.rapid.stock.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,19 +75,17 @@ public class ControllerExceptionMapping {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
     }
 
-    @ExceptionHandler(S3Exception.class)
-    public ResponseEntity<S3ErrorOperation> handleS3Exception(S3Exception ex) {
-        ex.printStackTrace();
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new S3ErrorOperation(
-                        ex.getStatusCode(),
-                        ex.getMessage(),
-                        ex.getBucket(),
-                        ex.getKey(),
-                        ex.getOperationType().toString()
-                )
-        );
+    @ExceptionHandler(StorageImageException.class)
+    public ResponseEntity<StorageImageError> handleS3Exception(StorageImageException storageImageException) {
+        List<String> prefixes = List.of(storageImageException.getKey().split("/"));
+        String imageName = prefixes.get(prefixes.size() - 1);
+        StorageImageError storageImageError = StorageImageError.builder()
+                .bucketName(storageImageException.getBucket())
+                .message(storageImageException.getMessage())
+                .operation(storageImageException.getOperationType().toString())
+                .imageName(imageName)
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(storageImageError);
     }
 
     @ExceptionHandler(SdkClientException.class)

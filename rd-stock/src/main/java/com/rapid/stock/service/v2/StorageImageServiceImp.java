@@ -1,13 +1,11 @@
 package com.rapid.stock.service.v2;
 
-import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.rapid.stock.exception.S3Exception;
-import com.rapid.stock.exception.SdkClientS3Exception;
-import com.rapid.stock.model.v2.S3OperationType;
+import com.rapid.stock.exception.StorageImageException;
+import com.rapid.stock.exception.StorageImageException.StorageOperationType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.stereotype.Service;
@@ -30,7 +28,15 @@ public class StorageImageServiceImp implements StorageImageService {
         try {
             s3Client.deleteObject(new DeleteObjectRequest(bucketName, key));
         } catch (AmazonS3Exception e) {
-            throw new S3Exception(e.getMessage(), bucketName, key , e.getStatusCode(), S3OperationType.DELETE);
+            StorageImageException storageImageException = new StorageImageException(
+                    e.getMessage(),
+                    bucketName,
+                    key,
+                    e.getStatusCode(),
+                    StorageOperationType.DELETE
+            );
+            storageImageException.printStackTrace();
+            throw storageImageException;
         }
     }
 
@@ -40,7 +46,15 @@ public class StorageImageServiceImp implements StorageImageService {
        try {
           s3Client.putObject(new PutObjectRequest(bucketName, key, file));
        } catch (AmazonS3Exception e) {
-           throw new S3Exception(e.getMessage(), bucketName, key, e.getStatusCode(), S3OperationType.PUT);
+           StorageImageException storageImageException = new StorageImageException(
+                   e.getMessage(),
+                   bucketName,
+                   key,
+                   e.getStatusCode(),
+                   StorageOperationType.PUT
+           );
+           storageImageException.printStackTrace();
+           throw storageImageException;
        }
     }
 

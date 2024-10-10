@@ -1,28 +1,37 @@
 package com.rapid.stock.exception;
 
 import com.amazonaws.AmazonServiceException;
-import com.rapid.stock.model.v2.S3OperationType;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-public class S3Exception extends AmazonServiceException {
+@ToString
+public class StorageImageException extends AmazonServiceException {
 
     private final String bucket;
     private final String key;
     private final int statusCode;
-    private final S3OperationType operationType;
+    private final StorageOperationType operationType;
 
-    public S3Exception(
+    public StorageImageException(
             String message,
             String bucket,
             String key,
             int statusCode,
-            S3OperationType operationType
+            StorageOperationType operationType
     ) {
         super(message);
         this.bucket = bucket;
         this.key = key;
         this.statusCode = statusCode;
         this.operationType = operationType;
+    }
+
+    public enum StorageOperationType {
+        READ,
+        DELETE,
+        PUT,
     }
 }
