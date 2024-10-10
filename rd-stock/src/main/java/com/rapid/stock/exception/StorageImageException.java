@@ -3,9 +3,11 @@ package com.rapid.stock.exception;
 import com.amazonaws.AmazonServiceException;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
+@ToString
 public class StorageImageException extends AmazonServiceException {
 
     private final String bucket;
