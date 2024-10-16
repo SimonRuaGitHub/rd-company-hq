@@ -13,6 +13,9 @@ spring:
 
 cloud:
   aws:
+    localstack.mock-credentials:
+      access-key: foobar
+      secret-key: foobar
     region:
       static: us-east-1
     stack:
