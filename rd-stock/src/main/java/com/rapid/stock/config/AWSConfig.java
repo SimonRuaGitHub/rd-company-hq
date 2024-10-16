@@ -14,22 +14,24 @@ import org.springframework.core.env.Environment;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Configuration
 public class AWSConfig {
 
-    @Value("${cloud.aws.localstack.mock-credentials.access-key}")
-    private String accessKey;
-    @Value("${cloud.aws.localstack.mock-credentials.secret-key}")
-    private String secretKey;
     @Value("${cloud.aws.region.static}")
     private String region;
     @Value("${cloud.aws.s3.url}")
     private String s3Url;
 
+    private final String MOCK_AWS_ACCESS_KEY_LOCAL = "foobar";
+    private final String MOCK_AWS_SECRET_KEY_LOCAL = "foobar";
+
+
     @Autowired
     private Environment environment;
+
 
     @Bean
     @Profile({"local","local-docker"})
@@ -56,8 +58,8 @@ public class AWSConfig {
 
         if (getActiveProfile().equals("local")) {
             AWSCredentials credentials = new BasicAWSCredentials(
-                    accessKey,
-                    secretKey
+                    MOCK_AWS_ACCESS_KEY_LOCAL,
+                    MOCK_AWS_SECRET_KEY_LOCAL
             );
 
             return new AWSStaticCredentialsProvider(credentials);
@@ -70,7 +72,7 @@ public class AWSConfig {
         return Stream.of(environment.getActiveProfiles())
                 .filter(activeProfile -> !activeProfile.isEmpty())
                 .findFirst()
-                .orElseThrow(() -> new NoActiveProfileException("No Active Profiles"));
+                .orElseThrow(() -> new NoActiveProfileException("There no active profiles"));
     }
 
     private AwsClientBuilder.EndpointConfiguration getLocalEndpointConfiguration() {
