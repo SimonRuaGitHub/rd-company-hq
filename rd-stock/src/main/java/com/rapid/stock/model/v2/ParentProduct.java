@@ -64,7 +64,8 @@ public class ParentProduct{
     private List<ProductType> productTypes;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
+    @JoinTable(
+            name = "PRODUCTS_OPTION_CATEGORIES",
             joinColumns = {
                     @JoinColumn(name = "product_id", referencedColumnName = "id"),
             },
