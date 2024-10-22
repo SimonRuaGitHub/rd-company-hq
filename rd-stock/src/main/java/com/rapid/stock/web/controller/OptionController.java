@@ -18,7 +18,7 @@ public class OptionController {
     private final OptionService optionService;
 
     @PostMapping
-    public ResponseEntity saveOptions(@RequestBody OptionCategorySaveRequest optionCategorySaveRequest){
+    public ResponseEntity<Void> saveOptions(@RequestBody OptionCategorySaveRequest optionCategorySaveRequest){
         optionService.save(optionCategorySaveRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

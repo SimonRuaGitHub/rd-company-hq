@@ -30,6 +30,11 @@ public class Addition {
     @NotNull(message = "price can't be null")
     private Double price;
 
+    private String fileName;
+
+    @NotBlank(message = "companyId can't be empty")
+    private String companyId;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
@@ -44,9 +49,11 @@ public class Addition {
     private List<OptionCategory> optionCategories;
 
     @Builder
-    public Addition(Long id, String name, Double price) {
+    public Addition(Long id, String name, Double price, String fileName, String companyId) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.fileName = fileName;
+        this.companyId = companyId;
     }
 }

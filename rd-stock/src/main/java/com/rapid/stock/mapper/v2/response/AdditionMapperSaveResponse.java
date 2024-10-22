@@ -8,6 +8,12 @@ import com.rapid.stock.model.v2.OptionCategory;
 public class AdditionMapperSaveResponse {
 
     public AdditionSaveResponse map(Addition addition) {
-        return new AdditionSaveResponse(addition.getId());
+        return AdditionSaveResponse.builder()
+                .id(addition.getId())
+                .name(addition.getCompanyId())
+                .price(addition.getPrice())
+                .fileName(addition.getFileName())
+                .companyId(addition.getCompanyId())
+                .build();
     }
 }
