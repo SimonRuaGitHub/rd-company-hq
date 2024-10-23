@@ -194,7 +194,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `rd_stock_db`.`ADDITIONS`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rd_stock_db`.`ADDITIONS` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `price` DECIMAL(10,8) NOT NULL,
   `file_name` VARCHAR(45) NULL,
