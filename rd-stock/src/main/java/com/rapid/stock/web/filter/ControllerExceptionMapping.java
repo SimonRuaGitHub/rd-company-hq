@@ -99,4 +99,10 @@ public class ControllerExceptionMapping {
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(new RestExceptionResult(ex.getMessage()));
     }
+
+    @ExceptionHandler(NotValidAdditionException.class)
+    public ResponseEntity<RestExceptionResult> handleNotValidAddition(NotValidAdditionException ex) {
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RestExceptionResult(ex.getMessage()));
+    }
 }

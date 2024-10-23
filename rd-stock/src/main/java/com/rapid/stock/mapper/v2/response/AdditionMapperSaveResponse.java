@@ -10,7 +10,7 @@ public class AdditionMapperSaveResponse {
     public AdditionSaveResponse map(Addition addition) {
         return AdditionSaveResponse.builder()
                 .id(addition.getId())
-                .name(addition.getCompanyId())
+                .name(addition.getName())
                 .price(addition.getPrice())
                 .fileName(addition.getFileName())
                 .companyId(addition.getCompanyId())
