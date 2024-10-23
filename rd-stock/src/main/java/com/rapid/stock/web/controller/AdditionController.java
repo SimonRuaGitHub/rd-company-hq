@@ -29,12 +29,12 @@ public class AdditionController {
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<AdditionSaveResponse> saveAddition(
-                   @RequestParam(value = "addition-info") String jsonAddition,
+                   @RequestParam(value = "addition-metadata") String jsonAdditionMetadata,
                    @RequestParam(value = "addition-image") MultipartFile image
     ) {
         try {
            AdditionMedataSaveRequest additionMedataSaveRequest = mapper.readValue(
-                   jsonAddition,
+                   jsonAdditionMetadata,
                    AdditionMedataSaveRequest.class
            );
 

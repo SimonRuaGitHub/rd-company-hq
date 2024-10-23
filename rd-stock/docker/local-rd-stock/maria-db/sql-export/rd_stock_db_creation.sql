@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `rd_stock_db`.`ADDITIONS` (
   `id` INT(11) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `price` DECIMAL(10,8) NOT NULL,
-  `filename` VARCHAR(45) NULL,
+  `file_name` VARCHAR(45) NULL,
   `company_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
