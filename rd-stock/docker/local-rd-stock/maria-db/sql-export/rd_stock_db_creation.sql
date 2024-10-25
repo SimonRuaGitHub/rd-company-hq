@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `rd_stock_db`.`PRODUCT_VERSIONS` (
   `description` VARCHAR(280) NOT NULL,
   `filename` VARCHAR(100) NOT NULL,
   `created_at` DATETIME NOT NULL,
-  `price` DECIMAL(10,8) NOT NULL,
+  `price` DECIMAL(8,2) NOT NULL,
   `is_available` TINYINT(4) NOT NULL,
   `product_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -196,7 +196,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `rd_stock_db`.`ADDITIONS` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `price` DECIMAL(10,8) NOT NULL,
+  `price` DECIMAL(8,2) NOT NULL,
   `file_name` VARCHAR(45) NULL,
   `company_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),

@@ -26,7 +26,7 @@ public class Addition {
     @NotBlank(message = "name can't be empty")
     private String name;
 
-    @Min(value=0, message = "price can't be less than 0")
+    @Min(value = 0, message = "price can't be less than 0")
     @NotNull(message = "price can't be null")
     private Double price;
 
@@ -42,18 +42,26 @@ public class Addition {
                     @JoinColumn(name = "addition_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "option_category", referencedColumnName = "id")
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
             }
     )
     @JsonManagedReference
     private List<OptionCategory> optionCategories;
 
     @Builder
-    public Addition(Long id, String name, Double price, String fileName, String companyId) {
+    public Addition(
+            Long id,
+            String name,
+            Double price,
+            String fileName,
+            String companyId,
+            List<OptionCategory> optionCategories
+    ) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.fileName = fileName;
         this.companyId = companyId;
+        this.optionCategories = optionCategories;
     }
 }
