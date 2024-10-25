@@ -48,7 +48,7 @@ public class OptionCategory {
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
             joinColumns = {
-                    @JoinColumn(name = "option_category", referencedColumnName = "id")
+                    @JoinColumn(name = "option_category_id|", referencedColumnName = "id")
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "addition_id", referencedColumnName = "id")
@@ -58,11 +58,19 @@ public class OptionCategory {
     private List<Addition> additions;
 
     @Builder
-    public OptionCategory(String name, String descrip, String label, String companyId , List<ParentProduct> parentProducts) {
+    public OptionCategory(
+            String name,
+            String descrip,
+            String label,
+            String companyId,
+            List<ParentProduct> parentProducts,
+            List<Addition> additions
+    ) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
         this.companyId = companyId;
         this.parentProducts = parentProducts;
+        this.additions = additions;
     }
 }
