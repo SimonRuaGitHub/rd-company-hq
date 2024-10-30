@@ -10,4 +10,5 @@ public class OptionCategorySaveRequest {
     private String label;
     private String companyId;
     private List<String> parentProductIds;
+    private List<Long> additionIds;
 }

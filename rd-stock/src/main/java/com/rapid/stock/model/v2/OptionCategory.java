@@ -1,6 +1,7 @@
 package com.rapid.stock.model.v2;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +32,8 @@ public class OptionCategory {
     private String companyId;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "PRODUCTS_OPTION_CATEGORIES",
+    @JoinTable(
+            name = "PRODUCTS_OPTION_CATEGORIES",
             joinColumns = {
                     @JoinColumn(name = "category_id", referencedColumnName = "id"),
             },
@@ -42,12 +44,33 @@ public class OptionCategory {
     @JsonBackReference
     private List<ParentProduct> parentProducts;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "OPTION_CATEGORIES_ADDITIONS",
+            joinColumns = {
+                    @JoinColumn(name = "option_category_id|", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "addition_id", referencedColumnName = "id")
+            }
+    )
+    @JsonBackReference
+    private List<Addition> additions;
+
     @Builder
-    public OptionCategory(String name, String descrip, String label, String companyId , List<ParentProduct> parentProducts) {
+    public OptionCategory(
+            String name,
+            String descrip,
+            String label,
+            String companyId,
+            List<ParentProduct> parentProducts,
+            List<Addition> additions
+    ) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
         this.companyId = companyId;
         this.parentProducts = parentProducts;
+        this.additions = additions;
     }
 }

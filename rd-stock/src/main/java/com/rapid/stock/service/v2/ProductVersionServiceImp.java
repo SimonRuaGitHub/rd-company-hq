@@ -31,7 +31,7 @@ public class ProductVersionServiceImp implements ProductVersionService {
 
     @Value("${cloud.aws.s3.bucket.product.template-key}")
     private String templateKey;
-    @Value("${cloud.aws.s3.bucket.product.name}")
+    @Value("${cloud.aws.s3.bucket.name}")
     private String bucketName;
 
     @Override

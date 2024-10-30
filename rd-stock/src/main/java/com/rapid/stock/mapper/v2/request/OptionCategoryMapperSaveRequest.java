@@ -3,8 +3,10 @@ package com.rapid.stock.mapper.v2.request;
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.OptionsSchemaRules;
+import com.rapid.stock.model.v2.Addition;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ParentProduct;
+import com.rapid.stock.repository.v2.AdditionRepository;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import com.rapid.stock.util.Util;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
     private final CommonMapper commonMapper;
     private final ParentProductRepository productRepository;
     private final OptionsSchemaRules optionsSchemaRules;
+    private final AdditionRepository additionRepository;
 
     public OptionCategory mapToEntity(OptionCategorySaveRequest optionCategoryDTO){
            return OptionCategory.builder()
@@ -34,7 +37,12 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
                                            optionCategoryDTO.getCompanyId()
                                        )
                                )
+                               .additions( mapAdditions( optionCategoryDTO.getAdditionIds() ) )
                                .build();
+    }
+
+    private List<Addition> mapAdditions(List<Long> additionIds) {
+        return commonMapper.mapToEntitiesByIds(additionIds, additionRepository);
     }
 
     private List<ParentProduct> mapProductList(List<String> productIds, String companyId){
