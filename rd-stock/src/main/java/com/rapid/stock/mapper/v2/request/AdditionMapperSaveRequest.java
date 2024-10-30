@@ -9,7 +9,9 @@ import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -41,7 +43,7 @@ public class AdditionMapperSaveRequest implements MapperRequest<Addition, Additi
                 .build();
     }
 
-    public List<OptionCategory> getOptionCategories(List<Long> optionCategoryIds) {
-        return commonMapper.mapToEntitiesByIds(optionCategoryIds, optionCategoryRepository);
+    public Set<OptionCategory> getOptionCategories(List<Long> optionCategoryIds) {
+        return new HashSet<>( commonMapper.mapToEntitiesByIds(optionCategoryIds, optionCategoryRepository) );
     }
 }

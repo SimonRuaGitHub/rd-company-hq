@@ -13,7 +13,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -41,8 +43,8 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
                                .build();
     }
 
-    private List<Addition> mapAdditions(List<Long> additionIds) {
-        return commonMapper.mapToEntitiesByIds(additionIds, additionRepository);
+    private Set<Addition> mapAdditions(List<Long> additionIds) {
+        return new HashSet<>( commonMapper.mapToEntitiesByIds(additionIds, additionRepository) );
     }
 
     private List<ParentProduct> mapProductList(List<String> productIds, String companyId){
