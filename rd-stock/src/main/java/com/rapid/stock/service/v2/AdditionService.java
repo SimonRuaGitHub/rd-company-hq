@@ -5,4 +5,5 @@ import com.rapid.stock.dto.AdditionSaveResponse;
 
 public interface AdditionService {
      AdditionSaveResponse save(AdditionSaveRequest additionRequestSave);
+     void delete(Long additionId);
 }

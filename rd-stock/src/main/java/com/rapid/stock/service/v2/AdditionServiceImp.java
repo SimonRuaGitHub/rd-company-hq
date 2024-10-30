@@ -2,6 +2,7 @@ package com.rapid.stock.service.v2;
 
 import com.rapid.stock.dto.AdditionSaveRequest;
 import com.rapid.stock.dto.AdditionSaveResponse;
+import com.rapid.stock.exception.NotFoundException;
 import com.rapid.stock.mapper.v2.request.AdditionMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.AdditionMapperSaveResponse;
 import com.rapid.stock.model.operations.GeneralSaveOperation;
@@ -45,6 +46,19 @@ public class AdditionServiceImp implements AdditionService {
         storageImageService.uploadImage(bucketName, keyWithFileName, additionRequestSave.getImage());
 
         return additionMapperSaveResponse.map(addition);
+    }
+
+    @Override
+    public void delete(Long additionId) {
+       Addition addition = additionRepository.findById(additionId).orElseThrow(
+               () -> new NotFoundException("Addition ID: " + additionId + " was not found")
+       );
+
+       additionRepository.delete(addition);
+
+       String keyWithFileName = generateFullKey(addition);
+
+       storageImageService.deleteImage(bucketName, keyWithFileName);
     }
 
     private String generateFullKey(Addition addition) {
