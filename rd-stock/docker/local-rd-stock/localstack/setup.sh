@@ -7,5 +7,5 @@ export AWS_DEFAULT_REGION=us-west-2
 export PAGER=
 
 echo "S3 Configuration started"
-awslocal --endpoint-url=http://localhost:4566 s3 mb s3://rd-product-version-images
+awslocal --endpoint-url=http://localhost:4566 s3 mb s3://rd-stock-images
 echo "S3 Configured"

@@ -5,7 +5,6 @@ import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.AdditionSchemaRules;
 import com.rapid.stock.model.v2.Addition;
 import com.rapid.stock.model.v2.OptionCategory;
-import com.rapid.stock.repository.v2.AdditionRepository;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,7 +33,7 @@ public class AdditionMapperSaveRequest implements MapperRequest<Addition, Additi
         return Addition.builder()
                 .name(additionSaveRequest.getAdditionMedataSaveRequest().getName())
                 .price(additionSaveRequest.getAdditionMedataSaveRequest().getPrice())
-                .fileName(additionSaveRequest.getImage().getName())
+                .fileName(additionSaveRequest.getImage().getOriginalFilename())
                 .companyId(additionSaveRequest.getAdditionMedataSaveRequest().getCompanyId())
                 .optionCategories(
                         getOptionCategories( additionSaveRequest.getAdditionMedataSaveRequest().getOptionCategoryIds() )
