@@ -12,6 +12,9 @@ import com.rapid.stock.repository.v2.AdditionRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Validator;
@@ -46,6 +49,12 @@ public class AdditionServiceImp implements AdditionService {
         storageImageService.uploadImage(bucketName, keyWithFileName, additionRequestSave.getImage());
 
         return additionMapperSaveResponse.map(addition);
+    }
+
+    @Override
+    public Page<Addition> getAll(int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+        return additionRepository.findAll(pageRequest);
     }
 
     @Override

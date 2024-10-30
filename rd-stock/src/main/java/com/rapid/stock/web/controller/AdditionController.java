@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rapid.stock.dto.AdditionMedataSaveRequest;
 import com.rapid.stock.dto.AdditionSaveRequest;
 import com.rapid.stock.dto.AdditionSaveResponse;
+import com.rapid.stock.model.v2.Addition;
+import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.service.v2.AdditionService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +50,15 @@ public class AdditionController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<Page<Addition>> getAll(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        Page<Addition> pageAdditions = additionService.getAll(page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(pageAdditions);
     }
 
     @DeleteMapping("/{id}")
