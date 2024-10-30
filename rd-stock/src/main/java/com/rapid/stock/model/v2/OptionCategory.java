@@ -48,7 +48,7 @@ public class OptionCategory {
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
             joinColumns = {
-                    @JoinColumn(name = "option_category_id|", referencedColumnName = "id")
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "addition_id", referencedColumnName = "id")
