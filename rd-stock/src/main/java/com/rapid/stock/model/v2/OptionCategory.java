@@ -33,19 +33,6 @@ public class OptionCategory {
     @NotBlank(message = "Option category company id can't  be blank")
     private String companyId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "PRODUCTS_OPTION_CATEGORIES",
-            joinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "id"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "id")
-            }
-    )
-    @JsonBackReference
-    private List<ParentProduct> parentProducts;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
@@ -59,20 +46,33 @@ public class OptionCategory {
     @JsonBackReference
     private Set<Addition> additions = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "OPTION_CATEGORIES_PRODUCT_VERSIONS",
+            joinColumns = {
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "product_version_id", referencedColumnName = "id")
+            }
+    )
+    @JsonBackReference
+    private Set<ProductVersion> productVersions = new HashSet<>();
+
     @Builder
     public OptionCategory(
             String name,
             String descrip,
             String label,
             String companyId,
-            List<ParentProduct> parentProducts,
+            Set<ProductVersion> productVersions,
             Set<Addition> additions
     ) {
         this.name = name;
         this.descrip = descrip;
         this.label = label;
         this.companyId = companyId;
-        this.parentProducts = parentProducts;
+        this.productVersions = productVersions;
         this.additions = additions;
     }
 }

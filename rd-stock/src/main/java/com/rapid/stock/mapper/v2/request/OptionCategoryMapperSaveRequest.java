@@ -1,16 +1,16 @@
 package com.rapid.stock.mapper.v2.request;
 
+import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.rapid.stock.dto.OptionCategorySaveRequest;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.OptionsSchemaRules;
 import com.rapid.stock.model.v2.Addition;
 import com.rapid.stock.model.v2.OptionCategory;
-import com.rapid.stock.model.v2.ParentProduct;
+import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.AdditionRepository;
 import com.rapid.stock.repository.v2.ParentProductRepository;
 import com.rapid.stock.util.Util;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -33,9 +33,9 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
                                .descrip(optionCategoryDTO.getDescription())
                                .label(getLabelValidated(optionCategoryDTO.getLabel(), optionCategoryDTO.getCompanyId()))
                                .companyId(optionCategoryDTO.getCompanyId())
-                               .parentProducts(
-                                       mapProductList(
-                                           optionCategoryDTO.getParentProductIds(),
+                               .productVersions(
+                                       mapProductVersions(
+                                           optionCategoryDTO.getProductVersionIds(),
                                            optionCategoryDTO.getCompanyId()
                                        )
                                )
@@ -51,12 +51,18 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
         else return new HashSet<>(additions);
     }
 
-    private List<ParentProduct> mapProductList(List<String> productIds, String companyId){
-        List<ParentProduct> mappedProducts = commonMapper.mapToEntitiesByIds(
-                util.parseStringListToLong(productIds),
+    private Set<ProductVersion> mapProductVersions(List<Long> productVersionIds, String companyId){
+        List<ProductVersion> mappedProductVersions = commonMapper.mapToEntitiesByIds(
+                productVersionIds,
                 productRepository
         );
-        return optionsSchemaRules.productsOfSameCompany(mappedProducts, companyId);
+
+        optionsSchemaRules.productsOfSameCompany(mappedProductVersions, companyId);
+
+        if ( mappedProductVersions == null || mappedProductVersions.isEmpty() )
+            return new HashSet<>();
+        else
+            return new HashSet<>(mappedProductVersions);
     }
 
     private String getNameValidated(String name, String companyId) {

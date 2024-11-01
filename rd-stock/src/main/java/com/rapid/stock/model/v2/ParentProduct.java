@@ -63,28 +63,22 @@ public class ParentProduct{
     @JsonManagedReference
     private List<ProductType> productTypes;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "PRODUCTS_OPTION_CATEGORIES",
-            joinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "id")
-            }
-    )
-    @JsonManagedReference
-    private List<OptionCategory> optionCategories;
-
     @Builder
-    public ParentProduct(String name, String description, LocalDateTime createdAt, List<ProductVersion> productVersions, List<Rack> associatedRacks, List<ProductType> productTypes, String companyId, List<OptionCategory> optionCategories) {
-        this.name = name;
+    public ParentProduct(
+       String name,
+       String description,
+       LocalDateTime createdAt,
+       List<ProductVersion> productVersions,
+       List<Rack> associatedRacks,
+       List<ProductType> productTypes,
+       String companyId
+    ) {
+		this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.productVersions = productVersions;
         this.associatedRacks = associatedRacks;
         this.productTypes = productTypes;
         this.companyId = companyId;
-        this.optionCategories = optionCategories;
     }
 }

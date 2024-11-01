@@ -9,6 +9,6 @@ public class OptionCategorySaveRequest {
     private String description;
     private String label;
     private String companyId;
-    private List<String> parentProductIds;
+    private List<Long> productVersionIds;
     private List<Long> additionIds;
 }

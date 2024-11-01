@@ -78,29 +78,6 @@ DEFAULT CHARACTER SET = utf8mb4;
 
 
 -- -----------------------------------------------------
--- Table `rd_stock_db`.`PRODUCTS_OPTION_CATEGORIES`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `rd_stock_db`.`PRODUCTS_OPTION_CATEGORIES` (
-  `product_id` INT(11) NOT NULL,
-  `category_id` INT(11) NOT NULL,
-  PRIMARY KEY (`product_id`, `category_id`),
-  INDEX `fk_PARENT_PRODUCTS_has_OPTION_CATEGORIES_OPTION_CATEGORIES1_idx` (`category_id` ASC) VISIBLE,
-  INDEX `fk_PARENT_PRODUCTS_has_OPTION_CATEGORIES_PARENT_PRODUCTS1_idx` (`product_id` ASC) VISIBLE,
-  CONSTRAINT `fk_PARENT_PRODUCTS_has_OPTION_CATEGORIES_OPTION_CATEGORIES1`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `rd_stock_db`.`OPTION_CATEGORIES` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PARENT_PRODUCTS_has_OPTION_CATEGORIES_PARENT_PRODUCTS1`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `rd_stock_db`.`PARENT_PRODUCTS` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
--- -----------------------------------------------------
 -- Table `rd_stock_db`.`RACKS`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `rd_stock_db`.`RACKS` (
@@ -221,6 +198,29 @@ CREATE TABLE IF NOT EXISTS `rd_stock_db`.`OPTION_CATEGORIES_ADDITIONS` (
   CONSTRAINT `fk_OPTION_CATEGORY_ADDITIONS`
     FOREIGN KEY (`addition_id`)
     REFERENCES `rd_stock_db`.`ADDITIONS` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `rd_stock_db`.`OPTION_CATEGORIES_PRODUCT_VERSIONS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `rd_stock_db`.`OPTION_CATEGORIES_PRODUCT_VERSIONS` (
+  `product_version_id` BIGINT(20) NOT NULL,
+  `option_category_id` INT(11) NOT NULL,
+  PRIMARY KEY (`product_version_id`, `option_category_id`),
+  INDEX `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_PRODUCT_VERSIONS1_idx` (`product_version_id` ASC) VISIBLE,
+  INDEX `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_OPTION_CATEGORIES_idx` (`option_category_id` ASC) VISIBLE,
+  CONSTRAINT `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_OPTION_CATEGORIES1`
+    FOREIGN KEY (`option_category_id`)
+    REFERENCES `rd_stock_db`.`OPTION_CATEGORIES` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_PRODUCT_VERSIONS1`
+    FOREIGN KEY (`product_version_id`)
+    REFERENCES `rd_stock_db`.`PRODUCT_VERSIONS` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
