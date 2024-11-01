@@ -44,7 +44,11 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
     }
 
     private Set<Addition> mapAdditions(List<Long> additionIds) {
-        return new HashSet<>( commonMapper.mapToEntitiesByIds(additionIds, additionRepository) );
+        List<Addition> additions = commonMapper.mapToEntitiesByIds(additionIds, additionRepository);
+
+        if ( additions == null || additions.isEmpty() )
+            return new HashSet<>();
+        else return new HashSet<>(additions);
     }
 
     private List<ParentProduct> mapProductList(List<String> productIds, String companyId){

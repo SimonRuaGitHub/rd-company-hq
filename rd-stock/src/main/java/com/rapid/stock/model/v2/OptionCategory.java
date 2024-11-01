@@ -46,9 +46,18 @@ public class OptionCategory {
     @JsonBackReference
     private List<ParentProduct> parentProducts;
 
-    @ManyToMany(mappedBy = "optionCategories")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "OPTION_CATEGORIES_ADDITIONS",
+            joinColumns = {
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "addition_id", referencedColumnName = "id")
+            }
+    )
     @JsonBackReference
-    private Set<Addition> additions;
+    private Set<Addition> additions = new HashSet<>();
 
     @Builder
     public OptionCategory(

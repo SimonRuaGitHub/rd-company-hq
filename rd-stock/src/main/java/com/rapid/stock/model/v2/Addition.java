@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +48,7 @@ public class Addition {
             }
     )
     @JsonManagedReference
-    private Set<OptionCategory> optionCategories;
+    private Set<OptionCategory> optionCategories = new HashSet<>();
 
     @Builder
     public Addition(

@@ -44,6 +44,13 @@ public class AdditionMapperSaveRequest implements MapperRequest<Addition, Additi
     }
 
     public Set<OptionCategory> getOptionCategories(List<Long> optionCategoryIds) {
-        return new HashSet<>( commonMapper.mapToEntitiesByIds(optionCategoryIds, optionCategoryRepository) );
+        List<OptionCategory> optionCategories = commonMapper.mapToEntitiesByIds(
+                optionCategoryIds,
+                optionCategoryRepository
+        );
+
+        if ( optionCategories == null || optionCategories.isEmpty() )
+            return new HashSet<>();
+        else return new HashSet<>(optionCategories);
     }
 }
