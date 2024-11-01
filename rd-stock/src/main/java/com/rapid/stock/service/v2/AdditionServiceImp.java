@@ -63,6 +63,10 @@ public class AdditionServiceImp implements AdditionService {
                () -> new NotFoundException("Addition ID: " + additionId + " was not found")
        );
 
+       addition.getOptionCategories().forEach(
+               optionCategory -> addition.getOptionCategories().remove(optionCategory)
+       );
+
        additionRepository.delete(addition);
 
        String keyWithFileName = generateFullKey(addition);

@@ -8,7 +8,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "OPTION_CATEGORIES")
@@ -44,18 +46,18 @@ public class OptionCategory {
     @JsonBackReference
     private List<ParentProduct> parentProducts;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
             joinColumns = {
-                    @JoinColumn(name = "option_category_id|", referencedColumnName = "id")
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
                     @JoinColumn(name = "addition_id", referencedColumnName = "id")
             }
     )
     @JsonBackReference
-    private List<Addition> additions;
+    private Set<Addition> additions = new HashSet<>();
 
     @Builder
     public OptionCategory(
@@ -64,7 +66,7 @@ public class OptionCategory {
             String label,
             String companyId,
             List<ParentProduct> parentProducts,
-            List<Addition> additions
+            Set<Addition> additions
     ) {
         this.name = name;
         this.descrip = descrip;

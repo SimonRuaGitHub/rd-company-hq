@@ -10,7 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ADDITIONS")
@@ -35,7 +37,7 @@ public class Addition {
     @NotBlank(message = "companyId can't be empty")
     private String companyId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "OPTION_CATEGORIES_ADDITIONS",
             joinColumns = {
@@ -46,7 +48,7 @@ public class Addition {
             }
     )
     @JsonManagedReference
-    private List<OptionCategory> optionCategories;
+    private Set<OptionCategory> optionCategories = new HashSet<>();
 
     @Builder
     public Addition(
@@ -55,7 +57,7 @@ public class Addition {
             Double price,
             String fileName,
             String companyId,
-            List<OptionCategory> optionCategories
+            Set<OptionCategory> optionCategories
     ) {
         this.id = id;
         this.name = name;
