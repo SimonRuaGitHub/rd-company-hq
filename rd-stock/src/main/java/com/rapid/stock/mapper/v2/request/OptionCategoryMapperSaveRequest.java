@@ -9,6 +9,7 @@ import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.AdditionRepository;
 import com.rapid.stock.repository.v2.ParentProductRepository;
+import com.rapid.stock.repository.v2.ProductVersionRepository;
 import com.rapid.stock.util.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,9 +22,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCategory, OptionCategorySaveRequest> {
 
-    private final Util util;
     private final CommonMapper commonMapper;
-    private final ParentProductRepository productRepository;
+    private final ProductVersionRepository productVersionRepository;
     private final OptionsSchemaRules optionsSchemaRules;
     private final AdditionRepository additionRepository;
 
@@ -54,7 +54,7 @@ public class OptionCategoryMapperSaveRequest implements MapperRequest<OptionCate
     private Set<ProductVersion> mapProductVersions(List<Long> productVersionIds, String companyId){
         List<ProductVersion> mappedProductVersions = commonMapper.mapToEntitiesByIds(
                 productVersionIds,
-                productRepository
+                productVersionRepository
         );
 
         optionsSchemaRules.productsOfSameCompany(mappedProductVersions, companyId);
