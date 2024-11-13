@@ -10,7 +10,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT_VERSIONS")
@@ -42,6 +44,9 @@ public class ProductVersion{
     @NotNull
     private LocalDateTime createdAt;
 
+    @NotBlank(message = "filename can't be blank")
+    private String filename;
+
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @JsonBackReference
@@ -52,8 +57,18 @@ public class ProductVersion{
     @JsonManagedReference
     private List<Availability> productAvailabilities;
 
-    @NotBlank(message = "filename can't be blank")
-    private String filename;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "OPTION_CATEGORIES_PRODUCT_VERSIONS",
+            joinColumns = {
+                    @JoinColumn(name = "product_version_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
+            }
+    )
+    @JsonManagedReference
+    private Set<OptionCategory> optionCategories = new HashSet<>();
 
     @Builder
     public ProductVersion(
@@ -64,7 +79,8 @@ public class ProductVersion{
             boolean isAvailable,
             LocalDateTime createdAt,
             ParentProduct parentProduct,
-            String filename
+            String filename,
+            Set<OptionCategory> optionCategories
     ) {
         this.versionId = versionId;
         this.name = name;
@@ -74,5 +90,6 @@ public class ProductVersion{
         this.createdAt = createdAt;
         this.parentProduct = parentProduct;
         this.filename = filename;
+        this.optionCategories = optionCategories;
     }
 }

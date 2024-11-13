@@ -40,7 +40,6 @@ public class ParentProductMapperSaveRequest implements MapperRequest<ParentProdu
                     .productVersions(mapProductVersionsList(productSaveRequest.getProductVersionIds()))
                     .associatedRacks(mapRackList(productSaveRequest.getRackIds(), productSaveRequest.getCompanyId()))
                     .productTypes(mapProductTypesList(productSaveRequest.getTypeIds()))
-                    .optionCategories( mapOptionCategoryList(productSaveRequest.getOptionCategoryIds(), productSaveRequest.getCompanyId()) )
                     .build();
     }
 
@@ -64,10 +63,5 @@ public class ParentProductMapperSaveRequest implements MapperRequest<ParentProdu
 
     private List<ProductType> mapProductTypesList(List<String> typeIds){
         return commonMapper.mapToEntitiesByIds(util.parseStringListToLong(typeIds), productTypeRepository);
-    }
-
-    private List<OptionCategory> mapOptionCategoryList(List<String> optionCategoryIds, String companyId) {
-        List<OptionCategory> mappedOptionCategories = commonMapper.mapToEntitiesByIds(util.parseStringListToLong(optionCategoryIds), optionCategoryRepository);
-        return productSchemaRules.optionCategoriesOfSameCompany(mappedOptionCategories, companyId);
     }
 }

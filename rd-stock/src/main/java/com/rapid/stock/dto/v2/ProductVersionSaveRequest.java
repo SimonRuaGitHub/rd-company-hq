@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.List;
+
 @Data
 public class ProductVersionSaveRequest {
 
@@ -15,6 +17,7 @@ public class ProductVersionSaveRequest {
     private boolean isAvailable;
     private Long parentProductId;
     private String filename;
+    private List<Long> optionCategoryIds;
 
     @JsonProperty("isAvailable")
     public boolean isAvailable(){
