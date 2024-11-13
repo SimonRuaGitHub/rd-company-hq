@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `rd_stock_db`.`PRODUCT_VERSIONS` (
   `price` DECIMAL(8,2) NOT NULL,
   `is_available` TINYINT(4) NOT NULL,
   `product_id` INT(11) NOT NULL,
+  `is_package` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `productId_UNIQUE` (`version_id` ASC) VISIBLE,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,

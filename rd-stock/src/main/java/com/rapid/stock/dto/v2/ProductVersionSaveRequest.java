@@ -18,9 +18,15 @@ public class ProductVersionSaveRequest {
     private Long parentProductId;
     private String filename;
     private List<Long> optionCategoryIds;
+    private boolean isPackage;
 
     @JsonProperty("isAvailable")
     public boolean isAvailable(){
         return isAvailable;
+    }
+
+    @JsonProperty("isPackage")
+    public boolean isPackage(){
+        return isPackage;
     }
 }
