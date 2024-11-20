@@ -59,6 +59,9 @@ public class OptionCategory {
     @JsonBackReference
     private Set<ProductVersion> productVersions = new HashSet<>();
 
+    @OneToMany(mappedBy = "optionCategory")
+    private Set<Option> options = new HashSet<>();
+
     @Builder
     public OptionCategory(
             String name,

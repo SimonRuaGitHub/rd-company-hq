@@ -70,6 +70,9 @@ public class ProductVersion{
     @JsonManagedReference
     private Set<OptionCategory> optionCategories = new HashSet<>();
 
+    @OneToMany(mappedBy = "productVersion")
+    private Set<Option> options = new HashSet<>();
+
     @Builder
     public ProductVersion(
             String versionId,
