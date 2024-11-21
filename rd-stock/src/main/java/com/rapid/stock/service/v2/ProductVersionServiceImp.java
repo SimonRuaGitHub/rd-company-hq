@@ -76,7 +76,7 @@ public class ProductVersionServiceImp implements ProductVersionService {
 
                            OptionType optionType = OptionType.findByValue(optionDto.getOptionType());
 
-                            optionCategoryByType.put(optionCategory, optionType);
+                           optionCategoryByType.put(optionCategory, optionType);
                 });
 
         optionService.save(productVersion, optionCategoryByType);

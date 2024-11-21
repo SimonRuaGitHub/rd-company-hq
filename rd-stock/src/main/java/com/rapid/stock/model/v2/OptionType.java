@@ -21,7 +21,7 @@ public enum OptionType {
                 .findFirst()
                 .orElseThrow(
                         () -> new RuntimeException(
-                                "The option type value: "+ value + " doesn't match any of the existing strings"
+                                "The option type value: "+ value + " doesn't match any of the existing option types"
                         )
                 );
     }

@@ -1,10 +1,7 @@
 package com.rapid.stock.service.v2;
 
 import com.amazonaws.services.apigateway.model.Op;
-import com.rapid.stock.model.v2.Option;
-import com.rapid.stock.model.v2.OptionCategory;
-import com.rapid.stock.model.v2.OptionType;
-import com.rapid.stock.model.v2.ProductVersion;
+import com.rapid.stock.model.v2.*;
 import com.rapid.stock.repository.v2.OptionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,10 +22,12 @@ public class OptionServiceImp implements OptionService {
 
         optionCategoryWithType.forEach(
                 (optionCategory, optionType) -> {
-                    Option option = new Option();
-                    option.setProductVersion(productVersion);
-                    option.setOptionCategory(optionCategory);
-                    option.setOptionType(optionType);
+                    Option option = Option.builder()
+                        .id(new OptionKey(productVersion.getId(), optionCategory.getId()))
+                        .productVersion(productVersion)
+                        .optionCategory(optionCategory)
+                        .optionType(optionType)
+                        .build();
 
                     options.add(option);
         });

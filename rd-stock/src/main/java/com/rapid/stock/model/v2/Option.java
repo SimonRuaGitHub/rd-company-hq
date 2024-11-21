@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "OPTION_CATEGORIES_PRODUCT_VERSIONS")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Option {
 
@@ -26,4 +25,12 @@ public class Option {
     private OptionCategory optionCategory;
 
     private OptionType optionType;
+
+    @Builder
+    public Option(OptionKey id, ProductVersion productVersion, OptionCategory optionCategory, OptionType optionType) {
+        this.id = id;
+        this.productVersion = productVersion;
+        this.optionCategory = optionCategory;
+        this.optionType = optionType;
+    }
 }
