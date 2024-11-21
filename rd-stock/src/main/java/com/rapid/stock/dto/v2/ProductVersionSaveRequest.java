@@ -15,9 +15,7 @@ public class ProductVersionSaveRequest {
     private Double price;
     @Getter(AccessLevel.NONE)
     private boolean isAvailable;
-    private Long parentProductId;
-    private String filename;
-    private List<Long> optionCategoryIds;
+    private List<OptionProductVersion> options;
 
     @JsonProperty("isAvailable")
     public boolean isAvailable(){

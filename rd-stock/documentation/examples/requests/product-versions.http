@@ -1,0 +1,14 @@
+{
+    "name": "Harakiri Roll",
+    "description": "Roll con camaron frito y crocante, aguacate y salsa dragon",
+    "price": 20000,
+    "isAvailable": false,
+    "filename": "harakiri-roll-v1.jpeg",
+    "parentProductId": 1,
+    "options":[
+        {
+          "optionCategoryId": 1,
+          "optionType": "addition"
+        }
+     ]
+}

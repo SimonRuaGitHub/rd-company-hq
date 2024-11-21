@@ -25,6 +25,8 @@ public class Option {
     @JoinColumn(name = "option_category_id")
     private OptionCategory optionCategory;
 
+    private OptionType optionType;
+
     @Getter
     private enum OptionType {
 

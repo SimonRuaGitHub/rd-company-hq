@@ -4,6 +4,7 @@ import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.exception.NotValidProductVersionException;
 import com.rapid.stock.mapper.v2.CommonMapper;
 import com.rapid.stock.model.rules.ProductVersionSchemaRules;
+import com.rapid.stock.model.v2.Option;
 import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ParentProduct;
 import com.rapid.stock.model.v2.ProductVersion;
@@ -14,10 +15,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -46,22 +45,10 @@ public class ProductVersionMapperSaveRequest implements MapperRequest<ProductVer
                    .isAvailable(productVersionSaveRequest.isAvailable())
                    .filename(productVersionSaveRequest.getFilename())
                    .parentProduct(parentProduct)
-                   .optionCategories(getOptionCategories( productVersionSaveRequest.getOptionCategoryIds() ))
                    .build();
     }
 
     private ParentProduct getParentProduct(Long parentProductId){
         return commonMapper.mapToEntityById(parentProductId, parentProductRepository);
-    }
-
-    public Set<OptionCategory> getOptionCategories(List<Long> optionCategoryIds) {
-        List<OptionCategory> optionCategories = commonMapper.mapToEntitiesByIds(
-                optionCategoryIds,
-                optionCategoryRepository
-        );
-
-        if ( optionCategories == null || optionCategories.isEmpty() )
-            return new HashSet<>();
-        else return new HashSet<>(optionCategories);
     }
 }

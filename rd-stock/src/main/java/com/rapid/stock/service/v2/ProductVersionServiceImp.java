@@ -7,7 +7,11 @@ import com.rapid.stock.mapper.v2.request.ProductVersionMapperSaveRequest;
 import com.rapid.stock.mapper.v2.response.ProductVersionMapperSaveResponse;
 import com.rapid.stock.model.operations.GeneralDeleteOperation;
 import com.rapid.stock.model.operations.GeneralSaveOperation;
+import com.rapid.stock.model.v2.Option;
+import com.rapid.stock.model.v2.OptionCategory;
 import com.rapid.stock.model.v2.ProductVersion;
+import com.rapid.stock.repository.v2.OptionCategoryRepository;
+import com.rapid.stock.repository.v2.OptionRepository;
 import com.rapid.stock.repository.v2.ProductVersionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +34,10 @@ public class ProductVersionServiceImp implements ProductVersionService {
     private final ProductVersionMapperSaveRequest productVersionMapperSaveRequest;
     private final ProductVersionMapperSaveResponse productVersionMapperSaveResponse;
     private final ProductVersionRepository productVersionRepository;
+    private final OptionCategoryRepository optionCategoryRepository;
     private final Validator validator;
     private final StorageImageService storageImageService;
+    private final OptionService optionService;
 
     @Value("${cloud.aws.s3.bucket.product.template-key}")
     private String templateKey;
@@ -35,18 +45,31 @@ public class ProductVersionServiceImp implements ProductVersionService {
     private String bucketName;
 
     @Override
-    public ProductVersionSaveResponse save(ProductVersionSaveRequest productVersionSaveRequest, MultipartFile multipartFile) {
-          final ProductVersion productVersion = GeneralSaveOperation
-                           .builder()
-                           .mapper(productVersionMapperSaveRequest)
-                           .repository(productVersionRepository)
-                           .validator(validator)
-                           .build()
-                           .save(productVersionSaveRequest);
+    public ProductVersionSaveResponse save(
+            ProductVersionSaveRequest productVersionSaveRequest,
+            MultipartFile multipartFile
+    ) {
+        final ProductVersion productVersion = GeneralSaveOperation
+                .builder()
+                .mapper(productVersionMapperSaveRequest)
+                .repository(productVersionRepository)
+                .validator(validator)
+                .build()
+                .save(productVersionSaveRequest);
 
         String keyWithFileName = generateFullKey(productVersion);
 
         storageImageService.uploadImage(bucketName, keyWithFileName, multipartFile);
+
+        List<OptionCategory> optionCategories = productVersionSaveRequest
+                .getOptionCategoryIds()
+                .stream()
+                .map(optionCategoryRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        optionService.save(productVersion, optionCategories);
 
         return productVersionMapperSaveResponse.map(productVersion.getVersionId());
     }

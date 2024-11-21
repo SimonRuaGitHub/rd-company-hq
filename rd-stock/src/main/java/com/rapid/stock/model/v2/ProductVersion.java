@@ -57,20 +57,9 @@ public class ProductVersion{
     @JsonManagedReference
     private List<Availability> productAvailabilities;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "OPTION_CATEGORIES_PRODUCT_VERSIONS",
-            joinColumns = {
-                    @JoinColumn(name = "product_version_id", referencedColumnName = "id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "option_category_id", referencedColumnName = "id")
-            }
-    )
-    @JsonManagedReference
-    private Set<OptionCategory> optionCategories = new HashSet<>();
-
+    // verify if this is necessary: cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY
     @OneToMany(mappedBy = "productVersion")
+    @JsonManagedReference
     private Set<Option> options = new HashSet<>();
 
     @Builder
@@ -83,7 +72,7 @@ public class ProductVersion{
             LocalDateTime createdAt,
             ParentProduct parentProduct,
             String filename,
-            Set<OptionCategory> optionCategories
+            Set<Option> options
     ) {
         this.versionId = versionId;
         this.name = name;
@@ -93,6 +82,6 @@ public class ProductVersion{
         this.createdAt = createdAt;
         this.parentProduct = parentProduct;
         this.filename = filename;
-        this.optionCategories = optionCategories;
+        this.options = options;
     }
 }
