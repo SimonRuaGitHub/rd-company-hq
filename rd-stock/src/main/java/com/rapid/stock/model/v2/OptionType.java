@@ -7,20 +7,14 @@ import java.util.Arrays;
 @Getter
 public enum OptionType {
 
-    BASE_PRODUCT("base_product"), PACKAGE("package"), ADDITION("addition");
-
-    private final String value;
-
-    OptionType(String value) {
-        this.value = value;
-    }
+    BASE_PRODUCT, PACKAGE, ADDITION;
 
     public static OptionType findByValue(String value) {
         return Arrays.stream(OptionType.values())
-                .filter(optType -> optType.getValue().equals(value))
+                .filter(optType -> optType.name().toLowerCase().equals(value))
                 .findFirst()
                 .orElseThrow(
-                        () -> new RuntimeException(
+                        () -> new IllegalArgumentException(
                                 "The option type value: "+ value + " doesn't match any of the existing option types"
                         )
                 );

@@ -24,6 +24,7 @@ public class Option {
     @JoinColumn(name = "option_category_id")
     private OptionCategory optionCategory;
 
+    @Enumerated(EnumType.STRING)
     private OptionType optionType;
 
     @Builder
