@@ -210,7 +210,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE IF NOT EXISTS `rd_stock_db`.`OPTION_CATEGORIES_PRODUCT_VERSIONS` (
   `product_version_id` BIGINT(20) NOT NULL,
   `option_category_id` INT(11) NOT NULL,
-  `option_type` ENUM('addition', 'product_base', 'package') NOT NULL,
+  `option_type` ENUM('addition', 'base_product', 'package') NOT NULL,
   PRIMARY KEY (`product_version_id`, `option_category_id`),
   INDEX `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_PRODUCT_VERSIONS1_idx` (`product_version_id` ASC) VISIBLE,
   INDEX `fk_OPTION_CATEGORIES_has_PRODUCT_VERSIONS_OPTION_CATEGORIES_idx` (`option_category_id` ASC) VISIBLE,
