@@ -26,16 +26,4 @@ public class Option {
     private OptionCategory optionCategory;
 
     private OptionType optionType;
-
-    @Getter
-    private enum OptionType {
-
-        BASE_PRODUCT("base_product"), PACKAGE("package"), ADDITION("addition");
-
-        private final String value;
-
-        OptionType(String value) {
-            this.value = value;
-        }
-    }
 }

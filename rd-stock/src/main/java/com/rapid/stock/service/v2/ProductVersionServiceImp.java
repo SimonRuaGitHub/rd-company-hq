@@ -1,5 +1,6 @@
 package com.rapid.stock.service.v2;
 
+import com.amazonaws.services.apigateway.model.Op;
 import com.rapid.stock.dto.v2.ProductVersionSaveRequest;
 import com.rapid.stock.dto.v2.ProductVersionSaveResponse;
 import com.rapid.stock.exception.NotFoundException;
@@ -9,6 +10,7 @@ import com.rapid.stock.model.operations.GeneralDeleteOperation;
 import com.rapid.stock.model.operations.GeneralSaveOperation;
 import com.rapid.stock.model.v2.Option;
 import com.rapid.stock.model.v2.OptionCategory;
+import com.rapid.stock.model.v2.OptionType;
 import com.rapid.stock.model.v2.ProductVersion;
 import com.rapid.stock.repository.v2.OptionCategoryRepository;
 import com.rapid.stock.repository.v2.OptionRepository;
@@ -22,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Validator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,15 +61,25 @@ public class ProductVersionServiceImp implements ProductVersionService {
 
         storageImageService.uploadImage(bucketName, keyWithFileName, multipartFile);
 
-        List<OptionCategory> optionCategories = productVersionSaveRequest
-                .getOptionCategoryIds()
-                .stream()
-                .map(optionCategoryRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
+        Map<OptionCategory, OptionType> optionCategoryByType = new HashMap<>();
 
-        optionService.save(productVersion, optionCategories);
+        productVersionSaveRequest
+                .getOptions()
+                .forEach(optionDto -> {
+                           OptionCategory optionCategory = optionCategoryRepository
+                                   .findById(optionDto.getOptionCategoryId())
+                                   .orElseThrow(
+                                           () -> new NotFoundException(
+                                                   "Option category with id: "+optionDto.getOptionCategoryId() + "was not found"
+                                           )
+                                   );
+
+                           OptionType optionType = OptionType.findByValue(optionDto.getOptionType());
+
+                            optionCategoryByType.put(optionCategory, optionType);
+                });
+
+        optionService.save(productVersion, optionCategoryByType);
 
         return productVersionMapperSaveResponse.map(productVersion.getVersionId());
     }
