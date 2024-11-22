@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+//TODO 21-NOV-2024: see if the many-to-many represented with options it's set up properly
 public class Option {
 
     @EmbeddedId
